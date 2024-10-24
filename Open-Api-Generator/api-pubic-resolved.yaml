@@ -3991,7 +3991,7 @@ components:
           type: string
           example: OK
         mid:
-          maximum: 9999999999999999999
+          maximum: 8446744073709551617
           minimum: 0
           type: integer
           description: message ID

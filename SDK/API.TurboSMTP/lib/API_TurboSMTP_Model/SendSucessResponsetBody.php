@@ -282,8 +282,8 @@ class SendSucessResponsetBody implements ModelInterface, ArrayAccess, \JsonSeria
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['mid']) && ($this->container['mid'] > -8446744073709551617)) {
-            $invalidProperties[] = "invalid value for 'mid', must be smaller than or equal to -8446744073709551617.";
+        if (!is_null($this->container['mid']) && ($this->container['mid'] > 8446744073709551617)) {
+            $invalidProperties[] = "invalid value for 'mid', must be smaller than or equal to 8446744073709551617.";
         }
 
         if (!is_null($this->container['mid']) && ($this->container['mid'] < 0)) {
@@ -355,8 +355,8 @@ class SendSucessResponsetBody implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable mid cannot be null');
         }
 
-        if (($mid > -8446744073709551617)) {
-            throw new \InvalidArgumentException('invalid value for $mid when calling SendSucessResponsetBody., must be smaller than or equal to -8446744073709551617.');
+        if (($mid > 8446744073709551617)) {
+            throw new \InvalidArgumentException('invalid value for $mid when calling SendSucessResponsetBody., must be smaller than or equal to 8446744073709551617.');
         }
         if (($mid < 0)) {
             throw new \InvalidArgumentException('invalid value for $mid when calling SendSucessResponsetBody., must be bigger than or equal to 0.');
