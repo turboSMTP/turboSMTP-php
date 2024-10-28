@@ -1,0 +1,11 @@
+{
+    "name": "turbosmtp/sdk",
+    "require": {
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "API_TurboSMTP_Invoker\\": "API.TurboSMTP/lib/"
+        }
+    }
+}
