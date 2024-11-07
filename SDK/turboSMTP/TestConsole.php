@@ -6,6 +6,7 @@ require '../vendor/autoload.php'; // Include Composer autoloader
 
 use TurboSMTP\APIExtensions\MailAPIExtension;
 use API_TurboSMTP_Invoker\Configuration; // Include the correct namespace for Configuration
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SendSucessResponsetBody;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailRequestBody;
 use GuzzleHttp\Client;
 
@@ -33,19 +34,33 @@ class TestConsole {
         
         // Example usage of MailApi
         $promise = $mailApi->sendEmailAsync($email_request_body);
-
+        
         $promise->then(
             function ($response) {
                 // Handle the successful response
-                echo 'Email sent successfully! Response: ' . $response->getBody();
+                
+                echo $response;
+                echo 'Email sent successfully! Response: ' . $response->getMid();
             },
             function ($exception) {
                 // Handle any errors
+                echo 'Fail';
                 echo 'Failed to send email: ' . $exception->getMessage();
             }
         );
         
-        $promise->wait();        
+        
+        
+        try {
+            $promise->wait(); 
+            echo 'Waited...'; 
+        } catch (\Exception $e) {
+            // Handle any exceptions that may occur during wait
+            echo 'An error occurred while waiting for the promise: ' . $e->getMessage();
+        }
+        
+        flush();
+        echo 'Finishing...';
     }
 }
 
