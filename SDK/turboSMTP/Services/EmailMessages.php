@@ -14,7 +14,7 @@ use TurboSMTP\Model\Email\SendDetails;
 
 
 
-final class EmailMessages extends TurboSMTPService {
+class EmailMessages extends TurboSMTPService {
 
     public function __construcCt(Configuration $configuration) {
         parent::__construct();

@@ -16,7 +16,7 @@ class EmailMessage {
     private $campaignID;
     private $attachments = [];
 
-    private function __construct() { }
+    public function __construct() { }
 
     // Public setter methods
     public function setFrom($from) {
