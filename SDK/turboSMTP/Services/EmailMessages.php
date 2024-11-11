@@ -16,7 +16,7 @@ use TurboSMTP\Model\Email\SendDetails;
 
 class EmailMessages extends TurboSMTPService {
 
-    public function __construcCt(Configuration $configuration) {
+    public function __construct(Configuration $configuration) {
         parent::__construct();
         $this->api = new MailAPIExtension($this->client, $configuration);
     }
@@ -48,7 +48,7 @@ class EmailMessages extends TurboSMTPService {
                 // Handle the error
                 throw new \Exception('Failed to send email: ' . $exception->getMessage());
             }
-        );        
+        );
     }
 
 }
