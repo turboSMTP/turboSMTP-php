@@ -7,6 +7,7 @@ require '../vendor/autoload.php'; // Include Composer autoloader
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailRequestBody;
 use TurboSMTP\Domain\EmailMessage;
 use TurboSMTP\Domain\EmailMessageBuilder;
+use TurboSMTP\Model\Email\SendDetails;
 
 class TestTurboSMTPClient {
     public function run() {
@@ -32,7 +33,29 @@ class TestTurboSMTPClient {
             ->build();
 
         $ts_client = new TurboSMTPClient($configuration);
-        $ts_client->getEmailMessages()->SendAsync($emailMessage);
+        
+        $promise = $ts_client->getEmailMessages()->SendAsync($emailMessage);
+        
+        $promise->then(
+            function (SendDetails $sendDetails) {
+                // Handle successful email sending
+                echo "Email sent successfully! Message: " . $sendDetails->getMessage() . ", MID: " . $sendDetails->getMessageID();
+            },
+            function ($exception) {
+                // Handle the error
+                echo "Failed to send email: " . $exception->getMessage();
+            }
+        );
+
+        try {
+            $promise->wait(); 
+        } catch (\Exception $e) {
+            // Handle any exceptions that may occur during wait
+            echo 'An error occurred while waiting for the promise: ' . $e->getMessage();
+        }
+        
+        flush();   
+
     }
 }
 
