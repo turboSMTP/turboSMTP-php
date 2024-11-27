@@ -5,6 +5,7 @@ namespace TurboSMTP;
 require '../vendor/autoload.php'; // Include Composer autoloader
 
 use TurboSMTP\Services\EmailMessages;
+use TurboSMTP\Services\Relays;
 use GuzzleHttp\Client;
 use API_TurboSMTP_Invoker\Configuration;
 
@@ -14,14 +15,21 @@ final class TurboSMTPClient{
         $configuration = new Configuration();
         $configuration->setApiKey('consumerKey', $turbo_smtp_client_configuration->consumerKey);
         $configuration->setApiKey('consumerSecret',$turbo_smtp_client_configuration->consumerSecret);        
-        $this->EmailMessages = new EmailMessages($configuration);
+        $this->EmailMessages = new EmailMessages($turbo_smtp_client_configuration,$configuration);
+        $this->Relays = new Relays($turbo_smtp_client_configuration,$configuration);
     }
 
     private $EmailMessages;
+    private $Relays;
 
     public function getEmailMessages(): EmailMessages
     {
         return $this->EmailMessages;
+    }
+
+    public function getRelays(): Relays
+    {
+        return $this->Relays;
     }
 
 }

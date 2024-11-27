@@ -8,8 +8,11 @@ use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailRequestBody;
 use TurboSMTP\Domain\EmailMessage;
 use TurboSMTP\Domain\EmailMessageBuilder;
 use TurboSMTP\Model\Email\SendDetails;
+use TurboSMTP\Model\Relays\RelaysQueryOptions;
+use TurboSMTP\Model\Relays\RelaysQueryOptionsBuilder;
+use TurboSMTP\Model\Shared\PagedListResults;
 
-class TestTurboSMTPClient {
+class TestTurboSMTPClientSending {
     public function run() {
         $emailBuilder = new EmailMessageBuilder();
 
@@ -59,6 +62,50 @@ class TestTurboSMTPClient {
     }
 }
 
+class TestTurboSMTPClientAnalytics {
+    public function run() {
+        $configurationBuilder = new TurboSMTPClientConfigurationBuilder();
+
+        $configuration = $configurationBuilder
+            ->setConsumerKey('1ef0eef86f089b18cb610532beecf72e')
+            ->setConsumerSecret('GIx7Z0OncXf9oANe8z3gUQ6wYPtJH21d')
+            ->build();
+
+        $ts_client = new TurboSMTPClient($configuration);
+        
+        $queryOptions = RelaysQueryOptions::getRelaysQueryOptionsBuilder()
+            ->setPage(1)
+            ->build();
+
+        $promise = $ts_client->getRelays()->query($queryOptions);
+        
+        $promise->then(
+            function (PagedListResults $pagedListResults) {
+                // Handle successful email sending
+                echo "Records: " . $pagedListResults->getTotalRecords();
+            },
+            function ($exception) {
+                // Handle the error
+                echo "Failed to send email: " . $exception->getMessage();
+            }
+        );
+
+        try {
+            $promise->wait(); 
+        } catch (\Exception $e) {
+            // Handle any exceptions that may occur during wait
+            echo 'An error occurred while waiting for the promise: ' . $e->getMessage();
+        }
+        
+        flush();   
+
+    }
+}
+
 // Create an instance of TestConsole and run it
-$testTurboSMTPClient = new TestTurboSMTPClient();
-$testTurboSMTPClient->run();
+$testTurboSMTPClient = new TestTurboSMTPClientSending();
+$testTurboSMTPClientAnalytics = new TestTurboSMTPClientAnalytics();
+
+
+//$testTurboSMTPClient->run();
+$testTurboSMTPClientAnalytics->run();

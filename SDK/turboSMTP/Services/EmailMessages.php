@@ -11,13 +11,14 @@ use API_TurboSMTP_Invoker\Configuration;
 use TurboSMTP\APIExtensions\MailAPIExtension;
 use TurboSMTP\Domain\EmailMessage;
 use TurboSMTP\Model\Email\SendDetails;
+use TurboSMTP\TurboSMTPClientConfiguration;
 
 
 
 class EmailMessages extends TurboSMTPService {
 
-    public function __construct(Configuration $configuration) {
-        parent::__construct();
+    public function __construct(TurboSMTPClientConfiguration $tsClientConfiguration, Configuration $configuration) {
+        parent::__construct($tsClientConfiguration);
         $this->api = new MailAPIExtension($this->client, $configuration);
     }
 
