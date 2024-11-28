@@ -11,6 +11,7 @@ use TurboSMTP\Model\Email\SendDetails;
 use TurboSMTP\Model\Relays\RelaysQueryOptions;
 use TurboSMTP\Model\Relays\RelaysQueryOptionsBuilder;
 use TurboSMTP\Model\Shared\PagedListResults;
+use DateTime;
 
 class TestTurboSMTPClientSending {
     public function run() {
@@ -75,6 +76,8 @@ class TestTurboSMTPClientAnalytics {
         
         $queryOptions = RelaysQueryOptions::getRelaysQueryOptionsBuilder()
             ->setPage(1)
+            ->setFrom((new DateTime())->modify('-3 years'))
+            ->setTo(new DateTime())
             ->build();
 
         $promise = $ts_client->getRelays()->query($queryOptions);

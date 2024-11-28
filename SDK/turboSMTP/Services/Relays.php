@@ -16,7 +16,8 @@ use TurboSMTP\Model\Relays\RelaysQueryOptions;
 use TurboSMTP\Model\Shared\PagedListResults;
 use TurboSMTP\TurboSMTPClientConfiguration;
 use TurboSMTP\Domain\Relay;
-
+use API_TurboSMTP_Invoker\ApiException;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailItem;
 
 
 class Relays extends TurboSMTPService {
@@ -31,41 +32,53 @@ class Relays extends TurboSMTPService {
         $timeZone = $this->configuration->timeZone;
 
         $promise = $this->api->getAnalyticsDataAsync(
-            $queryOptions->getFrom(),
-            $queryOptions->getTo(),
+            $queryOptions->getFrom()->format('Y-m-d'),
+            $queryOptions->getTo()->format('Y-m-d'),
             $queryOptions->getPage(),
             $queryOptions->getLimit(),
             $queryOptions->getRelayStatuses(),
             $queryOptions->getFilterBy(),
             $queryOptions->getFilter(),
             $queryOptions->getSmartSearch(),
-            $queryOptions->getOrderby(),
-            $queryOptions->getOrdertype(),
+            $queryOptions->getOrderby()->name,
+            $queryOptions->getOrdertype()->name,
             //$timezone //TODO;
         );
 
         return $promise->then(
             function (AnalyticsListSucessResponsetBody $response){
-                $records = array_map(function ($r) {
+                $records = array_map(function (AnalyticMailItem $r) {
                     return new Relay(
-                        $r->Id,
-                        $r->Subject,
-                        $r->Sender,
-                        $r->Recipient,
-                        $r->SendTime,
-                        $r->Status->Value,
-                        $r->Domain,
-                        $r->ContactDomain,
-                        $r->Error,
-                        $r->XCampaignId
+                        $r->getId(),
+                        $r->getSubject(),
+                        $r->getSender(),
+                        $r->getRecipient(),
+                        $r->getSendTime(),
+                        $r->getStatus(),
+                        $r->getDomain(),
+                        $r->getContactDomain(),
+                        $r->getError(),
+                        $r->getXCampaignId()
                     );
                 }, $response->getResults());
 
                 return new PagedListResults($response->getCount(),$records);
             },
-            function ($exception) {
-                // Handle the error
-                throw new \Exception('Failed to send email: ' . $exception->getMessage());
+            function ($exception) 
+            {
+                if ($exception instanceof APIException && $exception->getCode() === 400) {
+                    $responseBody = $exception->getResponseBody();
+        
+                    $responseArray = json_decode($responseBody, true);
+        
+                    if (json_last_error() === JSON_ERROR_NONE && isset($responseArray['message'])) {
+                        $message = $responseArray['message'];
+        
+                        throw new \Exception($message);
+                    } else {
+                        throw new \Exception('Failed to send email: ' . $exception->getMessage());
+                    }
+                }
             }
         );        
     }

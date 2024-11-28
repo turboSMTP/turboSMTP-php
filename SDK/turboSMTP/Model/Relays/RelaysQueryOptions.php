@@ -24,8 +24,8 @@ class RelaysQueryOptions
         $this->filterBy = [];
         $this->filter = null;
         $this->smartSearch = null;
-        $this->orderby = RelayOrderByOption::SendTime;
-        $this->ordertype = OrderType::Desc;
+        $this->orderby = RelayOrderByOption::send_time;
+        $this->ordertype = OrderType::desc;
         $this->from = null;
         $this->to = null;
         $this->page = null;

@@ -4,8 +4,8 @@ namespace TurboSMTP\Model\Relays;
 
 enum RelayOrderByOption: int
 {
-    case SendTime = 1;
-    case Sender = 2;
-    case Recipient = 3;
-    case Subject = 4;
+    case send_time = 1;
+    case sender = 2;
+    case recipient = 3;
+    case subject = 4;
 }

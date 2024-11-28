@@ -4,6 +4,6 @@ namespace TurboSMTP\Model\Shared;
 
 enum OrderType: int
 {
-    case Asc = 1;
-    case Desc = 2;
+    case asc = 1;
+    case desc = 2;
 }
