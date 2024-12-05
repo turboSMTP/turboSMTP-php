@@ -2,7 +2,7 @@
 
 namespace TurboSMTP;
 
-require '../vendor/autoload.php'; // Include Composer autoloader
+//require '../vendor/autoload.php'; // Include Composer autoloader
 
 use TurboSMTP\Services\EmailMessages;
 use TurboSMTP\Services\Relays;

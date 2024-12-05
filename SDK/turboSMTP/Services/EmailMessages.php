@@ -12,6 +12,7 @@ use TurboSMTP\APIExtensions\MailAPIExtension;
 use TurboSMTP\Domain\EmailMessage;
 use TurboSMTP\Model\Email\SendDetails;
 use TurboSMTP\TurboSMTPClientConfiguration;
+use GuzzleHttp\Promise\PromiseInterface;
 
 
 
@@ -22,7 +23,8 @@ class EmailMessages extends TurboSMTPService {
         $this->api = new MailAPIExtension($this->client, $configuration);
     }
 
-    public function SendAsync(EmailMessage $emailMessage){
+    public function SendAsync(EmailMessage $emailMessage) : PromiseInterface
+    {
         $emailRequestBody = new EmailRequestBody();
         $emailRequestBody->setFrom($emailMessage->getFrom());
         $emailRequestBody->setTo(implode(', ', $emailMessage->getTo()));
