@@ -2,6 +2,7 @@
 
 namespace TurboSMTPTests;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use TurboSMTP\TurboSMTPClientConfigurationBuilder;
 use TurboSMTP\TurboSMTPClientConfiguration;
@@ -16,9 +17,19 @@ class BaseTestCase extends TestCase
 
         $configurationBuilder = new TurboSMTPClientConfigurationBuilder();
 
-        $configuration = $configurationBuilder
+        $this->configuration = $configurationBuilder
             ->setConsumerKey(AppConstants::ConsumerKey)
             ->setConsumerSecret(AppConstants::ConsumerSecret)
             ->build();
+    }
+
+    public function get_full_date_time() : string
+    {
+        $dateTimeNow = new DateTime();
+
+        // Format the DateTime object as a string/text
+        $dateTimeString = $dateTimeNow->format('Y-m-d H:i:s');
+
+        return $dateTimeString;
     }
 }

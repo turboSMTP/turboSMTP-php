@@ -2,7 +2,7 @@
 
 namespace TurboSMTP\Services;
 
-require '../vendor/autoload.php'; // Include Composer autoloader
+//require '../vendor/autoload.php'; // Include Composer autoloader
 
 use GuzzleHttp\Client;
 use TurboSMTP\TurboSMTPClientConfiguration;

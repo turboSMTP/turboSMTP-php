@@ -9,7 +9,7 @@ class AppConstants
 
     const EmailSender = 'sergio.a.matteoda@gmail.com';
     const ValidEmailAddresses = [
-        "live@service.alibaba.com",
-        "live@service.alibaba.com"
+        "sergio.a.matteoda@gmail.com",
+        "live2@service.alibaba.com"
     ];
 }

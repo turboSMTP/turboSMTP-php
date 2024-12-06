@@ -2,7 +2,7 @@
 
 namespace TurboSMTP\Services;
 
-require '../vendor/autoload.php'; // Include Composer autoloader
+//require '../vendor/autoload.php'; // Include Composer autoloader
 
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailRequestBody;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\Attachment;
