@@ -2,7 +2,6 @@
 
 namespace TurboSMTPTests\Emails;
 
-use PHPUnit\Framework\TestCase;
 use TurboSMTP\TurboSMTPClient;
 use TurboSMTP\Domain\EmailMessageBuilder;
 use TurboSMTP\Model\Email\SendDetails;
@@ -11,7 +10,7 @@ use TurboSMTPTests\AppConstants;
 
 class Send extends BaseTestCase
 {
-    public function testSendSimpleEmail()
+    public function test_send_simple_email()
     {
         
         //Arrange
@@ -37,7 +36,7 @@ class Send extends BaseTestCase
         $this->assertGreaterThan(0, $result->getMessageID());  
     }
 
-    public function testSendCompleteEmail()
+    public function test_send_complete_email()
     {
         
         //Arrange

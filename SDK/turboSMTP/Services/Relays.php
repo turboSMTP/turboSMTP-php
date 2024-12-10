@@ -18,6 +18,7 @@ use TurboSMTP\TurboSMTPClientConfiguration;
 use TurboSMTP\Domain\Relay;
 use API_TurboSMTP_Invoker\ApiException;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailItem;
+use GuzzleHttp\Promise\PromiseInterface;
 
 
 class Relays extends TurboSMTPService {
@@ -27,17 +28,21 @@ class Relays extends TurboSMTPService {
         $this->api = new AnalyticsAPIExtension($this->client, $configuration);
     }
 
-    public function query(RelaysQueryOptions $queryOptions)
+    public function queryAsync(RelaysQueryOptions $queryOptions) : PromiseInterface
     {
         $timeZone = $this->configuration->timeZone;
 
+        $filterByStrings = array_map(function($criteria) {
+            return $criteria->name; 
+        }, $queryOptions->getFilterBy());   
+        
         $promise = $this->api->getAnalyticsDataAsync(
             $queryOptions->getFrom()->format('Y-m-d'),
             $queryOptions->getTo()->format('Y-m-d'),
             $queryOptions->getPage(),
             $queryOptions->getLimit(),
             $queryOptions->getRelayStatuses(),
-            $queryOptions->getFilterBy(),
+            $filterByStrings,
             $queryOptions->getFilter(),
             $queryOptions->getSmartSearch(),
             $queryOptions->getOrderby()->name,
@@ -81,37 +86,6 @@ class Relays extends TurboSMTPService {
                 }
             }
         );        
-    }
-
-
-    public function SendAsync(EmailMessage $emailMessage){
-        $emailRequestBody = new EmailRequestBody();
-        $emailRequestBody->setFrom($emailMessage->getFrom());
-        $emailRequestBody->setTo(implode(', ', $emailMessage->getTo()));
-        $emailRequestBody->setSubject($emailMessage->getSubject());
-        $emailRequestBody->setCc(implode(', ', $emailMessage->getCc()));
-        $emailRequestBody->setBcc(implode(', ', $emailMessage->getBcc()));
-        $emailRequestBody->setContent($emailMessage->getContent());
-        $emailRequestBody->setHtmlContent($emailMessage->getHtmlContent());
-        $emailRequestBody->setCustomHeaders($emailMessage->getCustomHeaders());
-        $emailRequestBody->setReferenceId($emailMessage->getReferenceId());
-        $emailRequestBody->setMimeRaw($emailMessage->getMimeRaw());
-        $emailRequestBody->setXCampaignId(($emailMessage->getCampaignID()));
-        $emailRequestBody->setAttachments(array_map(function($a) {
-            return new Attachment($a->content, $a->name, $a->type);
-        }, $emailMessage->getAttachments()));
-
-        $promise = $this->api->sendEmailAsync($emailRequestBody);
-
-        return $promise->then(
-            function (SendSucessResponsetBody $response){
-                return new SendDetails($response->getMessage(), $response->getMid());
-            },
-            function ($exception) {
-                // Handle the error
-                throw new \Exception('Failed to send email: ' . $exception->getMessage());
-            }
-        );
     }
 
 }

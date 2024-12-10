@@ -4,8 +4,8 @@ namespace TurboSMTP\Model\Relays;
 
 enum RelayFilterCriteria: int
 {
-    case Subject = 1;
-    case Sender = 2;
-    case Recipient = 3;
-    case Domain = 4;
+    case subject = 1;
+    case sender = 2;
+    case recipient = 3;
+    case domain = 4;
 }

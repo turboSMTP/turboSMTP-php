@@ -1,0 +1,8 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="All Tests">
+            <file>./turboSMTP.Tests/Emails/Send.php</file> <!-- Specify your test directory -->
+            <file>./turboSMTP.Tests/Relays/Query.php</file> <!-- Specify your test directory -->
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -80,7 +80,7 @@ class TestTurboSMTPClientAnalytics {
             ->setTo(new DateTime())
             ->build();
 
-        $promise = $ts_client->getRelays()->query($queryOptions);
+        $promise = $ts_client->getRelays()->queryAsync($queryOptions);
         
         $promise->then(
             function (PagedListResults $pagedListResults) {
