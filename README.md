@@ -5,12 +5,13 @@
 [turboSMTP_webhooks_reference]: https://serversmtp.com/event-webhook-reference/
 [turboSMTP_about_us]: https://serversmtp.com/about-us/
 [turboSMTP_contact_us]: https://serversmtp.com/contact-us/
+[turboSMTP_api_keys]: https://serversmtp.com/understanding-and-creating-api-keys-with-turbosmtp-a-comprehensive-guide/
 [sdk_email]: mailto:sdk@turbo-smtp.com
 
 <img class="header-image is-logo-image" alt="smtp mail server – professional SMTP service provider" src="https://serversmtp.com/wp-content/uploads/2022/02/logo_2021-2.svg" width="290" height="56">
 
 # turboSMTP-csharp SDK
-The **Official turboSMTP C#**, .NetStandard, .NetCore SDK - enables .Net Developers to work with [turboSMTP API][api_reference] efficiently.
+The **Official turboSMTP PHP** SDK - enables .PHP Developers to work with [turboSMTP API][api_reference] efficiently.
 
 * [turboSMTP Home][turboSMTP_home]
 * [turboSMTP API documentation][api_reference]
@@ -21,9 +22,6 @@ The **Official turboSMTP C#**, .NetStandard, .NetCore SDK - enables .Net Develop
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [API Key](#api-key)
-  - [Base URL](#base-url)
-    - [Sending Server URL](#sending-server-url-sendserverurl)
-    - [General Server URL](#general-server-url-serverurl)
 - [Quick start with TurboSMTP Client](#quick-start-with-turbosmtp-client)
   - [TurboSMTP Client Configuration Initialization](#turbosmtp-client-configuration-initialization)
   - [TurboSMTP Client Configuration Usage](#turbosmtp-client-configuration-usage)
@@ -43,42 +41,20 @@ The **Official turboSMTP C#**, .NetStandard, .NetCore SDK - enables .Net Develop
 
 ## Release notes
 
-Changes to the SDK beginning with version 2.0.0 (August 2024) are tracked in [CHANGELOG.md][changes-file].
+Changes to the SDK beginning with version 2.0.0 (December 2024) are tracked in [CHANGELOG.md][changes-file].
 
 ## Getting Started
 
 ### Requirements
 
-- **.NET Framework 4.8+**.
+- **<span style="color:red">Enumerate PHP requirements</span>**.
 - **A turboSMTP account**, [sign up for free][turboSMTP_sign_up] to send up to 6.000 FREE emails per month (No Obligation - No Credit card required).
 
 ### API Key
 
-Create your API Key from [turboSMTP Dashboard](https:).
+**<span style="color:red">Review</span>**.
+Create your API Key from [turboSMTP Dashboard][turboSMTP_api_keys].
 
-### Base URL
-
-#### Sending Server URL (**SendServerURL**)
-
-turboSMTP allows sending and receiving an email worldwide, for better sending experience, turboSMTP offers 2 regions.
-
-For **european region** use the sending URL:
-
-```
-https://api.eu.turbo-smtp.com/api/v2
-```
-
-For **other regions** use the sending URL:
-
-```
-https://api.turbo-smtp.com/api/v2
-```
-
-#### General Server URL (**ServerURL**)
-
-```
-https://api.turbo-smtp.com/api/v2
-```
 ## Quick start with TurboSMTP Client
 
 In order to facilitate construction and usage of **TurboSMTPClientConfiguration**, it´s been built as a combination of *Builder + Singleton* design patterns:
