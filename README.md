@@ -10,7 +10,7 @@
 
 <img class="header-image is-logo-image" alt="smtp mail server – professional SMTP service provider" src="https://serversmtp.com/wp-content/uploads/2022/02/logo_2021-2.svg" width="290" height="56">
 
-# turboSMTP-csharp SDK
+# turboSMTP-php SDK
 The **Official turboSMTP PHP** SDK - enables .PHP Developers to work with [turboSMTP API][api_reference] efficiently.
 
 * [turboSMTP Home][turboSMTP_home]
@@ -185,7 +185,7 @@ Please see our [troubleshooting guide](TROUBLESHOOTING.md) for common library is
 
 # About
 
-turboSMTP-csharp is maintained and funded by [Turbo SMTP][turboSMTP_about_us] Company. The names and logos for turboSMTP-csharp are trademarks of TurboSMTP Company.
+turboSMTP-php is maintained and funded by [Turbo SMTP][turboSMTP_about_us] Company. The names and logos for turboSMTP-php are trademarks of TurboSMTP Company.
 
 # Support
 
