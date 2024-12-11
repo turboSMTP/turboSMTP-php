@@ -30,3 +30,4 @@
 /SDK/vendor
 
 .phpunit.result.cache
+Sample.php

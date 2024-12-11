@@ -24,7 +24,6 @@ The **Official turboSMTP PHP** SDK - enables .PHP Developers to work with [turbo
   - [API Key](#api-key)
 - [Quick start with TurboSMTP Client](#quick-start-with-turbosmtp-client)
   - [TurboSMTP Client Configuration Initialization](#turbosmtp-client-configuration-initialization)
-  - [TurboSMTP Client Configuration Usage](#turbosmtp-client-configuration-usage)
   - [TurboSMTP Client Initialization](#turbosmtp-client-initialization)
   - [TurboSMTP Client Hello World Email example](#turbosmtp-client-hello-world-email-example)
 - [Usage](#usage)
@@ -57,82 +56,107 @@ Create your API Key from [turboSMTP Dashboard][turboSMTP_api_keys].
 
 ## Quick start with TurboSMTP Client
 
-In order to facilitate construction and usage of **TurboSMTPClientConfiguration**, it´s been built as a combination of *Builder + Singleton* design patterns:
+In order to facilitate construction and usage of **TurboSMTPClientConfiguration**, a **TurboSMTPClientConfigurationBuilder** has been facilitated implementing a *Builder* design pattern:
 
 ### TurboSMTP Client Configuration Initialization
 
-As stated above, **TurboSMTPClientConfiguration** uses a builder design pattern that allows to setup your `ConsumerKey` and `Secret`, `ServerURL` and `SendServerURL`, and your `Timezone` that will be used to consume time sensitive data, like when filtering data by dates.
+As stated above, **TurboSMTPClientConfiguration** uses a builder design pattern (**TurboSMTPClientConfigurationBuilder**) that allows to setup your `ConsumerKey` and `Secret`, option for `EuropeanUser` and your `Timezone` that will be used to consume time sensitive data, like when filtering data by dates.
 
-```csharp
-using System.Configuration;
-using TurboSMTP;
+```php
+<?php
 
-namespace ConsoleApp
+namespace SampleNameSpace;
+
+use TurboSMTP\TurboSMTPClientConfigurationBuilder;
+
+class Sample 
 {
-    internal class Program
+    public function sample_method()
     {
-        static void Main(string[] args)
-        {
-            var config = new TurboSMTPClientConfiguration.Builder()
-                .SetConsumerKey(ConfigurationManager.AppSettings["ConsumerKey"])
-                .SetConsumerSecret(ConfigurationManager.AppSettings["ConsumerSecret"])
-                .SetServerURL(ConfigurationManager.AppSettings["ServerUrl"])
-                .SetSendServerURL(ConfigurationManager.AppSettings["SendServerUrl"])
-                .SetTimeZone("-03:00")
-                .Build();
-        }
-    }
+        $configurationBuilder = new TurboSMTPClientConfigurationBuilder();
+
+        $configuration = $configurationBuilder
+                ->setConsumerKey(AppConstants::ConsumerKey)
+                ->setConsumerSecret(AppConstants::ConsumerSecret)
+                ->setEuropeanUser(AppConstants::EuropeanUser)
+                ->build();
+    } 
 }
-```
-
-### TurboSMTP Client Configuration Usage 
-
-As stated above, **TurboSMTPClientConfiguration** uses a singleton design pattern, once it´s been already setup once (it´s suggested you setup anytime during your application initialization), you can simply access it´s *Instance* property as:
-
-```csharp
-var configuration = TurboSMTPClientConfiguration.Instance
 ```
 
 ### TurboSMTP Client Initialization
 
 In order to create a **TurboSMTPClient** simply pass a **TurboSMTPClientConfiguration** to it´s constructor as:
 
-```csharp
-var TSClient = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+```php
+<?php
+
+namespace SampleNameSpace;
+
+use TurboSMTP\TurboSMTPClientConfigurationBuilder;
+use TurboSMTP\TurboSMTPClient;
+
+class Sample 
+{
+    public function sample_method()
+    {
+        $configurationBuilder = new TurboSMTPClientConfigurationBuilder();
+
+        $configuration = $configurationBuilder
+                ->setConsumerKey(AppConstants::ConsumerKey)
+                ->setConsumerSecret(AppConstants::ConsumerSecret)
+                ->setEuropeanUser(AppConstants::EuropeanUser)
+                ->build();
+
+        $ts_client = new TurboSMTPClient($configuration);                
+    } 
+}
 ```
 
 ### TurboSMTP Client Hello World Email example
 
-```csharp
-using System.Threading.Tasks;
-using TurboSMTP;
-using TurboSMTP.Domain;
+```php
+<?php
 
-namespace ConsoleApp
+namespace SampleNameSpace;
+
+use TurboSMTP\TurboSMTPClientConfigurationBuilder;
+use TurboSMTP\Domain\EmailMessageBuilder;
+use TurboSMTP\TurboSMTPClient;
+
+class Sample 
 {
-    internal class Program
+    public function sample_method()
     {
-        static async Task Main(string[] args)
-        {
-            //Create an Email Message
-            var emailMessage = new EmailMessage.Builder()
-                .SetFrom("sender@yourdomain.com")
-                .AddTo("recipient@domain.com")
-                .SetSubject("Hello World Simple Email")
-                .SetHtmlContent("This email has been sent using <b>turboSMTP SDK</b>.")
-                .Build();
+        $configurationBuilder = new TurboSMTPClientConfigurationBuilder();
 
-            //Create a TurboSMTPClient Instance
-            var TSClient = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+        $configuration = $configurationBuilder
+                ->setConsumerKey(AppConstants::ConsumerKey)
+                ->setConsumerSecret(AppConstants::ConsumerSecret)
+                ->setEuropeanUser(AppConstants::EuropeanUser)
+                ->build();
 
-            //Send your Email Message
-            var result = await TSClient.Emails.SendAsync(emailMessage);
-        }
-    }
+        $ts_client = new TurboSMTPClient($configuration);
+        
+        $emailBuilder = new EmailMessageBuilder();
+        // Build the email message
+        $emailMessage = $emailBuilder
+            ->setFrom('sender@yourdomain.com')
+            ->addTo('recipient@domain.com')
+            ->setSubject('Hello World Simple Email')
+            ->setHtmlContent('This email has been sent using <b>turboSMTP SDK</b>.')
+            ->build(); // Call build to get the EmailMessage instance
+        
+        //Send the Email Message.
+        $result = $ts_client->getEmailMessages()->SendAsync($emailMessage)->wait();
+
+        //Print the returned message ID.
+        echo $result->getMessageID();    
+    } 
 }
 ```
 
-*After executing the above code, `result.Message` should be `OK` and `MessageID` should contain a reference number to your sending operation, and you should have an email in the inbox of the `to` recipient. You can check the status of your email [in the UI][turboSMTP_analytics_dashboard], or using **TurboSMTPClient.Relays.QueryAsync()** method. Alternatively, we can post events to a URL of your choice using our [Event Webhooks][turboSMTP_webhooks_reference]. This gives you information about the events that occur as turboSMTP processes your email.* 
+*After executing the above code, `$result->getMessage()` should be `OK` and `$result->getMessageID()` should contain a reference number to your sending operation, and you should have an email in the inbox of the `to` recipient. You can check the status of your email [in the UI][turboSMTP_analytics_dashboard], or using **TurboSMTPClient->getRelays()->queryAsync()** method. Alternatively, we can post events to a URL of your choice using our [Event Webhooks][turboSMTP_webhooks_reference]. This gives you information about the events that occur as turboSMTP processes your email.* 
 
 # Usage
 
