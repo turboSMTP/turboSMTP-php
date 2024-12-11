@@ -2,16 +2,9 @@
 
 namespace TurboSMTP\Services;
 
-//require '../vendor/autoload.php'; // Include Composer autoloader
-
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticsListSucessResponsetBody;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailRequestBody;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\Attachment;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SendSucessResponsetBody;
 use API_TurboSMTP_Invoker\Configuration;
 use TurboSMTP\APIExtensions\AnalyticsAPIExtension;
-use TurboSMTP\Domain\EmailMessage;
-use TurboSMTP\Model\Email\SendDetails;
 use TurboSMTP\Model\Relays\RelaysQueryOptions;
 use TurboSMTP\Model\Shared\PagedListResults;
 use TurboSMTP\TurboSMTPClientConfiguration;
@@ -19,7 +12,6 @@ use TurboSMTP\Domain\Relay;
 use API_TurboSMTP_Invoker\ApiException;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailItem;
 use GuzzleHttp\Promise\PromiseInterface;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailStatus;
 use TurboSMTP\Domain\RelayStatus;
 
 class Relays extends TurboSMTPService {

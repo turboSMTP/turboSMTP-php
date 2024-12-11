@@ -2,11 +2,8 @@
 
 namespace TurboSMTP;
 
-//require '../vendor/autoload.php'; // Include Composer autoloader
-
 use TurboSMTP\Services\EmailMessages;
 use TurboSMTP\Services\Relays;
-use GuzzleHttp\Client;
 use API_TurboSMTP_Invoker\Configuration;
 
 final class TurboSMTPClient{

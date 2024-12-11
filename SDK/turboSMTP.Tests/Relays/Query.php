@@ -4,10 +4,7 @@ namespace TurboSMTPTests\Relays;
 
 use DateTime;
 use TurboSMTP\TurboSMTPClient;
-use TurboSMTP\Domain\EmailMessageBuilder;
-use TurboSMTP\Model\Email\SendDetails;
 use TurboSMTPTests\BaseTestCase;
-use TurboSMTPTests\AppConstants;
 use TurboSMTP\Model\Relays\RelaysQueryOptionsBuilder;
 use TurboSMTP\Model\Shared\PagedListResults;
 use TurboSMTP\Model\Relays\RelayFilterCriteria;
