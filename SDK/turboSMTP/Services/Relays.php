@@ -19,7 +19,8 @@ use TurboSMTP\Domain\Relay;
 use API_TurboSMTP_Invoker\ApiException;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailItem;
 use GuzzleHttp\Promise\PromiseInterface;
-
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailStatus;
+use TurboSMTP\Domain\RelayStatus;
 
 class Relays extends TurboSMTPService {
 
@@ -27,6 +28,36 @@ class Relays extends TurboSMTPService {
         parent::__construct($tsClientConfiguration);
         $this->api = new AnalyticsAPIExtension($this->client, $configuration);
     }
+
+    private function mapAnalyticMailStatusToRelayStatus(?string $status): ?RelayStatus
+    {
+        if ($status === null) {
+            return null; // handle null case
+        }
+    
+        switch ($status) {
+            case 'NEW':
+                return RelayStatus::NEW;
+            case 'DEFER':
+                return RelayStatus::DEFER;
+            case 'SUCCESS':
+                return RelayStatus::SUCCESS;
+            case 'OPEN':
+                return RelayStatus::OPEN;
+            case 'CLICK':
+                return RelayStatus::CLICK;
+            case 'REPORT':
+                return RelayStatus::REPORT;
+            case 'FAIL':
+                return RelayStatus::FAIL;
+            case 'SYSFAIL':
+                return RelayStatus::SYSFAIL;
+            case 'UNSUB':
+                return RelayStatus::UNSUB;
+            default:
+                return null; // or throw an exception if needed
+        }
+    }   
 
     public function queryAsync(RelaysQueryOptions $queryOptions) : PromiseInterface
     {
@@ -36,12 +67,16 @@ class Relays extends TurboSMTPService {
             return $criteria->name; 
         }, $queryOptions->getFilterBy());   
         
+        $statusesStrings = array_map(function($criteria) {
+            return $criteria->name; 
+        }, $queryOptions->getRelayStatuses());  
+
         $promise = $this->api->getAnalyticsDataAsync(
             $queryOptions->getFrom()->format('Y-m-d'),
             $queryOptions->getTo()->format('Y-m-d'),
             $queryOptions->getPage(),
             $queryOptions->getLimit(),
-            $queryOptions->getRelayStatuses(),
+            $statusesStrings,
             $filterByStrings,
             $queryOptions->getFilter(),
             $queryOptions->getSmartSearch(),
@@ -59,7 +94,7 @@ class Relays extends TurboSMTPService {
                         $r->getSender(),
                         $r->getRecipient(),
                         $r->getSendTime(),
-                        $r->getStatus(),
+                        $this->mapAnalyticMailStatusToRelayStatus($r->getStatus()),
                         $r->getDomain(),
                         $r->getContactDomain(),
                         $r->getError(),
