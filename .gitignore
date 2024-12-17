@@ -28,3 +28,7 @@
 .vscode
 
 /SDK/vendor
+
+.phpunit.result.cache
+Sample.php
+SDK/.phpunit.result.cache

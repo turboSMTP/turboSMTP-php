@@ -39,7 +39,10 @@ class EmailMessages extends TurboSMTPService {
             return new Attachment($a->content, $a->name, $a->type);
         }, $emailMessage->getAttachments()));
 
-        $promise = $this->api->sendEmailAsync($emailRequestBody);
+        //Non European users use config in index 0. Europeans in 1;
+        $serverIndex = !$this->configuration->europeanUser ? 0 : 1;
+
+        $promise = $this->api->sendEmailAsync($emailRequestBody,$serverIndex);
 
         return $promise->then(
             function (SendSucessResponsetBody $response){

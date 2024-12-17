@@ -8,10 +8,9 @@ class TurboSMTPClientConfiguration {
     private static $lock = false;
 
     // Public properties
-    public $consumerKey;
-    public $consumerSecret;
-    public $serverURL;
-    public $sendServerURL;
+    public string $consumerKey;
+    public string $consumerSecret;
+    public bool $europeanUser;
     public $timeZone;
 
     // Private constructor to prevent direct instantiation

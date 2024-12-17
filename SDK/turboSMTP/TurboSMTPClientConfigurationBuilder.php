@@ -4,7 +4,7 @@ namespace TurboSMTP;
 
 
 class TurboSMTPClientConfigurationBuilder {
-    private $config;
+    private TurboSMTPClientConfiguration $config;
 
     public function __construct() {
         $this->config = TurboSMTPClientConfiguration::getInstance();
@@ -20,13 +20,8 @@ class TurboSMTPClientConfigurationBuilder {
         return $this;
     }
 
-    public function setServerURL($serverURL) {
-        $this->config->serverURL = $serverURL;
-        return $this;
-    }
-
-    public function setSendServerURL($sendServerURL) {
-        $this->config->sendServerURL = $sendServerURL;
+    public function setEuropeanUser(bool $europeanUser){
+        $this->config->europeanUser = $europeanUser;
         return $this;
     }
 

@@ -20,6 +20,7 @@ class BaseTestCase extends TestCase
         $this->configuration = $configurationBuilder
             ->setConsumerKey(AppConstants::ConsumerKey)
             ->setConsumerSecret(AppConstants::ConsumerSecret)
+            ->setEuropeanUser(AppConstants::EuropeanUser)
             ->build();
     }
 
