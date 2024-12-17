@@ -1,0 +1,80 @@
+Folder PATH listing
+Volume serial number is 7A2A-0C9A
+C:.
+ÃÄÄÄAPI.TurboSMTP
+³   ÃÄÄÄ.openapi-generator
+³   ÃÄÄÄdocs
+³   ³   ÃÄÄÄApi
+³   ³   ÀÄÄÄModel
+³   ÃÄÄÄlib
+³   ³   ÃÄÄÄAPI_TurboSMTP
+³   ³   ÀÄÄÄAPI_TurboSMTP_Model
+³   ÀÄÄÄtest
+³       ÃÄÄÄApi
+³       ÀÄÄÄModel
+ÃÄÄÄturboSMTP
+³   ÃÄÄÄAPIExtensions
+³   ÃÄÄÄDomain
+³   ÃÄÄÄModel
+³   ³   ÃÄÄÄEmail
+³   ³   ÃÄÄÄRelays
+³   ³   ÀÄÄÄShared
+³   ÀÄÄÄServices
+ÀÄÄÄvendor
+    ÃÄÄÄcomposer
+    ÃÄÄÄguzzlehttp
+    ³   ÃÄÄÄguzzle
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÃÄÄÄISSUE_TEMPLATE
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄdocs
+    ³   ³   ³   ÀÄÄÄ_static
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÃÄÄÄCookie
+    ³   ³   ³   ÃÄÄÄException
+    ³   ³   ³   ÀÄÄÄHandler
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄCookie
+    ³   ³   ³   ÃÄÄÄException
+    ³   ³   ³   ÀÄÄÄHandler
+    ³   ³   ³       ÀÄÄÄNetwork
+    ³   ³   ÀÄÄÄvendor-bin
+    ³   ³       ÃÄÄÄphp-cs-fixer
+    ³   ³       ÃÄÄÄphpstan
+    ³   ³       ÀÄÄÄpsalm
+    ³   ÃÄÄÄpromises
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ÀÄÄÄvendor-bin
+    ³   ³       ÃÄÄÄphp-cs-fixer
+    ³   ³       ÃÄÄÄphpstan
+    ³   ³       ÀÄÄÄpsalm
+    ³   ÀÄÄÄpsr7
+    ³       ÃÄÄÄ.github
+    ³       ³   ÀÄÄÄworkflows
+    ³       ÃÄÄÄsrc
+    ³       ³   ÀÄÄÄException
+    ³       ÃÄÄÄtests
+    ³       ³   ÀÄÄÄIntegration
+    ³       ÀÄÄÄvendor-bin
+    ³           ÃÄÄÄphp-cs-fixer
+    ³           ÃÄÄÄphpstan
+    ³           ÀÄÄÄpsalm
+    ÃÄÄÄpsr
+    ³   ÃÄÄÄhttp-client
+    ³   ³   ÀÄÄÄsrc
+    ³   ÃÄÄÄhttp-factory
+    ³   ³   ÀÄÄÄsrc
+    ³   ÀÄÄÄhttp-message
+    ³       ÃÄÄÄdocs
+    ³       ÀÄÄÄsrc
+    ÃÄÄÄralouphie
+    ³   ÀÄÄÄgetallheaders
+    ³       ÃÄÄÄsrc
+    ³       ÀÄÄÄtests
+    ÀÄÄÄsymfony
+        ÀÄÄÄdeprecation-contracts
+            ÀÄÄÄ.github
+                ÀÄÄÄworkflows
