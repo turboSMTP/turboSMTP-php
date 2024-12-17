@@ -8,7 +8,7 @@ If you encounter any issues while using the turboSMTP SDK, please refer to the f
 
 #### 1. Configuration Failures
 
-**Problem:** You receive a message saying **`"basePath cannot be empty"`**.
+**Problem:** You receive a message saying **`"Typed property TurboSMTP\TurboSMTPClientConfiguration::$consumerKey must not be accessed before initialization"`**.
 
 **Solution:**
 - Double check that you have properly initialized **TurboSMTPClientConfiguration**.
