@@ -6,6 +6,7 @@ use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticsListSucessResponsetBody;
 use API_TurboSMTP_Invoker\Configuration;
 use TurboSMTP\APIExtensions\AnalyticsAPIExtension;
 use TurboSMTP\Model\Relays\RelaysQueryOptions;
+use TurboSMTP\Model\Relays\RelaysExportOptions;
 use TurboSMTP\Model\Shared\PagedListResults;
 use TurboSMTP\TurboSMTPClientConfiguration;
 use TurboSMTP\Domain\Relay;
@@ -21,8 +22,7 @@ class Relays extends TurboSMTPService {
         $this->api = new AnalyticsAPIExtension($this->client, $configuration);
     }
 
-    private function mapAnalyticMailStatusToRelayStatus(?string $status): ?RelayStatus
-    {
+    private function mapAnalyticMailStatusToRelayStatus(?string $status): ?RelayStatus{
         if ($status === null) {
             return null; // handle null case
         }
@@ -108,11 +108,61 @@ class Relays extends TurboSMTPService {
         
                         throw new \Exception($message);
                     } else {
-                        throw new \Exception('Failed to send email: ' . $exception->getMessage());
+                        throw new \Exception('Failed to retrieve Relays information: ' . $exception->getMessage());
                     }
                 }
             }
         );        
     }
 
+    public function exportAsync(RelaysExportOptions $exportOptions): PromiseInterface
+    {
+        $timeZone = $this->configuration->timeZone;
+
+        $filterByStrings = array_map(function($criteria) {
+            return $criteria->name; 
+        }, $exportOptions->getFilterBy());   
+        
+        $statusesStrings = array_map(function($criteria) {
+            return $criteria->name; 
+        }, $exportOptions->getRelayStatuses());  
+
+        $promise = $this->api->exportAnalyticsDataCSVAsync
+        (
+            $exportOptions->getFrom()->format('Y-m-d'),
+            $exportOptions->getTo()->format('Y-m-d'),
+            $statusesStrings,
+            $filterByStrings,
+            $exportOptions->getFilter(),
+            $exportOptions->getSmartSearch(),
+            $exportOptions->getOrderby()->name,
+            $exportOptions->getOrdertype()->name,
+            //$timezone //TODO;
+        );        
+
+        return $promise->then(
+            function (string $response){
+                return $response;
+            },
+            function ($exception) 
+            {
+                echo $exception->getResponseBody();
+                echo "------------";
+                if ($exception instanceof APIException && $exception->getCode() === 400) {
+                    $responseBody = $exception->getResponseBody();
+        
+                    $responseArray = json_decode($responseBody, true);
+        
+                    if (json_last_error() === JSON_ERROR_NONE && isset($responseArray['message'])) {
+                        $message = $responseArray['message'];
+        
+                        throw new \Exception($message);
+                    } else {
+                        throw new \Exception('Failed to Export Relays information: ' . $exception->getMessage());
+                    }
+                }
+            }
+        );        
+
+    }
 }

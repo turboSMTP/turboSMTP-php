@@ -13,6 +13,9 @@ class BaseTestCase extends TestCase
 
     public function __construct(string $name = null, array $data = [], string $dataName = '')
     {
+        echo "Name: " . ($name ?? 'null') . PHP_EOL;
+        echo "Data: " . print_r($data, true) . PHP_EOL;
+        echo "Data Name: " . ($dataName ?: '""') . PHP_EOL;
         parent::__construct($name, $data, $dataName);
 
         $configurationBuilder = new TurboSMTPClientConfigurationBuilder();
