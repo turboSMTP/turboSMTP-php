@@ -35,5 +35,10 @@ class BaseTestCase extends TestCase
         $dateTimeString = $dateTimeNow->format('Y-m-d H:i:s');
 
         return $dateTimeString;
-    }   
+    }
+    
+    function get_Formated_DateTime_Compressed() 
+    {
+        return date("dmyHis");
+    }    
 }

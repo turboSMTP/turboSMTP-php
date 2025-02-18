@@ -5,6 +5,7 @@ namespace TurboSMTP;
 use TurboSMTP\Services\EmailMessages;
 use TurboSMTP\Services\Relays;
 use TurboSMTP\Services\EmailValidator;
+use TurboSMTP\Services\EmailValidatorFiles;
 use API_TurboSMTP_Invoker\Configuration;
 
 final class TurboSMTPClient{
@@ -16,11 +17,13 @@ final class TurboSMTPClient{
         $this->EmailMessages = new EmailMessages($turbo_smtp_client_configuration,$configuration);
         $this->Relays = new Relays($turbo_smtp_client_configuration,$configuration);
         $this->EmailValidator = new EmailValidator($turbo_smtp_client_configuration,$configuration);
+        $this->EmailValidatorFiles = new EmailValidatorFiles($turbo_smtp_client_configuration,$configuration);
     }
 
     private $EmailMessages;
     private $Relays;
     private $EmailValidator;
+    private $EmailValidatorFiles;
 
     public function getEmailMessages(): EmailMessages
     {
@@ -35,6 +38,11 @@ final class TurboSMTPClient{
     public function getEmailValidator(): EmailValidator
     {
         return $this->EmailValidator;
+    }
+
+    public function getEmailValidatorFiles(): EmailValidatorFiles
+    {
+        return $this->EmailValidatorFiles;
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace TurboSMTP\Services;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
@@ -11,6 +12,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use TurboSMTP\TurboSMTPClientConfiguration;
 use GuzzleHttp\Promise\Promise;
+use API_TurboSMTP_Invoker\ApiException;
 
 
 class TurboSMTPService {
@@ -77,5 +79,33 @@ class TurboSMTPService {
         $this->configuration = $configuration;
     }
 
-    
+    function handle_exception(Exception $exception, String $action)
+    {
+        if($exception instanceof APIException)
+        {
+            $responseBody = $exception->getResponseBody();
+            $responseArray = json_decode($responseBody, true);
+
+            switch ($exception->getCode()) {
+                 case 400:
+                 case 401:
+                    // Handle bad request exception
+                    if (json_last_error() === JSON_ERROR_NONE && isset($responseArray['message'])) {
+                        $message = $responseArray['message'];
+
+                        throw new \Exception($message);
+                    }else{
+                        throw new \Exception('Failed to ' . $action . ': ' . $exception->getMessage());
+                    }
+                
+                    break;
+                default:
+                    // Handle unknown exception codes
+                    echo "Unknown error code: " . $exception->getCode();
+                    break;
+            }
+        } else {
+            throw new \Exception('Failed to ' . $action . ': ' . $exception->getMessage());
+        }     
+    }
 }
