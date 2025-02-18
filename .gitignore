@@ -32,3 +32,5 @@
 .phpunit.result.cache
 Sample.php
 SDK/.phpunit.result.cache
+SDK/turboSMTP.Tests/AppConstants.php
+SDK/.phpunit.result.cache

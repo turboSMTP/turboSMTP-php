@@ -28,4 +28,23 @@ class ValidateEmailAddress extends BaseTestCase
             EmailAddressValidationStatus::Valid
         );
     }
+
+    public function test_validate_invvalid_email_address(){
+        //Arrange
+        $ts_client = new TurboSMTPClient($this->configuration);
+
+        //Act
+        $result = $ts_client->getEmailValidator()->ValidateEmailAdressAsync(AppConstants::InValidEmailAddresses[0])->wait();
+        
+        //Assert
+        $this->assertEquals(
+            strtolower($result->getEmail()),
+            strtolower(AppConstants::InValidEmailAddresses[0])
+        );
+
+        $this->assertNotEquals(
+            $result->getStatus(),
+            EmailAddressValidationStatus::Valid
+        );
+    }    
 }
