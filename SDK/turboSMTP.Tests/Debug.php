@@ -14,6 +14,7 @@ require '../vendor/autoload.php'; // Include Composer's autoloader
 //use TurboSMTPTests\EmailValidator\Subscription;
 //use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Add;
 use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Query;
+use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Get;
 
 // Create an instance of the Export class
 //$export = new Export('test_query_filtered_by_status',[],'');
@@ -29,8 +30,8 @@ use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Query;
 //$test = new ValidateEmailAddress('test_validate_valid_email_address',[],'');
 //$test->test_validate_valid_email_address();
 
-$test = new Query('test_query_with_default_params',[],'');
-$test->test_query_with_default_params();
+$test = new Get('test_get_by_id_invalid',[],'');
+$test->test_get_by_id_invalid();
 
 // If you want to stop execution at a certain point, you can use die() or exit()
 die("End of script.");

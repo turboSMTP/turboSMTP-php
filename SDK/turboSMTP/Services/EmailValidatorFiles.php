@@ -97,4 +97,27 @@ class EmailValidatorFiles extends TurboSMTPService {
             }
         );        
     }
+
+    public function getAsync(int $id): PromiseInterface   
+    {
+        $promise = $this->api->GetEmailValidationListSummaryAsync($id);
+
+        return $promise->then(
+            function (EmailValidatorList $response){
+                return new EmailValidatorFile(
+                        $response->getId(),
+                        $response->getCreationTime(),
+                        $response->getFileName(),
+                        $response->getIsProcessed(),
+                        $response->getPercentage(),
+                        $response->getTotalEmails(),
+                        $response->getTotalProcessed()
+                    );
+            },
+            function ($exception) 
+            {
+                $this->handle_exception($exception,'get email validation list');
+            }
+        );         
+    } 
 }

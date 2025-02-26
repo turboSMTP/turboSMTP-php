@@ -89,6 +89,7 @@ class TurboSMTPService {
             switch ($exception->getCode()) {
                  case 400:
                  case 401:
+                 case 404:
                     // Handle bad request exception
                     if (json_last_error() === JSON_ERROR_NONE && isset($responseArray['message'])) {
                         $message = $responseArray['message'];
