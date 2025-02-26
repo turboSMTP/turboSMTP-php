@@ -15,8 +15,13 @@ use PHPUnit\Event\Test\DataProviderMethodFinishedSubscriber;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorMailDetails;
 use TurboSMTP\Model\EmailValiator\EmailAddressValidationDetails;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailAddressRequestBody;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorList;
 use TurboSMTP\Domain\EmailValidator\EmailAddressValidationStatus;
 use TurboSMTP\Domain\EmailValidator\EmailAddressValidationSubStatus;
+use TurboSMTP\Model\EmailValidator\EmailValidatorFilesQueryOptions;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorSucessResponsetBody;
+use TurboSMTP\Domain\EmailValidator\EmailValidatorFile;
+use TurboSMTP\Model\Shared\PagedListResults;
 
 class EmailValidatorFiles extends TurboSMTPService {
 
@@ -58,4 +63,38 @@ class EmailValidatorFiles extends TurboSMTPService {
         ); 
     }
 
+    public function queryAsync(EmailValidatorFilesQueryOptions $queryOptions): PromiseInterface
+    {
+        $timeZone = $this->configuration->timeZone;
+
+        $promise = $this->api->getEmailValidationListsAsync(
+            $queryOptions->getFrom()->format('Y-m-d'),
+            $queryOptions->getTo()->format('Y-m-d'),
+            $queryOptions->getPage(),
+            $queryOptions->getLimit(),
+            $timeZone
+        );
+
+        return $promise->then(
+            function (EmailValidatorSucessResponsetBody $response){
+                $records = array_map(function (EmailValidatorList $r) {
+                    return new EmailValidatorFile(
+                        $r->getId(),
+                        $r->getCreationTime(),
+                        $r->getFileName(),
+                        $r->getIsProcessed(),
+                        $r->getPercentage(),
+                        $r->getTotalEmails(),
+                        $r->getTotalProcessed()
+                    );
+                }, $response->getResults());
+
+                return new PagedListResults($response->getCount(),$records);
+            },
+            function ($exception) 
+            {
+                $this->handle_exception($exception,'query email validation lists');
+            }
+        );        
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace TurboSMTP\Model\EmailValiator;
+namespace TurboSMTP\Model\EmailValidator;
 
 use TurboSMTP\Domain\EmailValidator\EmailAddressValidationStatus;
 use TurboSMTP\Domain\EmailValidator\EmailAddressValidationSubStatus;

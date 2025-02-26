@@ -13,7 +13,7 @@ use API_TurboSMTP_Invoker\ApiException;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\Currency;
 use PHPUnit\Event\Test\DataProviderMethodFinishedSubscriber;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorMailDetails;
-use TurboSMTP\Model\EmailValiator\EmailAddressValidationDetails;
+use TurboSMTP\Model\EmailValidator\EmailAddressValidationDetails;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailAddressRequestBody;
 use TurboSMTP\Domain\EmailValidator\EmailAddressValidationStatus;
 use TurboSMTP\Domain\EmailValidator\EmailAddressValidationSubStatus;
