@@ -8,6 +8,8 @@ use API_TurboSMTP_Invoker\Configuration;
 use TurboSMTP\APIExtensions\EmailValidatorAPIExtension;
 use GuzzleHttp\Promise\PromiseInterface;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidationUploadResponse;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorListDeleteSuccess;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorValidatedMailsResults;
 use TurboSMTP\Domain\EmailValidatorSubscription as DomainEmailValidatorSubscription;
 use API_TurboSMTP_Invoker\ApiException;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\Currency;
@@ -22,6 +24,7 @@ use TurboSMTP\Model\EmailValidator\EmailValidatorFilesQueryOptions;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorSucessResponsetBody;
 use TurboSMTP\Domain\EmailValidator\EmailValidatorFile;
 use TurboSMTP\Model\Shared\PagedListResults;
+use GuzzleHttp\Promise\Promise;
 
 class EmailValidatorFiles extends TurboSMTPService {
 
@@ -119,5 +122,69 @@ class EmailValidatorFiles extends TurboSMTPService {
                 $this->handle_exception($exception,'get email validation list');
             }
         );         
+    }
+    
+
+    /**
+     * Deletes an email validation list by its ID.
+     *
+     * @param int $id The ID of the email validation list to delete.
+     * @return PromiseInterface<bool> A promise that resolves to a boolean indicating success.
+     */   
+    public function deleteAsync(int $id): PromiseInterface   
+    {
+        $promise = $this->api->DeleteEmailValidationListByIdAsync($id);
+
+        return $promise->then(
+            function (EmailValidatorListDeleteSuccess $response){
+                return $response->getSuccess();
+            },
+            function ($exception) 
+            {
+                $this->handle_exception($exception,'delete email validation list');
+            }
+        );         
     } 
+
+    public function validateAsync(int $id): PromiseInterface
+    {
+        // Start the validation process
+        $promise = $this->api->ValidateEmailValidatorListAsync($id);
+    
+        return $promise->then(function () use ($id) {
+            return $this->checkValidationStatus($id);
+        }, function ($exception) {
+            // Handle any exceptions that may have occurred during the validation start
+            $this->handle_exception($exception,'validate email validation list');
+        });
+    }
+    
+    private function checkValidationStatus(int $id): PromiseInterface
+    {
+        // Get the initial validation result
+        $promise = $this->api->GetValidatedEmailsByListAsync($id);
+    
+        return $promise->then(function ($result) use ($id) {
+            // Check if processing is complete
+            return $this->waitForProcessing($result, $id);
+        });
+    }
+    
+    private function waitForProcessing($result, int $id): PromiseInterface
+    {
+        // Create a promise to wait for processing
+        if ($result->getProcessed() < $result->getCount()) {
+            // Wait for 1 second before checking again
+            usleep(1000000); // usleep takes microseconds
+            return $this->api->GetValidatedEmailsByListAsync($id)->then(function ($newResult) use ($id) {
+                return $this->waitForProcessing($newResult, $id);
+            });
+        }
+    
+        // If processed is equal or greater than count, return true
+        $promise = new Promise();
+        $promise->resolve(true); // Manually resolve with true
+        return $promise; // Return the resolved promise
+    }
+
 }
