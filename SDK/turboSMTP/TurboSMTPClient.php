@@ -6,6 +6,7 @@ use TurboSMTP\Services\EmailMessages;
 use TurboSMTP\Services\Relays;
 use TurboSMTP\Services\EmailValidator;
 use TurboSMTP\Services\EmailValidatorFiles;
+use TurboSMTP\Services\Suppressions;
 use API_TurboSMTP_Invoker\Configuration;
 
 final class TurboSMTPClient{
@@ -18,12 +19,14 @@ final class TurboSMTPClient{
         $this->Relays = new Relays($turbo_smtp_client_configuration,$configuration);
         $this->EmailValidator = new EmailValidator($turbo_smtp_client_configuration,$configuration);
         $this->EmailValidatorFiles = new EmailValidatorFiles($turbo_smtp_client_configuration,$configuration);
+        $this->Suppressions = new Suppressions($turbo_smtp_client_configuration,$configuration);
     }
 
     private $EmailMessages;
     private $Relays;
     private $EmailValidator;
     private $EmailValidatorFiles;
+    private $Suppressions;
 
     public function getEmailMessages(): EmailMessages
     {
@@ -43,6 +46,11 @@ final class TurboSMTPClient{
     public function getEmailValidatorFiles(): EmailValidatorFiles
     {
         return $this->EmailValidatorFiles;
+    }
+
+    public function getSuppressions(): Suppressions
+    {
+        return $this->Suppressions;
     }
 
 }
