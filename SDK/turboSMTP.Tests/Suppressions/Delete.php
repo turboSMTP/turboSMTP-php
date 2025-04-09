@@ -7,6 +7,10 @@ use TurboSMTP\Model\Suppressions\SuppressionsDeleteOptionsBuilder;
 use TurboSMTP\TurboSMTPClient;
 use TurboSMTPTests\AppConstants;
 use TurboSMTPTests\BaseTestCase;
+use TurboSMTP\Domain\Suppressions\SuppressionSource;
+use TurboSMTP\Model\Suppressions\SuppressionsRestriction;
+use TurboSMTP\Model\Suppressions\SuppressionsRestrictionOperator;
+use TurboSMTP\Domain\Suppressions\SuppresionsRestrictionFilterBy;
 
 use function PHPUnit\Framework\assertTrue;
 
@@ -86,4 +90,80 @@ class Delete extends BaseTestCase
         //Assert
         $this->assertTrue($result==true, "Result should be true");  
     }
+
+    public function test_delete_manual_suppressions()
+    {
+         // Arrange
+         $ts_client = new TurboSMTPClient($this->configuration);       
+         $emailAddressToDelete = "today@gmail.com"; 
+         $suppressionsDeleteOptionsBuilder = new SuppressionsDeleteOptionsBuilder();
+
+         $suppressionsDeleteOptions = $suppressionsDeleteOptionsBuilder
+            ->setFrom((new DateTime()))
+            ->setTo(new DateTime())
+            ->setFilter("")
+            ->setFilterBy([SuppressionSource::manual])
+            ->build(); 
+        
+        $ts_client->GetSuppressions()->addAsync("PHP Adding One to Delete Today Manual Suppressions- " . $this->get_Formated_DateTime_Compressed(), $emailAddressToDelete)->wait();
+        
+        //Act
+        $result = $ts_client->getSuppressions()->deleteWithOptionsAsync($suppressionsDeleteOptions)->wait();
+    
+        //Assert
+        $this->assertTrue($result==true, "Result should be true");          
+    }
+
+    public function test_delete_suppressions_with_filter()
+    {
+         // Arrange
+         $ts_client = new TurboSMTPClient($this->configuration);       
+         $emailAddressToDelete = "today@gmail.com"; 
+         $suppressionsDeleteOptionsBuilder = new SuppressionsDeleteOptionsBuilder();
+
+         $suppressionsDeleteOptions = $suppressionsDeleteOptionsBuilder
+            ->setFrom((new DateTime()))
+            ->setTo(new DateTime())
+            ->setFilter("Delete Today Manual")
+            ->setSmartSearch(true)
+            ->build(); 
+        
+        $ts_client->GetSuppressions()->addAsync("PHP Adding One to Delete Today Manual Suppressions- " . $this->get_Formated_DateTime_Compressed(), $emailAddressToDelete)->wait();
+        
+        //Act
+        $result = $ts_client->getSuppressions()->deleteWithOptionsAsync($suppressionsDeleteOptions)->wait();
+    
+        //Assert
+        $this->assertTrue($result==true, "Result should be true");  
+    }
+
+    public function test_delete_suppressions_where_reason_contains()
+    {
+         // Arrange
+         $ts_client = new TurboSMTPClient($this->configuration);       
+         $emailAddressToDelete = "today@gmail.com"; 
+         $suppressionsRestrictions[] = new SuppressionsRestriction(
+            SuppresionsRestrictionFilterBy::reason,
+            SuppressionsRestrictionOperator::include,
+            'By Subject Contains',
+            true // Smart search enabled
+        );
+
+         $suppressionsDeleteOptionsBuilder = new SuppressionsDeleteOptionsBuilder();
+
+         $suppressionsDeleteOptions = $suppressionsDeleteOptionsBuilder
+            ->setFrom((new DateTime()))
+            ->setTo(new DateTime())
+            ->setRestrictions($suppressionsRestrictions)
+            ->build(); 
+        
+        $addResult = $ts_client->GetSuppressions()->addAsync("PHP Adding To Delete By Subject Contains- " . $this->get_Formated_DateTime_Compressed(), $emailAddressToDelete)->wait();
+        
+        //Act
+        $result = $ts_client->getSuppressions()->deleteWithOptionsAsync($suppressionsDeleteOptions)->wait();
+    
+        //Assert
+        $this->assertTrue($result==true, "Result should be true");          
+    }
+    
 }
