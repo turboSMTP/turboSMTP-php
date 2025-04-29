@@ -2,33 +2,30 @@
 
 namespace TurboSMTP\Services;
 
-use DateTime;
-use TurboSMTP\TurboSMTPClientConfiguration;
-use API_TurboSMTP_Invoker\Configuration;
-use TurboSMTP\APIExtensions\EmailValidatorAPIExtension;
+use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Promise\PromiseInterface;
+
+use API_TurboSMTP_Invoker\Configuration;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidationUploadResponse;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorListDeleteSuccess;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorValidatedMailsResults;
-use TurboSMTP\Domain\EmailValidatorSubscription as DomainEmailValidatorSubscription;
-use API_TurboSMTP_Invoker\ApiException;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\Currency;
-use PHPUnit\Event\Test\DataProviderMethodFinishedSubscriber;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorMailDetails;
-use TurboSMTP\Model\EmailValiator\EmailAddressValidationDetails;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailAddressRequestBody;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorList;
-use TurboSMTP\Domain\EmailValidator\EmailAddressValidationStatus;
-use TurboSMTP\Domain\EmailValidator\EmailAddressValidationSubStatus;
-use TurboSMTP\Model\EmailValidator\EmailValidatorFilesQueryOptions;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailValidatorSucessResponsetBody;
+
+use TurboSMTP\TurboSMTPClientConfiguration;
 use TurboSMTP\Domain\EmailValidator\EmailValidatorFile;
+use TurboSMTP\Model\EmailValidator\EmailValidatorFilesQueryOptions;
 use TurboSMTP\Model\Shared\PagedListResults;
-use GuzzleHttp\Promise\Promise;
+
+
+use TurboSMTP\APIExtensions\EmailValidatorAPIExtension;
+
 
 class EmailValidatorFiles extends TurboSMTPService {
 
-    public function __construct(TurboSMTPClientConfiguration $tsClientConfiguration, Configuration $configuration) {
+    public function __construct(
+        TurboSMTPClientConfiguration $tsClientConfiguration, 
+        Configuration $configuration) 
+    {
         parent::__construct($tsClientConfiguration);
         $this->api = new EmailValidatorAPIExtension($this->client, $configuration);
     }
@@ -125,12 +122,6 @@ class EmailValidatorFiles extends TurboSMTPService {
     }
     
 
-    /**
-     * Deletes an email validation list by its ID.
-     *
-     * @param int $id The ID of the email validation list to delete.
-     * @return PromiseInterface<bool> A promise that resolves to a boolean indicating success.
-     */   
     public function deleteAsync(int $id): PromiseInterface   
     {
         $promise = $this->api->DeleteEmailValidationListByIdAsync($id);
@@ -148,33 +139,28 @@ class EmailValidatorFiles extends TurboSMTPService {
 
     public function validateAsync(int $id): PromiseInterface
     {
-        // Start the validation process
+
         $promise = $this->api->ValidateEmailValidatorListAsync($id);
     
         return $promise->then(function () use ($id) {
             return $this->checkValidationStatus($id);
         }, function ($exception) {
-            // Handle any exceptions that may have occurred during the validation start
             $this->handle_exception($exception,'validate email validation list');
         });
     }
     
     private function checkValidationStatus(int $id): PromiseInterface
     {
-        // Get the initial validation result
         $promise = $this->api->GetValidatedEmailsByListAsync($id);
     
         return $promise->then(function ($result) use ($id) {
-            // Check if processing is complete
             return $this->waitForProcessing($result, $id);
         });
     }
     
     private function waitForProcessing($result, int $id): PromiseInterface
     {
-        // Create a promise to wait for processing
         if ($result->getProcessed() < $result->getCount()) {
-            // Wait for 1 second before checking again
             usleep(1000000); // usleep takes microseconds
             return $this->api->GetValidatedEmailsByListAsync($id)->then(function ($newResult) use ($id) {
                 return $this->waitForProcessing($newResult, $id);

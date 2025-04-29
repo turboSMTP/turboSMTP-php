@@ -2,12 +2,12 @@
 
 namespace TurboSMTP\Helpers;
 
-use DateTime; // Make sure to include the DateTime class
-use InvalidArgumentException; // Include for exception handling
+use DateTime;
+use InvalidArgumentException; 
 
 class DateTimeHelper
 {
-    public static function fromTSDatetimes($str)
+    public static function fromTSDatetimes(string $str): DateTime
     {
         $format = 'Y-m-d H:i:s'; // PHP format for "yyyy-MM-dd HH:mm:ss"
         $dateTime = DateTime::createFromFormat($format, $str);
@@ -20,4 +20,14 @@ class DateTimeHelper
 
         return $dateTime;
     }
+
+    public static function toString(DateTime $value): string
+    {
+        return $value->format('Y-m-d H:i:s');
+    }
+
+    public static function toShortString(DateTime $value): string
+    {
+        return $value->format('Y-m-d');
+    }    
 }

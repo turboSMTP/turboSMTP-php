@@ -2,11 +2,13 @@
 
 namespace TurboSMTP\Domain\Suppressions;
 
+use DateTime;
+use TurboSMTP\Helpers\DateTimeHelper;
 use TurboSMTP\Domain\Suppressions\SuppressionSource;
 
 class Suppression
 {
-    private \DateTime $date; 
+    private DateTime $date; 
     private string $sender; 
     private SuppressionSource $source; 
     private string $subject; 
@@ -15,7 +17,7 @@ class Suppression
 
     // Constructor
     public function __construct(
-        \DateTime $date, 
+        DateTime $date, 
         string $sender, 
         SuppressionSource $source, 
         string $subject, 
@@ -31,7 +33,7 @@ class Suppression
     }
 
     // Getters
-    public function getDate(): \DateTime
+    public function getDate(): DateTime
     {
         return $this->date;
     }
@@ -64,21 +66,14 @@ class Suppression
     // String representation of the class
     public function __toString(): string
     {
-        return sprintf(
-            "class Suppressions {\n" .
-            "  Date: %s\n" .
-            "  Sender: %s\n" .
-            "  Source: %s\n" .
-            "  Subject: %s\n" .
-            "  Recipient: %s\n" .
-            "  Reason: %s\n" .
-            "}\n",
-            $this->date->format('Y-m-d H:i:s'), // Format DateTime
-            $this->sender,
-            $this->source->name, // Access enum name
-            $this->subject,
-            $this->recipient,
-            $this->reason
-        );
+        $sb = "class Suppressions {\n";
+        $sb .= "  Date: " . DateTimeHelper::toString($this->getDate()) . "\n";
+        $sb .= "  Sender: " . $this->getSender() . "\n";
+        $sb .= "  Source: " . $this->getSource()->name . "\n";
+        $sb .= "  Subject: " . $this->getSubject() . "\n";
+        $sb .= "  Recipient: " . $this->getRecipient() . "\n";
+        $sb .= "  Reason: " . $this->getReason() . "\n";
+        $sb .= "}\n";
+        return $sb;
     }
 }

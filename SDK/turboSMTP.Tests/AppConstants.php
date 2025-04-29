@@ -4,8 +4,8 @@ namespace TurboSMTPTests;
 
 class AppConstants
 {
-    const ConsumerKey = 'consumerkeystring';
-    const ConsumerSecret = 'consumersecretstring';
+    const ConsumerKey = '';
+    const ConsumerSecret = '';
     const EuropeanUser = false;
 
     const EmailSender = 'sergio.a.matteoda@gmail.com';

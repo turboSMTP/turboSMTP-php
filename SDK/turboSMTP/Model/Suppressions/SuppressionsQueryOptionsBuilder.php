@@ -76,10 +76,7 @@ class SuppressionsQueryOptionsBuilder
 
     private function validate(): void
     {
-        // Example validation logic; customize as needed
-        if ($this->options->getFrom() === null && $this->options->getTo() === null) {
-            throw new \InvalidArgumentException("At least one of From or To parameters is required");
-        }
+
     }
 
     public function build(): SuppressionsQueryOptions

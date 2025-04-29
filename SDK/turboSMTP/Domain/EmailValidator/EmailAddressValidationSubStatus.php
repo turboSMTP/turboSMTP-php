@@ -28,4 +28,35 @@ enum EmailAddressValidationSubStatus: int
     case RoleBasedCatchAll = 22;
     case Disposable = 23;
     case Toxic = 24;
+
+    public static function fromString(string $status): ?self
+    {
+        return match (strtolower($status)) {
+            '' => self::Empty,
+            'antispam_system' => self::AntispamSystem,
+            'greylisted' => self::Greylisted,
+            'mail_server_temporary_error' => self::MailServerTemporaryError,
+            'forcible_disconnect' => self::ForcibleDisconnect,
+            'mail_server_did_not_respond' => self::MailServerDidNotRespond,
+            'timeout_exceeded' => self::TimeoutExceeded,
+            'failed_smtp_connection' => self::FailedSmtpConnection,
+            'mailbox_quota_exceeded' => self::MailboxQuotaExceeded,
+            'exception_occurred' => self::ExceptionOccurred,
+            'possible_trap' => self::PossibleTrap,
+            'role_based' => self::RoleBased,
+            'global_suppression' => self::GlobalSuppression,
+            'mailbox_not_found' => self::MailboxNotFound,
+            'no_dns_entries' => self::NoDnsEntries,
+            'failed_syntax_check' => self::FailedSyntaxCheck,
+            'possible_typo' => self::PossibleTypo,
+            'unroutable_ip_address' => self::UnroutableIpAddress,
+            'leading_period_removed' => self::LeadingPeriodRemoved,
+            'does_not_accept_mail' => self::DoesNotAcceptMail,
+            'alias_address' => self::AliasAddress,
+            'role_based_catch_all' => self::RoleBasedCatchAll,
+            'disposable' => self::Disposable,
+            'toxic' => self::Toxic,
+            default => null, // Return null for invalid strings
+        };
+    }    
 }

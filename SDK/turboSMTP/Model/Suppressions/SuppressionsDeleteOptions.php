@@ -9,8 +9,8 @@ class SuppressionsDeleteOptions
     private ?string $filter;
     private array $filterBy;
     private ?bool $smartSearch;
-    private ?DateTime $from; // Optional
-    private ?DateTime $to;   // Optional
+    private ?DateTime $from; 
+    private ?DateTime $to;   
     private array $restrictions;
 
     public function __construct()
@@ -18,8 +18,8 @@ class SuppressionsDeleteOptions
         $this->filter = "";
         $this->filterBy = [];
         $this->smartSearch = false;
-        $this->from = null; // Optional initialization
-        $this->to = null;   // Optional initialization
+        $this->from = null; 
+        $this->to = null;   
         $this->restrictions = [];
     }
 

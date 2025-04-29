@@ -9,15 +9,20 @@ require '../vendor/autoload.php'; // Include Composer's autoloader
 //require 'path/to/Export.php'; // Adjust the path according to your project structure
 //require 'path/to/other/required/files.php'; // Include other necessary files
 
-//use TurboSMTPTests\Relays\Export;
+use TurboSMTPTests\Relays\Query;
+use TurboSMTPTests\Relays\Export;
 //use TurboSMTPTests\EmailValidator\ValidateEmailAddress;
 //use TurboSMTPTests\EmailValidator\Subscription;
 //use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Add;
 //use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Query;
-use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Get;
-use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Validate;
-use TurboSMTPTests\Suppressions\Delete;
-use TurboSMTPTests\Suppressions\Query;
+
+//use TurboSMTP\APIExtensions\RelaysAPIExtension;
+//use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Get;
+//use TurboSMTPTests\EmailValidator\EmailValidatiorFiles\Validate;
+//use TurboSMTPTests\EmailValidator\Subscription;
+//use TurboSMTPTests\EmailValidator\ValidateEmailAddress;
+//use TurboSMTPTests\Suppressions\Delete;
+//use TurboSMTPTests\Suppressions\Query;
 
 // Create an instance of the Export class
 //$export = new Export('test_query_filtered_by_status',[],'');
@@ -33,8 +38,8 @@ use TurboSMTPTests\Suppressions\Query;
 //$test = new ValidateEmailAddress('test_validate_valid_email_address',[],'');
 //$test->test_validate_valid_email_address();
 
-$test = new Query('test_Query_Suppressions_Where_Subject_Contains',[],'');
-$test->test_Query_Suppressions_Where_Subject_Contains();
+$test = new Query('test_query_with_default_params',[],'');
+$test->test_query_with_default_params();
 
 // If you want to stop execution at a certain point, you can use die() or exit()
 die("End of script.");

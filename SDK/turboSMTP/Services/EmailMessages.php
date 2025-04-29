@@ -2,21 +2,25 @@
 
 namespace TurboSMTP\Services;
 
+use GuzzleHttp\Promise\PromiseInterface;
+
+use API_TurboSMTP_Invoker\Configuration;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\EmailRequestBody;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\Attachment;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SendSucessResponsetBody;
-use API_TurboSMTP_Invoker\Configuration;
-use TurboSMTP\APIExtensions\MailAPIExtension;
-use TurboSMTP\Domain\EmailMessage;
-use TurboSMTP\Model\Email\SendDetails;
+
 use TurboSMTP\TurboSMTPClientConfiguration;
-use GuzzleHttp\Promise\PromiseInterface;
+use TurboSMTP\Domain\EmailMessage\EmailMessage;
+use TurboSMTP\Model\Email\SendDetails;
 
-
+use TurboSMTP\APIExtensions\MailAPIExtension;
 
 class EmailMessages extends TurboSMTPService {
 
-    public function __construct(TurboSMTPClientConfiguration $tsClientConfiguration, Configuration $configuration) {
+    public function __construct(
+        TurboSMTPClientConfiguration $tsClientConfiguration, 
+        Configuration $configuration) 
+    {
         parent::__construct($tsClientConfiguration);
         $this->api = new MailAPIExtension($this->client, $configuration);
     }
@@ -49,8 +53,7 @@ class EmailMessages extends TurboSMTPService {
                 return new SendDetails($response->getMessage(), $response->getMid());
             },
             function ($exception) {
-                // Handle the error
-                throw new \Exception('Failed to send email: ' . $exception->getMessage());
+                $this->handle_exception($exception,"Send Email");
             }
         );
     }

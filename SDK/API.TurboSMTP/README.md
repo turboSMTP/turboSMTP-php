@@ -5,6 +5,13 @@ This document describes all public turboSMTP **V2** API and offers endpoints Des
 [Click here to view the previous version of turboSMTP Public API Version 1.0](https://www.serversmtp.com/turbo-api-1)
 
 
+# Useful Links for Developers
+
+- [Email SDKs for Developers](https://serversmtp.com/email-sdks-for-developers)
+- [Webhooks Reference](https://serversmtp.com/event-webhook-reference/)
+- [Email API for Developers](https://serversmtp.com/email-api-for-developers)
+
+
 # Security
 For the most part (and where not otherwise explicit) turboSMTP’s API requires Authorization. 
 

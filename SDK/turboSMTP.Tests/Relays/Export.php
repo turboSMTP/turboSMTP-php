@@ -5,11 +5,9 @@ namespace TurboSMTPTests\Relays;
 use DateTime;
 use TurboSMTP\TurboSMTPClient;
 use TurboSMTPTests\BaseTestCase;
-use TurboSMTP\Model\Relays\RelaysQueryOptionsBuilder;
 use TurboSMTP\Model\Relays\RelaysExportOptionsBuilder;
-use TurboSMTP\Model\Shared\PagedListResults;
 use TurboSMTP\Model\Relays\RelayFilterCriteria;
-use TurboSMTP\Domain\RelayStatus;
+use TurboSMTP\Domain\Relays\RelayStatus;
 
 class Export extends BaseTestCase
 {

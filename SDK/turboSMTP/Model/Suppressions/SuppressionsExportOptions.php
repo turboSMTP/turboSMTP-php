@@ -10,8 +10,8 @@ class SuppressionsExportOptions
     private ?string $filter;
     private array $filterBy;
     private ?bool $smartSearch;
-    private ?DateTime $from; // Optional
-    private ?DateTime $to;   // Optional
+    private ?DateTime $from; 
+    private ?DateTime $to;   
     private array $restrictions;
     
     private SuppressionsOrderBy $orderBy;
@@ -22,12 +22,12 @@ class SuppressionsExportOptions
         $this->filter = "";
         $this->filterBy = [];
         $this->smartSearch = false;
-        $this->from = null; // Nullable initialization
-        $this->to = null;   // Nullable initialization
+        $this->from = null; 
+        $this->to = null;   
         $this->restrictions = [];
 
-        $this->orderBy = SuppressionsOrderBy::date; // Initialized to date
-        $this->orderType = OrderType::desc; // Initialized to desc
+        $this->orderBy = SuppressionsOrderBy::date; 
+        $this->orderType = OrderType::desc; 
     }
 
     // Getter and Setter for filter

@@ -2,46 +2,49 @@
 
 namespace TurboSMTP\Services;
 
-use TurboSMTP\Domain\Suppressions\SuppressionSource as SuppressionSourceDomain;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionSource;
-use TurboSMTP\Domain\Suppressions\Suppression as SuppressionDomain;
-use TurboSMTP\Model\Suppressions\SuppressionsOrderBy as SuppressionsOrderByModel;
+use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Promise\RejectedPromise;
+
+use API_TurboSMTP_Invoker\Configuration;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionOrderBy;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionFilterOrderPageRequestBody;
-use TurboSMTP\Model\Suppressions\SuppressionsQueryOptions;
-use TurboSMTP\Model\Suppressions\SuppressionsRestriction;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionOperator;
-use TurboSMTP\Model\Suppressions\SuppressionsRestrictionOperator;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionRestrictBy;
-use TurboSMTP\Domain\Suppressions\SuppresionsRestrictionFilterBy;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionFilterOrderPageRequestBody;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionOperator;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionRestriction;
-use TurboSMTP\Model\Suppressions\SuppressionsDeleteOptions;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionFilterRequestBody;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionsDeleteSuccess;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionUploadResponse;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionImportJson;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticsListSucessResponsetBody;
-use API_TurboSMTP_Invoker\Configuration;
-use TurboSMTP\APIExtensions\SuppressionsAPIExtension;
-use TurboSMTP\Model\Suppressions\SuppressionsAddResult;
-use TurboSMTP\Model\Relays\RelaysQueryOptions;
-use TurboSMTP\Model\Relays\RelaysExportOptions;
-use TurboSMTP\Model\Shared\PagedListResults;
-use TurboSMTP\TurboSMTPClientConfiguration;
-use TurboSMTP\Domain\Relay;
-use API_TurboSMTP_Invoker\ApiException;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailItem;
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Promise\RejectedPromise;
-use TurboSMTP\Domain\RelayStatus;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\SuppressionsSucessResponsetBody;
 use API_TurboSMTP_Invoker\API_TurboSMTP_Model\Suppression;
-use TurboSMTP\Domain\Suppressions\Suppression as SuppressionsSuppression;
+
+
+use TurboSMTP\Model\Shared\PagedListResults;
+
+use TurboSMTP\TurboSMTPClientConfiguration;
+use TurboSMTP\Domain\Suppressions\Suppression as SuppressionDomain;
+use TurboSMTP\Domain\Suppressions\SuppressionSource as SuppressionSourceDomain;
+use TurboSMTP\Domain\Suppressions\SuppresionsRestrictionFilterBy;
+use TurboSMTP\Model\Suppressions\SuppressionsOrderBy as SuppressionsOrderByModel;
+use TurboSMTP\Model\Suppressions\SuppressionsQueryOptions;
+use TurboSMTP\Model\Suppressions\SuppressionsRestriction;
+use TurboSMTP\Model\Suppressions\SuppressionsRestrictionOperator;
+use TurboSMTP\Model\Suppressions\SuppressionsDeleteOptions;
+use TurboSMTP\Model\Suppressions\SuppressionsAddResult;
 use TurboSMTP\Model\Suppressions\SuppressionsExportOptions;
+
+
+use TurboSMTP\APIExtensions\SuppressionsAPIExtension;
+
+use TurboSMTP\Helpers\DateTimeHelper;
 
 class Suppressions extends TurboSMTPService {
 
-    public function __construct(TurboSMTPClientConfiguration $tsClientConfiguration, Configuration $configuration) {
+    public function __construct(
+        TurboSMTPClientConfiguration $tsClientConfiguration, 
+        Configuration $configuration
+        ) 
+    {
         parent::__construct($tsClientConfiguration);
         $this->api = new SuppressionsAPIExtension($this->client, $configuration);
     }
@@ -104,6 +107,42 @@ class Suppressions extends TurboSMTPService {
         return $this->deleteRangeAsync($emailAddresses);
     }
     
+    private function filterByStrings(array $filterBy): array
+    {
+        return array_column($filterBy, 'name');
+    }
+
+    private function restrictions(array $restrictions): array
+    {
+        return array_map(function(SuppressionsRestriction $criteria) {
+            $t = new SuppressionRestriction();
+        
+            // Map the enum value to the string constant for 'by'
+            $byMapping = [
+                SuppresionsRestrictionFilterBy::sender->value => SuppressionRestrictBy::SENDER,
+                SuppresionsRestrictionFilterBy::recipient->value => SuppressionRestrictBy::RECIPIENT,
+                SuppresionsRestrictionFilterBy::reason->value => SuppressionRestrictBy::REASON,
+                SuppresionsRestrictionFilterBy::subject->value => SuppressionRestrictBy::SUBJECT,
+            ];
+        
+            $t->setBy($byMapping[$criteria->getBy()->value]);
+        
+            // Map the enum value for 'operator'
+            $operatorMapping = [
+                SuppressionsRestrictionOperator::include->value => SuppressionOperator::_INCLUDE,
+                SuppressionsRestrictionOperator::exclude->value => SuppressionOperator::EXCLUDE,
+            ];
+        
+            $t->setOperator($operatorMapping[$criteria->getOperator()->value]);
+        
+            // Set other properties
+            $t->setFilter($criteria->getFilter());
+            $t->setSmartSearch($criteria->getSmartSearch());
+        
+            return $t;
+        }, $restrictions);     
+    }
+
     public function deleteWithOptionsAsync(SuppressionsDeleteOptions $options): PromiseInterface
     {
         $suppressionFilterRequestBody = new SuppressionFilterRequestBody();
@@ -111,55 +150,12 @@ class Suppressions extends TurboSMTPService {
         $suppressionFilterRequestBody->setTo($options->getTo());
         $suppressionFilterRequestBody->setFilter($options->getFilter());
 
-        $filterByStrings = array_map(function($criteria) {
-            return $criteria->name; 
-        }, $options->getFilterBy());
-
-        if (!empty($filterByStrings)) {
-            $suppressionFilterRequestBody->setFilterBy($filterByStrings);
-        }
+        $filterByStrings = $this->filterByStrings($options->getFilterBy());
+        $filterByStrings && $suppressionFilterRequestBody->setFilterBy($filterByStrings);
 
         $suppressionFilterRequestBody->setSmartSearch($options->getSmartSearch());
 
-        $restrictTransformed = array_map(function(SuppressionsRestriction $criteria) {
-            $t = new SuppressionRestriction();
-            // Map the enum value to the string constant
-            switch ($criteria->getBy()->value) {
-                case SuppresionsRestrictionFilterBy::sender->value:
-                    $t->setBy(SuppressionRestrictBy::SENDER);
-                    break;
-                case SuppresionsRestrictionFilterBy::recipient->value:
-                    $t->setBy(SuppressionRestrictBy::RECIPIENT);
-                    break;
-                case SuppresionsRestrictionFilterBy::reason->value:
-                    $t->setBy(SuppressionRestrictBy::REASON);
-                    break;
-                case SuppresionsRestrictionFilterBy::subject->value:
-                    $t->setBy(SuppressionRestrictBy::SUBJECT);
-                    break;
-                default:
-                    throw new \InvalidArgumentException('Invalid suppression restriction filter by value');
-            }
-
-            // Map the enum value for 'operator' property
-            switch ($criteria->getOperator()->value) {
-                case SuppressionsRestrictionOperator::include->value:
-                    $t->setOperator(SuppressionOperator::_INCLUDE);
-                    break;
-                case SuppressionsRestrictionOperator::exclude->value:
-                    $t->setOperator(SuppressionOperator::EXCLUDE);
-                    break;
-                default:
-                    throw new \InvalidArgumentException('Invalid suppression restriction operator value');
-            }
-
-            $t->setFilter($criteria->getFilter());
-            $t->setSmartSearch(($criteria->getSmartSearch()));
-
-            return $t;
-        }, $options->getRestrictions());      
-        
-        $suppressionFilterRequestBody->setRestrict($restrictTransformed);
+        $suppressionFilterRequestBody->setRestrict($this->restrictions($options->getRestrictions()));
 
         return $this->api->deleteFilterSuppressionsAsync($suppressionFilterRequestBody)->then(
             function (SuppressionsDeleteSuccess $response) {
@@ -171,36 +167,19 @@ class Suppressions extends TurboSMTPService {
         );
     }
 
-    private function setOrderByFromSuppressionsOrderBy(SuppressionsOrderByModel $orderBy): string{//SuppressionOrderBy {
-        switch ($orderBy) {
-            case SuppressionsOrderByModel::date:
-                return SuppressionOrderBy::DATE; // This is already correct
-            case SuppressionsOrderByModel::source:
-                return SuppressionOrderBy::SOURCE; // This is already correct
-            case SuppressionsOrderByModel::recipient:
-                return SuppressionOrderBy::RECIPIENT; // This is already correct
-            case SuppressionsOrderByModel::reason:
-                return SuppressionOrderBy::REASON; // This is already correct
-            default:
-                throw new \InvalidArgumentException("Invalid SuppressionsOrderBy value");
+    private function setOrderByFromSuppressionsOrderBy(SuppressionsOrderByModel $orderBy): string {
+        $orderByMapping = [
+            SuppressionsOrderByModel::date => SuppressionOrderBy::DATE,
+            SuppressionsOrderByModel::source => SuppressionOrderBy::SOURCE,
+            SuppressionsOrderByModel::recipient => SuppressionOrderBy::RECIPIENT,
+            SuppressionsOrderByModel::reason => SuppressionOrderBy::REASON,
+        ];
+    
+        if (!array_key_exists($orderBy, $orderByMapping)) {
+            throw new \InvalidArgumentException("Invalid SuppressionsOrderBy value");
         }
-    }
-
-    private function StringSuppressionSource2DomainSuppressionSource(string $suppressionSource): SuppressionSourceDomain{
-        switch($suppressionSource){
-            case "bounce":
-                return SuppressionSourceDomain::bounce;
-            case "manual":
-                return SuppressionSourceDomain::manual;
-            case "spam":
-                return SuppressionSourceDomain::spam;
-            case "unsubscribe":
-                return SuppressionSourceDomain::unsubscribe;
-            case "validation_failed":
-                return SuppressionSourceDomain::validationfailed;
-            default:
-                throw new \InvalidArgumentException("Invalid SuppressionSource value");
-        }
+    
+        return $orderByMapping[$orderBy];
     }
 
     public function queryAsync(SuppressionsQueryOptions $options): PromiseInterface
@@ -210,55 +189,13 @@ class Suppressions extends TurboSMTPService {
         $suppressionFilterRequestBody->setTo($options->getTo());
         $suppressionFilterRequestBody->setFilter($options->getFilter());
 
-        $filterByStrings = array_map(function($criteria) {
-            return $criteria->name; 
-        }, $options->getFilterBy());
-
-        if (!empty($filterByStrings)) {
-            $suppressionFilterRequestBody->setFilterBy($filterByStrings);
-        }
+        $filterByStrings = $this->filterByStrings($options->getFilterBy());
+        $filterByStrings && $suppressionFilterRequestBody->setFilterBy($filterByStrings);
 
         $suppressionFilterRequestBody->setSmartSearch($options->getSmartSearch());
 
-        $restrictTransformed = array_map(function(SuppressionsRestriction $criteria) {
-            $t = new SuppressionRestriction();
-            // Map the enum value to the string constant
-            switch ($criteria->getBy()->value) {
-                case SuppresionsRestrictionFilterBy::sender->value:
-                    $t->setBy(SuppressionRestrictBy::SENDER);
-                    break;
-                case SuppresionsRestrictionFilterBy::recipient->value:
-                    $t->setBy(SuppressionRestrictBy::RECIPIENT);
-                    break;
-                case SuppresionsRestrictionFilterBy::reason->value:
-                    $t->setBy(SuppressionRestrictBy::REASON);
-                    break;
-                case SuppresionsRestrictionFilterBy::subject->value:
-                    $t->setBy(SuppressionRestrictBy::SUBJECT);
-                    break;
-                default:
-                    throw new \InvalidArgumentException('Invalid suppression restriction filter by value');
-            }
+        $suppressionFilterRequestBody->setRestrict($this->restrictions($options->getRestrictions()));
 
-            // Map the enum value for 'operator' property
-            switch ($criteria->getOperator()->value) {
-                case SuppressionsRestrictionOperator::include->value:
-                    $t->setOperator(SuppressionOperator::_INCLUDE);
-                    break;
-                case SuppressionsRestrictionOperator::exclude->value:
-                    $t->setOperator(SuppressionOperator::EXCLUDE);
-                    break;
-                default:
-                    throw new \InvalidArgumentException('Invalid suppression restriction operator value');
-            }
-
-            $t->setFilter($criteria->getFilter());
-            $t->setSmartSearch(($criteria->getSmartSearch()));
-
-            return $t;
-        }, $options->getRestrictions());      
-        
-        $suppressionFilterRequestBody->setRestrict($restrictTransformed);
         $suppressionFilterRequestBody->setPage($options->getPage());
         $suppressionFilterRequestBody->setLimit($options->getLimit());
         $suppressionFilterRequestBody->setOrderby($this->setOrderByFromSuppressionsOrderBy($options->getOrderBy()));
@@ -268,9 +205,9 @@ class Suppressions extends TurboSMTPService {
                 $records = array_map(function (Suppression $r) {
                     return new SuppressionDomain
                     (
-                        \DateTime::createFromFormat('Y-m-d H:i:s', $r->getDate()),
+                        DateTimeHelper::fromTSDatetimes($r->getDate()),
                         $r->getSender(),
-                        $this->StringSuppressionSource2DomainSuppressionSource((string)$r->getSource()),
+                        SuppressionSourceDomain::fromString((string)$r->getSource()),
                         $r->getSubject(),
                         $r->getRecipient(),
                         $r->getReason()
@@ -293,55 +230,12 @@ class Suppressions extends TurboSMTPService {
         $suppressionFilterRequestBody->setTo($options->getTo());
         $suppressionFilterRequestBody->setFilter($options->getFilter());
 
-        $filterByStrings = array_map(function($criteria) {
-            return $criteria->name; 
-        }, $options->getFilterBy());
-
-        if (!empty($filterByStrings)) {
-            $suppressionFilterRequestBody->setFilterBy($filterByStrings);
-        }
+        $filterByStrings = $this->filterByStrings($options->getFilterBy());
+        $filterByStrings && $suppressionFilterRequestBody->setFilterBy($filterByStrings);
 
         $suppressionFilterRequestBody->setSmartSearch($options->getSmartSearch());
 
-        $restrictTransformed = array_map(function(SuppressionsRestriction $criteria) {
-            $t = new SuppressionRestriction();
-            // Map the enum value to the string constant
-            switch ($criteria->getBy()->value) {
-                case SuppresionsRestrictionFilterBy::sender->value:
-                    $t->setBy(SuppressionRestrictBy::SENDER);
-                    break;
-                case SuppresionsRestrictionFilterBy::recipient->value:
-                    $t->setBy(SuppressionRestrictBy::RECIPIENT);
-                    break;
-                case SuppresionsRestrictionFilterBy::reason->value:
-                    $t->setBy(SuppressionRestrictBy::REASON);
-                    break;
-                case SuppresionsRestrictionFilterBy::subject->value:
-                    $t->setBy(SuppressionRestrictBy::SUBJECT);
-                    break;
-                default:
-                    throw new \InvalidArgumentException('Invalid suppression restriction filter by value');
-            }
-
-            // Map the enum value for 'operator' property
-            switch ($criteria->getOperator()->value) {
-                case SuppressionsRestrictionOperator::include->value:
-                    $t->setOperator(SuppressionOperator::_INCLUDE);
-                    break;
-                case SuppressionsRestrictionOperator::exclude->value:
-                    $t->setOperator(SuppressionOperator::EXCLUDE);
-                    break;
-                default:
-                    throw new \InvalidArgumentException('Invalid suppression restriction operator value');
-            }
-
-            $t->setFilter($criteria->getFilter());
-            $t->setSmartSearch(($criteria->getSmartSearch()));
-
-            return $t;
-        }, $options->getRestrictions());      
-        
-        $suppressionFilterRequestBody->setRestrict($restrictTransformed);
+        $suppressionFilterRequestBody->setRestrict($this->restrictions($options->getRestrictions()));
         $suppressionFilterRequestBody->setOrderby($this->setOrderByFromSuppressionsOrderBy($options->getOrderBy()));
 
         return $this->api->exportFilterSuppressionsAsync($suppressionFilterRequestBody)->then(

@@ -8,7 +8,7 @@ use TurboSMTPTests\BaseTestCase;
 use TurboSMTP\Model\Relays\RelaysQueryOptionsBuilder;
 use TurboSMTP\Model\Shared\PagedListResults;
 use TurboSMTP\Model\Relays\RelayFilterCriteria;
-use TurboSMTP\Domain\RelayStatus;
+use TurboSMTP\Domain\Relays\RelayStatus;
 
 class Query extends BaseTestCase
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace TurboSMTP\Domain;
+namespace TurboSMTP\Domain\EmailValidator;
 
 use DateTime;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\Currency;
+use TurboSMTP\Helpers\DateTimeHelper;
 
 
 class EmailValidatorSubscription
 {
-    private $currency;
-    private $freeCredits;
-    private $freeCreditsUsed;
-    private $lastUsedPeriod;
-    private $latestPeriodStartDate;
-    private $periodExpirationDate;
+    private string $currency;
+    private int $freeCredits;
+    private int $freeCreditsUsed;
+    private ?DateTime $lastUsedPeriod;
+    private DateTime $latestPeriodStartDate;
+    private DateTime $periodExpirationDate;
     private float $paidCredits;
     private int $remainingFreeCredit;
 
@@ -30,14 +30,14 @@ class EmailValidatorSubscription
         $this->currency = $currency;
         $this->freeCredits = $freeCredits;
         $this->freeCreditsUsed = $freeCreditsUsed;
-        $this->lastUsedPeriod = $lastUsedPeriod; // Assuming conversion methods are handled outside.
-        $this->latestPeriodStartDate = $latestPeriodStartDate; // Assuming conversion methods are handled outside.
-        $this->periodExpirationDate = $periodExpirationDate; // Assuming conversion methods are handled outside.
+        $this->lastUsedPeriod = $lastUsedPeriod; 
+        $this->latestPeriodStartDate = $latestPeriodStartDate; 
+        $this->periodExpirationDate = $periodExpirationDate; 
         $this->paidCredits = $paidCredits;
         $this->remainingFreeCredit = $remainingFreeCredit;
     }
 
-    public function getCurrency(): ?Currency
+    public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -80,14 +80,14 @@ class EmailValidatorSubscription
     public function __toString(): string
     {
         $sb = "class EmailValidatorSubscription {\n";
-        $sb .= "  Currency: " . $this->currency . "\n";
-        $sb .= "  FreeCredits: " . $this->freeCredits . "\n";
-        $sb .= "  FreeCreditsUsed: " . $this->freeCreditsUsed . "\n";
-        $sb .= "  LastUsedPeriod: " . ($this->lastUsedPeriod ? $this->lastUsedPeriod->format('Y-m-d H:i:s') : "null") . "\n";
-        $sb .= "  LatestPeriodStartDate: " . $this->latestPeriodStartDate->format('Y-m-d H:i:s') . "\n";
-        $sb .= "  PeriodExpirationDate: " . $this->periodExpirationDate->format('Y-m-d H:i:s') . "\n";
-        $sb .= "  PaidCredits: " . $this->paidCredits . "\n";
-        $sb .= "  RemainingFreeCredit: " . $this->remainingFreeCredit . "\n";
+        $sb .= "  Currency: " . $this->getCurrency() . "\n";
+        $sb .= "  FreeCredits: " . $this->getFreeCredits() . "\n";
+        $sb .= "  FreeCreditsUsed: " . $this->getFreeCreditsUsed() . "\n";
+        $sb .= "  LastUsedPeriod: " . ($this->getLastUsedPeriod() ? DateTimeHelper::toString($this->getLastUsedPeriod()) : "null") . "\n";
+        $sb .= "  LatestPeriodStartDate: " . DateTimeHelper::toString($this->getLatestPeriodStartDate()) . "\n";
+        $sb .= "  PeriodExpirationDate: " . DateTimeHelper::toString($this->getPeriodExpirationDate()) . "\n";
+        $sb .= "  PaidCredits: " . $this->getPaidCredits() . "\n";
+        $sb .= "  RemainingFreeCredit: " . $this->getRemainingFreeCredit() . "\n";
         $sb .= "}\n";
         return $sb;
     }
