@@ -2,23 +2,23 @@
 
 namespace TurboSMTPTests\Emails;
 
-use TurboSMTP\TurboSMTPClient;
-use TurboSMTP\Domain\EmailMessageBuilder;
-use TurboSMTP\Model\Email\SendDetails;
 use TurboSMTPTests\BaseTestCase;
 use TurboSMTPTests\AppConstants;
+
+use TurboSMTP\TurboSMTPClient;
+
+use TurboSMTP\Domain\EmailMessage\EmailMessageBuilder;
+use TurboSMTP\Model\Email\SendDetails;
 
 class Send extends BaseTestCase
 {
     public function test_send_simple_email()
     {
-        
         //Arrange
         $ts_client = new TurboSMTPClient($this->configuration);
 
-        $emailBuilder = new EmailMessageBuilder();
-
         // Build the email message
+        $emailBuilder = new EmailMessageBuilder();
         $emailMessage = $emailBuilder
             ->setFrom(AppConstants::EmailSender)
             ->addTo(AppConstants::ValidEmailAddresses[0])
@@ -38,13 +38,12 @@ class Send extends BaseTestCase
 
     public function test_send_complete_email()
     {
-        
         //Arrange
         $ts_client = new TurboSMTPClient($this->configuration);
 
+        // Build the email message
         $emailBuilder = new EmailMessageBuilder();
 
-        // Build the email message
         $emailMessage = $emailBuilder
             ->setFrom(AppConstants::EmailSender)
             ->addTo(AppConstants::ValidEmailAddresses[0])

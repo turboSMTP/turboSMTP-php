@@ -46,7 +46,7 @@ class Suppressions extends TurboSMTPService {
         ) 
     {
         parent::__construct($tsClientConfiguration);
-        $this->api = new SuppressionsAPIExtension($this->client, $configuration);
+        $this->api = new SuppressionsAPIExtension($this->getClient(), $configuration);
     }
 
     public function addRangeAsync(string $reason, array $emailAddresses): PromiseInterface

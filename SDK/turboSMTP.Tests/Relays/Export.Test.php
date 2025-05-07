@@ -3,16 +3,20 @@
 namespace TurboSMTPTests\Relays;
 
 use DateTime;
-use TurboSMTP\TurboSMTPClient;
+
 use TurboSMTPTests\BaseTestCase;
+
+use TurboSMTP\TurboSMTPClient;
+
+use TurboSMTP\Domain\Relays\RelayStatus;
+
 use TurboSMTP\Model\Relays\RelaysExportOptionsBuilder;
 use TurboSMTP\Model\Relays\RelayFilterCriteria;
-use TurboSMTP\Domain\Relays\RelayStatus;
 
 class Export extends BaseTestCase
 {
 
-    private function ProcessCSVData(string $csvData)
+    private function ProcessCSVData(string $csvData) :array
     {
         // Split the CSV data into lines
         $lines = explode("\n", $csvData);

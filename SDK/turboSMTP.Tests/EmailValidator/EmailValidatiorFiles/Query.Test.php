@@ -3,14 +3,14 @@
 namespace TurboSMTPTests\EmailValidator\EmailValidatiorFiles;
 
 use DateTime;
-use TurboSMTP\TurboSMTPClient;
-use TurboSMTPTests\BaseTestCase;
-use TurboSMTP\Model\Relays\RelaysQueryOptionsBuilder;
-use TurboSMTP\Model\EmailValidator\EmailValidatorFilesQueryOptionsBuilder;
-use TurboSMTP\Model\Shared\PagedListResults;
-use TurboSMTP\Model\Relays\RelayFilterCriteria;
-use TurboSMTP\Domain\RelayStatus;
 
+use TurboSMTPTests\BaseTestCase;
+
+use TurboSMTP\TurboSMTPClient;
+
+use TurboSMTP\Model\Shared\PagedListResults;
+
+use TurboSMTP\Model\EmailValidator\EmailValidatorFilesQueryOptionsBuilder;
 
 class Query extends BaseTestCase
 {

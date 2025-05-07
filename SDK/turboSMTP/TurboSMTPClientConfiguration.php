@@ -4,8 +4,8 @@ namespace TurboSMTP;
 
 class TurboSMTPClientConfiguration {
     // Private static instance for Singleton
-    private static $instance = null;
-    private static $lock = false;
+    private static ?TurboSMTPClientConfiguration $instance = null;
+    private static bool $lock = false;
 
     // Public properties
     public string $consumerKey;

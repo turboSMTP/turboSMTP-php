@@ -8,9 +8,9 @@ class AppConstants
     const ConsumerSecret = '';
     const EuropeanUser = false;
 
-    const EmailSender = 'sergio.a.matteoda@gmail.com';
+    const EmailSender = 'sergio@gmail.com';
     const ValidEmailAddresses = [
-        "sergio.a.matteoda@gmail.com",
+        "sergio@gmail.com",
         "live2@service.alibaba.com"
     ];
     const InValidEmailAddresses = [

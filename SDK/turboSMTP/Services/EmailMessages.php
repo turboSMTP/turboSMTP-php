@@ -22,7 +22,7 @@ class EmailMessages extends TurboSMTPService {
         Configuration $configuration) 
     {
         parent::__construct($tsClientConfiguration);
-        $this->api = new MailAPIExtension($this->client, $configuration);
+        $this->api = new MailAPIExtension($this->getClient(), $configuration);
     }
 
     public function SendAsync(EmailMessage $emailMessage) : PromiseInterface
@@ -44,7 +44,7 @@ class EmailMessages extends TurboSMTPService {
         }, $emailMessage->getAttachments()));
 
         //Non European users use config in index 0. Europeans in 1;
-        $serverIndex = !$this->configuration->europeanUser ? 0 : 1;
+        $serverIndex = !$this->getConfiguration()->europeanUser ? 0 : 1;
 
         $promise = $this->api->sendEmailAsync($emailRequestBody,$serverIndex);
 

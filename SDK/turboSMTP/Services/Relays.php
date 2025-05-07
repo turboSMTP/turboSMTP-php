@@ -27,7 +27,7 @@ class Relays extends TurboSMTPService {
         Configuration $configuration) 
     {
         parent::__construct($tsClientConfiguration);
-        $this->api = new RelaysAPIExtension($this->client, $configuration);
+        $this->api = new RelaysAPIExtension($this->getClient(), $configuration);
     }
 
     private function filterByStringsArr(array $filterBy) : array
@@ -46,7 +46,7 @@ class Relays extends TurboSMTPService {
 
     public function queryAsync(RelaysQueryOptions $queryOptions) : PromiseInterface
     {
-        $timeZone = $this->configuration->timeZone;
+        $timeZone = $this->getConfiguration()->timeZone;
 
         $promise = $this->api->getAnalyticsDataAsync(
             DateTimeHelper::toShortString($queryOptions->getFrom()),
@@ -90,7 +90,7 @@ class Relays extends TurboSMTPService {
 
     public function exportAsync(RelaysExportOptions $exportOptions): PromiseInterface
     {
-        $timeZone = $this->configuration->timeZone;
+        $timeZone = $this->getConfiguration()->timeZone;
 
         $promise = $this->api->exportAnalyticsDataCSVAsync
         (

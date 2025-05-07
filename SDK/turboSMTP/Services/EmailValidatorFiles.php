@@ -27,7 +27,7 @@ class EmailValidatorFiles extends TurboSMTPService {
         Configuration $configuration) 
     {
         parent::__construct($tsClientConfiguration);
-        $this->api = new EmailValidatorAPIExtension($this->client, $configuration);
+        $this->api = new EmailValidatorAPIExtension($this->getClient(), $configuration);
     }
 
     public function addAsync(string $filename, array $emailAddresses): PromiseInterface
@@ -65,7 +65,7 @@ class EmailValidatorFiles extends TurboSMTPService {
 
     public function queryAsync(EmailValidatorFilesQueryOptions $queryOptions): PromiseInterface
     {
-        $timeZone = $this->configuration->timeZone;
+        $timeZone = $this->getConfiguration()->timeZone;
 
         $promise = $this->api->getEmailValidationListsAsync(
             $queryOptions->getFrom()->format('Y-m-d'),

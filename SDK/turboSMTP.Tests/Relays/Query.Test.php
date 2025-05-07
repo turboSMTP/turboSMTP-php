@@ -3,12 +3,15 @@
 namespace TurboSMTPTests\Relays;
 
 use DateTime;
+
 use TurboSMTP\TurboSMTPClient;
 use TurboSMTPTests\BaseTestCase;
+
+use TurboSMTP\Domain\Relays\RelayStatus;
+
 use TurboSMTP\Model\Relays\RelaysQueryOptionsBuilder;
 use TurboSMTP\Model\Shared\PagedListResults;
 use TurboSMTP\Model\Relays\RelayFilterCriteria;
-use TurboSMTP\Domain\Relays\RelayStatus;
 
 class Query extends BaseTestCase
 {

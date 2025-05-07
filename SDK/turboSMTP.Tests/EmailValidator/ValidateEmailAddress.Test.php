@@ -2,10 +2,11 @@
 
 namespace TurboSMTPTests\EmailValidator;
 
-use DateTime;
-use TurboSMTP\TurboSMTPClient;
 use TurboSMTPTests\BaseTestCase;
 use TurboSMTPTests\AppConstants;
+
+use TurboSMTP\TurboSMTPClient;
+
 use TurboSMTP\Domain\EmailValidator\EmailAddressValidationStatus;
 
 class ValidateEmailAddress extends BaseTestCase

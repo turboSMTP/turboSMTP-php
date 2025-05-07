@@ -27,7 +27,7 @@ class EmailValidator extends TurboSMTPService {
         Configuration $configuration) 
     {
         parent::__construct($tsClientConfiguration);
-        $this->api = new EmailValidatorAPIExtension($this->client, $configuration);
+        $this->api = new EmailValidatorAPIExtension($this->getClient(), $configuration);
     }
 
 
