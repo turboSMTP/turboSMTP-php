@@ -2,7 +2,7 @@
 
 namespace TurboSMTPTests\EmailValidator\EmailValidatiorFiles;
 
-use TurboSMTPTests\AppConstants;
+use TurboSMTPTests\TestsSampleData;
 use TurboSMTPTests\BaseTestCase;
 
 use TurboSMTP\TurboSMTPClient;
@@ -15,7 +15,7 @@ class Add extends BaseTestCase
 
         //Act
         $filename = sprintf("%s-EmailvalidatorFile.txt", $this->get_Formated_DateTime_Compressed());
-        $result = $ts_client->getEmailValidatorFiles()->addAsync($filename,AppConstants::InValidEmailAddresses)->wait();
+        $result = $ts_client->getEmailValidatorFiles()->addAsync($filename,TestsSampleData::InValidEmailAddresses)->wait();
         
         //Assert
         $this->assertGreaterThan(0, strlen($result));

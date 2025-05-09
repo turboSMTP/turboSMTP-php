@@ -3,7 +3,7 @@
 namespace TurboSMTPTests\Emails;
 
 use TurboSMTPTests\BaseTestCase;
-use TurboSMTPTests\AppConstants;
+use TurboSMTPTests\TestsSampleData;
 
 use TurboSMTP\TurboSMTPClient;
 
@@ -20,8 +20,8 @@ class Send extends BaseTestCase
         // Build the email message
         $emailBuilder = new EmailMessageBuilder();
         $emailMessage = $emailBuilder
-            ->setFrom(AppConstants::EmailSender)
-            ->addTo(AppConstants::ValidEmailAddresses[0])
+            ->setFrom(TestsSampleData::EmailSender)
+            ->addTo(TestsSampleData::ValidEmailAddresses[0])
             ->setSubject('PHP - Trivia contest simple email')
             ->setContent('Do not loose the opportunity to participate..')
             ->setHtmlContent('<p>Do not loose the <strong>opportunity</strong> to participate...</p>')
@@ -45,9 +45,9 @@ class Send extends BaseTestCase
         $emailBuilder = new EmailMessageBuilder();
 
         $emailMessage = $emailBuilder
-            ->setFrom(AppConstants::EmailSender)
-            ->addTo(AppConstants::ValidEmailAddresses[0])
-            ->addTo(AppConstants::ValidEmailAddresses[1])
+            ->setFrom(TestsSampleData::EmailSender)
+            ->addTo(TestsSampleData::ValidEmailAddresses[0])
+            ->addTo(TestsSampleData::ValidEmailAddresses[1])
             ->setSubject('PHP - Trivia contest simple email - Full - ' . $this->get_full_date_time())
             ->setContent('Do not loose the opportunity to participate..')
             ->setHtmlContent('<p>Do not loose the <strong>opportunity</strong> to participate...</p>')

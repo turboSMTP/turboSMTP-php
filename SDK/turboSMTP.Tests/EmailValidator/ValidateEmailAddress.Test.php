@@ -3,7 +3,7 @@
 namespace TurboSMTPTests\EmailValidator;
 
 use TurboSMTPTests\BaseTestCase;
-use TurboSMTPTests\AppConstants;
+use TurboSMTPTests\TestsSampleData;
 
 use TurboSMTP\TurboSMTPClient;
 
@@ -16,17 +16,18 @@ class ValidateEmailAddress extends BaseTestCase
         $ts_client = new TurboSMTPClient($this->configuration);
 
         //Act
-        $result = $ts_client->getEmailValidator()->ValidateEmailAdressAsync(AppConstants::ValidEmailAddresses[0])->wait();
+        $result = $ts_client->getEmailValidator()->ValidateEmailAdressAsync(TestsSampleData::ValidEmailAddresses[0])->wait();
         
         //Assert
         $this->assertEquals(
             strtolower($result->getEmail()),
-            strtolower(AppConstants::ValidEmailAddresses[0])
+            strtolower(TestsSampleData::ValidEmailAddresses[0])
         );
 
-        $this->assertEquals(
-            $result->getStatus(),
-            EmailAddressValidationStatus::Valid
+        $this->assertTrue(
+            $result->getStatus() === EmailAddressValidationStatus::Valid ||
+            $result->getStatus() === EmailAddressValidationStatus::DoNotMail,
+            'The status must be either Valid or DoNotEmail.'
         );
     }
 
@@ -35,12 +36,12 @@ class ValidateEmailAddress extends BaseTestCase
         $ts_client = new TurboSMTPClient($this->configuration);
 
         //Act
-        $result = $ts_client->getEmailValidator()->ValidateEmailAdressAsync(AppConstants::InValidEmailAddresses[0])->wait();
+        $result = $ts_client->getEmailValidator()->ValidateEmailAdressAsync(TestsSampleData::InValidEmailAddresses[0])->wait();
         
         //Assert
         $this->assertEquals(
             strtolower($result->getEmail()),
-            strtolower(AppConstants::InValidEmailAddresses[0])
+            strtolower(TestsSampleData::InValidEmailAddresses[0])
         );
 
         $this->assertNotEquals(

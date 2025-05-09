@@ -169,17 +169,17 @@ class Suppressions extends TurboSMTPService {
 
     private function setOrderByFromSuppressionsOrderBy(SuppressionsOrderByModel $orderBy): string {
         $orderByMapping = [
-            SuppressionsOrderByModel::date => SuppressionOrderBy::DATE,
-            SuppressionsOrderByModel::source => SuppressionOrderBy::SOURCE,
-            SuppressionsOrderByModel::recipient => SuppressionOrderBy::RECIPIENT,
-            SuppressionsOrderByModel::reason => SuppressionOrderBy::REASON,
+            SuppressionsOrderByModel::date->value => SuppressionOrderBy::DATE,
+            SuppressionsOrderByModel::source->value => SuppressionOrderBy::SOURCE,
+            SuppressionsOrderByModel::recipient->value => SuppressionOrderBy::RECIPIENT,
+            SuppressionsOrderByModel::reason->value => SuppressionOrderBy::REASON,
         ];
     
-        if (!array_key_exists($orderBy, $orderByMapping)) {
+        if (!array_key_exists($orderBy->value, $orderByMapping)) {
             throw new \InvalidArgumentException("Invalid SuppressionsOrderBy value");
         }
     
-        return $orderByMapping[$orderBy];
+        return $orderByMapping[$orderBy->value];
     }
 
     public function queryAsync(SuppressionsQueryOptions $options): PromiseInterface

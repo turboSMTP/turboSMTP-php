@@ -23,9 +23,9 @@ class BaseTestCase extends TestCase
         $configurationBuilder = new TurboSMTPClientConfigurationBuilder();
 
         $this->configuration = $configurationBuilder
-            ->setConsumerKey(AppConstants::ConsumerKey)
-            ->setConsumerSecret(AppConstants::ConsumerSecret)
-            ->setEuropeanUser(AppConstants::EuropeanUser)
+            ->setConsumerKey(TestsSampleData::ConsumerKey)
+            ->setConsumerSecret(TestsSampleData::ConsumerSecret)
+            ->setEuropeanUser(TestsSampleData::EuropeanUser)
             ->build();
     }
 

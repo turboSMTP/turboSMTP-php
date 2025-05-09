@@ -2,7 +2,7 @@
 
 namespace TurboSMTPTests\EmailValidator\EmailValidatiorFiles;
 
-use TurboSMTPTests\AppConstants;
+use TurboSMTPTests\TestsSampleData;
 use TurboSMTPTests\BaseTestCase;
 
 use TurboSMTP\TurboSMTPClient;
@@ -29,7 +29,7 @@ class Delete extends BaseTestCase
 
         //Act
         $filename = sprintf("%s-EmailvalidatorFile.txt", $this->get_Formated_DateTime_Compressed());
-        $id = $ts_client->getEmailValidatorFiles()->addAsync($filename,AppConstants::InValidEmailAddresses)->wait();
+        $id = $ts_client->getEmailValidatorFiles()->addAsync($filename,TestsSampleData::InValidEmailAddresses)->wait();
         $result = $ts_client->getEmailValidatorFiles()->deleteAsync($id)->wait();
         
         //Assert
