@@ -46,7 +46,7 @@ Changes to the SDK beginning with version 2.0.0 (December 2024) are tracked in [
 
 ### Requirements
 
-- **<span style="color:red">Enumerate PHP requirements</span>**.
+- **PHP 8.3+**.
 - **A turboSMTP account**, [sign up for free][turboSMTP_sign_up] to send up to 6.000 FREE emails per month (No Obligation - No Credit card required).
 
 ### API Key
@@ -121,8 +121,8 @@ class Sample
 namespace SampleNameSpace;
 
 use TurboSMTP\TurboSMTPClientConfigurationBuilder;
-use TurboSMTP\Domain\EmailMessageBuilder;
 use TurboSMTP\TurboSMTPClient;
+use TurboSMTP\Domain\EmailMessage\EmailMessageBuilder;
 
 class Sample 
 {
