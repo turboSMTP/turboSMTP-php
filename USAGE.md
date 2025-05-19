@@ -146,20 +146,16 @@ $csvTextContent = $ts_client->getRelays()->exportAsync($queryOptions)->wait();
 The **AddAsync** method is an asynchronous operation that handles the process of adding an email address to the suppressions list. The method takes the *reason for the suppression* and the *email address to add to the suppresions list* as input and returns a `SuppressionsAddResult` object, which contains the result of the Add operation.
 
 ```csharp
-var suppressionReason = "Manual Processing of Removal Request";
-var suppressionEmailAddress = "recipient@recipient.domain.com";
+//Describe suppression reason
+$suppressionReason = "Manual Processing of Removal Request";
+//Declare email address to add to suppressions.
+$suppressionEmailAddress = "recipient@recipient.domain.com";
 
-//Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+//Add Suppression
+$suppressionsAddResult = $ts_client->GetSuppressions()->addAsync($suppressionReason,$suppressionEmailAddress)->wait();
 
-//Add the Email Address to the Suppressions List.
-var addSuppressionsResult = await client.Suppressions.AddAsync(suppressionReason,suppressionEmailAddress);
-
-//Evaluate if the Suppression was Successfully Processed.
-if (addSuppressionsResult.Valid.Contains(suppressionEmailAddress))
-{
-    Console.WriteLine("OK");
-}
+//Evaluate Add Results.
+var_dump($suppressionsAddResult);
 ```
 
 ## Add Multiple Suppressions
