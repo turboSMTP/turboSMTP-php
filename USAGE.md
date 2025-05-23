@@ -217,7 +217,7 @@ $pagedList = $ts_client->getSuppressions()->queryAsync($queryOptions)->wait();
 //Evaluate the total ammount of records according to the queryOptions.
 echo count($pagedList->getRecords());
 
-//Evaluate the Subject of the fist Relay.
+//Evaluate returned suppressions.
 $records = $pagedList->getRecords();
 if (!empty($records)) {
     var_dump($records);
@@ -228,43 +228,48 @@ if (!empty($records)) {
 
 ## Export Suppressions To CSV
 
-The **ExportAsync** method is an asynchronous operation designed to export suppressions data based on specified export options. The method takes a `SuppressionsExportOptions` object as input and returns the data in CSV formated string, which can then be saved or further processed.
+The **exportAsync** method is an asynchronous operation designed to export suppressions data based on specified export options. The method takes a `SuppressionsExportOptions` object as input and returns the data in CSV formated string, which can then be saved or further processed.
 
-```csharp
+```php
+use DateTime;
+use TurboSMTP\TurboSMTPClient;
+use TurboSMTP\Model\Suppressions\SuppressionsExportOptionsBuilder;
+
 //Create an instance of SuppressionsExportOptions
-var exportOptions = new SuppressionsExportOptions.Builder()
-                .SetFrom(DateTime.Now.AddYears(-3))
-                .SetTo(DateTime.Now)
-                .Build();
+$exportOptionsBuilder = new SuppressionsExportOptionsBuilder();
+ 
+$exportOptions = $exportOptionsBuilder
+   ->setFrom((new DateTime())->modify('-3 years'))
+   ->setTo(new DateTime())
+   ->build();
 
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
 //Export Suppressions
-var csvContent = await client.Suppressions.ExportAsync(exportOptions);
+$csvTextContent = $ts_client->getSuppressions()->exportAsync($exportOptions)->wait();
 
-//Save content to a CSV File.
-File.WriteAllText(filePath, csvContent);
+var_dump($csvTextContent);
 ```
 
 ## Delete a Single Suppression
 
-The **DeleteAsync** method is an asynchronous operation that handles the process of removing an email address from the suppressions list. The method takes the *email address to remove from the suppressions list* as input and returns a boolean result that indicates if the deletion was successful.
+The **deleteAsync** method is an asynchronous operation that handles the process of removing an email address from the suppressions list. The method takes the *email address to remove from the suppressions list* as input and returns a boolean result that indicates if the deletion was successful.
 
-```csharp
-var suppressionEmailAddress = "recipient@recipient.domain.com";
+```php
+use TurboSMTP\TurboSMTPClient;
+
+//Create an instance of SuppressionsExportOptions
+$suppressionEmailAddressToRemove = "recipient@recipient.domain.com";
 
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+//$ts_client = new TurboSMTPClient($configuration);  
 
 //Remove Suppression
-var success = await client.Suppressions.DeleteAsync(suppressionEmailAddress);
+$success = $ts_client->getSuppressions()->deleteAsync($suppressionEmailAddressToRemove)->wait();
 
-//Evaluate if the Suppression was Successfully Removed.
-if (success)
-{
-    Console.WriteLine("Removed");
-}
+//Evaluate result
+var_dump($success);
 ```
 
 ## Delete Multiple Suppressions
