@@ -145,11 +145,17 @@ $csvTextContent = $ts_client->getRelays()->exportAsync($queryOptions)->wait();
 
 The **AddAsync** method is an asynchronous operation that handles the process of adding an email address to the suppressions list. The method takes the *reason for the suppression* and the *email address to add to the suppresions list* as input and returns a `SuppressionsAddResult` object, which contains the result of the Add operation.
 
-```csharp
+```php
+use TurboSMTP\TurboSMTPClient;
+
 //Describe suppression reason
 $suppressionReason = "Manual Processing of Removal Request";
+
 //Declare email address to add to suppressions.
 $suppressionEmailAddress = "recipient@recipient.domain.com";
+
+//Create a new instance of TurboSMTPClient
+$ts_client = new TurboSMTPClient($configuration);
 
 //Add Suppression
 $suppressionsAddResult = $ts_client->GetSuppressions()->addAsync($suppressionReason,$suppressionEmailAddress)->wait();
@@ -160,58 +166,64 @@ var_dump($suppressionsAddResult);
 
 ## Add Multiple Suppressions
 
-The **AddRangeAsync** method is an asynchronous operation that handles the process of adding multiple email addresses to the suppressions list. The method takes the *reason for the suppressions* and a list of *email addresses to add to the suppresions list* as input and returns a `SuppressionsAddResult` object, which contains the result of the AddRange operation.
+The **addRangeAsync** method is an asynchronous operation that handles the process of adding multiple email addresses to the suppressions list. The method takes the *reason for the suppressions* and a list of *email addresses to add to the suppresions list* as input and returns a `SuppressionsAddResult` object, which contains the result of the addRangeAsync operation.
 
-```csharp
-var suppressionReason = "Manual Processing of Removal Request";
+```php
+use TurboSMTP\TurboSMTPClient;
+
+//Describe suppression reason
+$suppressionReason = "Manual Processing of Removal Request";
 
 //Create a Test List of email addresses
-var testEmailAddresses = new List<string>()
-{
-    "first-recipient@recipient.domain.com",
-    "second-recipient@recipient.domain.com",
-    "invalid-recipient@malformed-domain"
-};
+$suppressionEmailAddressToAdd = [
+    "recipient1@domain.com",
+    "recipient2@domain.com",
+    "recipient3@domain.com"
+];
 
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);
 
 //Add the Test Mail Addresses to the Suppressions List
-var addSuppressionsResult = await client.Suppressions.AddRangeAsync(suppressionReason, testEmailAddresses);
+$suppressionsAddResult = $ts_client->GetSuppressions()->addRangeAsync($suppressionReason,$suppressionEmailAddressToAdd)->wait();
 
-//Evaluate Suppressions Processing Result
-foreach (var validEmailAddress in addSuppressionsResult.Valid)
-{
-    Console.WriteLine($"Valid: {validEmailAddress}");
-}
-foreach (var inValidEmailAddress in addSuppressionsResult.Invalid)
-{
-    Console.WriteLine($"Invalid: {inValidEmailAddress}");
-}
+//Evaluate Add Results.
+var_dump($suppressionsAddResult);
 ```
 
 ## Query Suppressions
 
-The **QueryAsync** method is an asynchronous operation designed to retrieve paginated results of suppressions data based on specified query options. The method takes a `SuppressionsQueryOptions` object as input and returns PagedListResults<Suppression> object, which contains the total number of records and a list of Suppresion objects.
+The **queryAsync** method is an asynchronous operation designed to retrieve paginated results of suppressions data based on specified query options. The method takes a `SuppressionsQueryOptions` object as input and returns PagedListResults object, which contains the total number of records and a list of Suppresion objects.
 
-```csharp
+```php
+use DateTime;
+use TurboSMTP\TurboSMTPClient;
+use TurboSMTP\Model\Suppressions\SuppressionsQueryOptionsBuilder;
+
 //Create an instance of SuppressionsQueryOptions
-var queryOptions = new SuppressionsQueryOptions.Builder()
-                .SetFrom(DateTime.Now.AddYears(-3))
-                .SetTo(DateTime.Now)
-                .Build();
+$queryOptionsBuilder = new SuppressionsQueryOptionsBuilder();
+ 
+$queryOptions = $queryOptionsBuilder
+   ->setFrom((new DateTime())->modify('-3 years'))
+   ->setTo(new DateTime())
+   ->build();
 
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
 //Query Suppressions
-var pagedList = await client.Suppressions.QueryAsync(queryOptions);
+$pagedList = $ts_client->getSuppressions()->queryAsync($queryOptions)->wait();
 
 //Evaluate the total ammount of records according to the queryOptions.
-Console.WriteLine(pagedList.TotalRecords);
+echo count($pagedList->getRecords());
 
-//Evaluate the Recipient of the fist Suppression.
-Console.WriteLine(pagedList.Records.First().Recipient);
+//Evaluate the Subject of the fist Relay.
+$records = $pagedList->getRecords();
+if (!empty($records)) {
+    var_dump($records);
+} else {
+    echo "No records found.";
+
 ```
 
 ## Export Suppressions To CSV
