@@ -341,53 +341,60 @@ var_dump($success);
 
 The **GetEmailValidatorSubscriptionAsync** method is an asynchronous operation that handles the process of retrieving Email Validator Subsctiption details. The method  returns an `EmailValidatorSubscription` object.
 
-```csharp
+```php
+use TurboSMTP\TurboSMTPClient;
+
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
-//Retrieve Email Validator Subscription
-var emailValidatorSubscription = await client.EmailValidator.GetEmailValidatorSubscriptionAsync();
+//Get Email Validator Subscription Details
+$emailValidatorSubscription = $ts_client->getEmailValidator()->GetEmailValidatorSubscriptionAsync()->wait();
 
-//Evaluate remaining credits.
-Console.WriteLine($"Free Credits: {emailValidatorSubscription.FreeCredits}");
-Console.WriteLine($"Paid Credits: {emailValidatorSubscription.PaidCredits}");
+//Evaluate result
+var_dump($emailValidatorSubscription);
 ```
 
 ## Validate a Single Email Address.
 
-The **ValidateAsync** method is an asynchronous operation that handles the process of validating an email address. The method takes the *email address to validate* as input and returns an `EmailAddressValidationDetails` object.
+The **ValidateEmailAddressAsync** method is an asynchronous operation that handles the process of validating an email address. The method takes the *email address to validate* as input and returns an `EmailAddressValidationDetails` object.
 
-```csharp
+```php
+use TurboSMTP\TurboSMTPClient;
+
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
-//Retrieve Email Address Validation Details
-var emailAddressValidationDetails = await client.EmailValidator.ValidateAsync("recipient@recipient-domain.com");
+//Validate email address
+$emailAddressValidationDetails = $ts_client->getEmailValidator()->ValidateEmailAdressAsync("recipient@recipient-domain.com")->wait();
 
-//Evaluate Email Address Validation Details
-Console.WriteLine($"Status: {emailAddressValidationDetails.Status} - {emailAddressValidationDetails.SubStatus}");
-Console.WriteLine($"Free: {emailAddressValidationDetails.FreeEmail}");
+//Evaluate result
+var_dump($emailAddressValidationDetails);
 ```
 
 # Email Validator Files
 
 ## Add a File of Email Addresses
 
-The **AddAsync** method is an asynchronous operation that handles the process of adding a list of email addresses. The method takes the *filename* and a list of *email addresses* as input and returns the id of the list just added.
+The **addAsync** method is an asynchronous operation that handles the process of adding a list of email addresses. The method takes the *filename* and a list of *email addresses* as input and returns the id of the list just added.
 
-```csharp
-//Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+```php
+use TurboSMTP\TurboSMTPClient;
 
 //Create a sample list of email addresses.
-var contactsDetails = new List<string>()
-    {
-        "recipient1@domain.com",
-        "recipient2@domain.com"
-    };
+$contactsDetails = [
+    "recipient1@domain.com",
+    "recipient2@domain.com",
+    "recipient3@domain.com"
+];
 
-//Add a file named "contacts.txt" with the list of email addresses
-var fileId = await client.EmailValidatorFiles.AddAsync("contacts.txt", contactsDetails);
+//Create a new instance of TurboSMTPClient
+$ts_client = new TurboSMTPClient($configuration);  
+
+//Add Email Validator File
+$emailValidatorFileId = $ts_client->getEmailValidatorFiles()->addAsync("contacts.txt",$contactsDetails)->wait();
+
+//Evaluate result
+var_dump($emailValidatorFileId);
 ```
 
 ## Get Single File Details
