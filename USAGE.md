@@ -43,7 +43,6 @@ $ts_client = new TurboSMTPClient($configuration);
 * [Suppressions](#suppressions)
 * [Email Validator](#email-validator)
 * [Email Validator Files](#email-validator-files)
-* [Email Validator File Results](#email-validator-file-results)
 
 # Email Messages
 
@@ -399,112 +398,83 @@ var_dump($emailValidatorFileId);
 
 ## Get Single File Details
 
-The **GetAsync** method is an asynchronous operation designed to retrieve file data based on a specific file identifier. The method takes the *id* as input and returns an EmailValidatorFile object.
+The **getAsync** method is an asynchronous operation designed to retrieve file data based on a specific file identifier. The method takes the *id* as input and returns an EmailValidatorFile object.
 
-```csharp
+```php
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
-//Get Email Validator File Details
-var emailValidatorFile = await client.EmailValidatorFiles.GetAsync(fileId);
+//Validate email address
+$emailValidatorFile = $ts_client->getEmailValidatorFiles()->getAsync(16518)->wait();
 
-//Evaluate the File Details.
-Console.WriteLine($"File: {emailValidatorFile.FileName} - Processed: {emailValidatorFile.IsProcessed}");
+//Evaluate result
+var_dump($emailValidatorFile);
 ```
 
 ## Query Files Details
 
-The **QueryAsync** method is an asynchronous operation designed to retrieve paginated results of files data based on specified query options. The method takes an `EmailValidatorFilesQueryOptions` object as input and returns PagedListResults<EmailValidatorFile> object, which contains the total number of records and a list of EmailValidatorFile objects.
+The **queryAsync** method is an asynchronous operation designed to retrieve paginated results of files data based on specified query options. The method takes an `EmailValidatorFilesQueryOptions` object as input and returns PagedListResults object, which contains the total number of records and a list of EmailValidatorFile objects.
 
-```csharp
+```php
+use DateTime;
+use TurboSMTP\TurboSMTPClient;
+use TurboSMTP\Model\EmailValidator\EmailValidatorFilesQueryOptionsBuilder;
+
+//Create an instance of EmailValidatorFilesQueryOptionsBuilder
+$queryOptionsBuilder = new EmailValidatorFilesQueryOptionsBuilder();
+
 //Create an instance of EmailValidatorFilesQueryOptions
-var queryOptions = new EmailValidatorFilesQueryOptions.Builder()
-    .SetFrom(DateTime.Now.AddYears(-3))
-    .SetTo(DateTime.Now)
-    .Build();
+$queryOptions = $queryOptionsBuilder
+    ->setFrom((new DateTime())->modify('-3 years'))
+    ->setTo(new DateTime())
+    ->build();
 
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
 //Query Email Validator Files
-var pagedList = await client.EmailValidatorFiles.QueryAsync(queryOptions);
+$pagedList  = $ts_client->getEmailValidatorFiles()->queryAsync($queryOptions)->wait();
 
-//Evaluate the total ammount of records according to the queryOptions.
-Console.WriteLine(pagedList.TotalRecords);
-
-//Evaluate Processing Status of all returened files.
-foreach (var file in pagedList.Records) 
-{
-    Console.WriteLine($"File: {file.FileName} - Processed: {file.IsProcessed}");
+//Evaluate the Subject of the fist File.
+$records = $pagedList->getRecords();
+if (!empty($records)) {
+    var_dump($records[0]);
+} else {
+    echo "No records found.";
 }
 ```
 
 ## Validate a File
 
-The **ValidateAsync** method is an asynchronous operation designed to validate (process) a file based on a specific file identifier. The method takes the *id* as input and returns a boolean indicating if validation was sucessfull or not.
+The **validateAsync** method is an asynchronous operation designed to validate (process) a file based on a specific file identifier. The method takes the *id* as input and returns a boolean indicating if validation was sucessfull or not.
 
-```csharp
+```php
+use TurboSMTP\TurboSMTPClient;
+
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+//$ts_client = new TurboSMTPClient($configuration);  
 
 //Validate file
-var validationResult = await client.EmailValidatorFiles.ValidateAsync(fileId);
+$validationResult  = $ts_client->getEmailValidatorFiles()->validateAsync(16518)->wait();
 
-//Evaluate the validation result.
-if (validationResult)
-    Console.WriteLine("Validation OK");
+//Evaluate result
+var_dump($validationResult);
 ```
 
 ## Delete a File
 
-The **DeleteAsync** method is an asynchronous operation designed to delete a file based on a specific file identifier. The method takes the *id* as input and returns a boolean indicating if validation was sucessfull or not.
+The **deleteAsync** method is an asynchronous operation designed to delete a file based on a specific file identifier. The method takes the *id* as input and returns a boolean indicating if deletion was sucessfull or not.
 
 ```csharp
+use TurboSMTP\TurboSMTPClient;
+
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
 //Delete a file
-var deleteResult = await client.EmailValidatorFiles.DeleteAsync(fileId);
+$deleteResult  = $ts_client->getEmailValidatorFiles()->deleteAsync(16518)->wait();
 
-//Evaluate the delete result.
-if (deleteResult)
-  Console.WriteLine("File has been deleted.");
+//Evaluate result
+var_dump($deleteResult);
 ```
 
-# Email Validator File Results
-
-## Query File Validation Results
-
-The **QueryAsync** method is an asynchronous operation designed to retrieve paginated results of validation results data based on specified query options. The method takes an `EmailValidatorFileResultsQueryOptions` object as input and returns PagedListResults<EmailAddressValidationDetails> object, which contains the total number of records and a list of EmailAddressValidationDetails objects.
-
-```csharp
-//Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
-
-//Query file results
-var pagedList = await client.EmailValidatorFileResults.QueryAsync(queryOptions);
-
-//Evaluate the total ammount of records according to the queryOptions.
-Console.WriteLine(pagedList.TotalRecords);
-
-//Evaluate Processing Status of all returened files.
-foreach (var emailAddressValidationDetails in pagedList.Records)
-{
-    Console.WriteLine($"Email: {emailAddressValidationDetails.Email} - Status: {emailAddressValidationDetails.Status}");
-}
-```
-
-## Export File Validation Results To CSV
-
-The **Export** method is an asynchronous operation designed to export file validation results based on specified export options. The method takes the *id* as input as input and returns the data in CSV formated string, which can then be saved or further processed.
-
-```csharp
-//Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
-
-//Export file results
-var csvContent = await client.EmailValidatorFileResults.ExportAsync(fileId);
-
-//Save content to a CSV File.
-File.WriteAllText(filePath, csvContent);
-```
