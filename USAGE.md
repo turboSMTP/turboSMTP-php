@@ -274,51 +274,65 @@ var_dump($success);
 
 ## Delete Multiple Suppressions
 
-The **DeleteRangeAsync** method is an asynchronous operation that handles the process of removing multiple email addresses from the suppressions list. The method takes a list of *email addresses to remove from the suppresions list* as input and returns a boolean result, that indicates if the deletion was successful.
+The **deleteRangeAsync** method is an asynchronous operation that handles the process of removing multiple email addresses from the suppressions list. The method takes a list of *email addresses to remove from the suppresions list* as input and returns a boolean result, that indicates if the deletion was successful.
 
-```csharp
-var testEmailAddresses = new List<string>()
-            {
-                "first-recipient@recipient.domain.com",
-                "second-recipient@recipient.domain.com",
-                "third-recipient@recipient.domain.com",
-            };
+```php
+use TurboSMTP\TurboSMTPClient;
+
+//Create a Test List of email addresses
+$suppressionEmailAddressesToRemove = [
+    "recipient1@domain.com",
+    "recipient2@domain.com",
+    "recipient3@domain.com"
+];
 
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
-//Remove Suppressions
-var success = await client.Suppressions.DeleteRangeAsync(testEmailAddresses);
+//Remove Suppression
+$success = $ts_client->getSuppressions()->deleteRangeAsync($suppressionEmailAddressesToRemove)->wait();
 
-//Evaluate if the suppressions were Successfully Removed.
-if (success)
-{
-    Console.WriteLine("Removed");
-}
+//Evaluate result
+var_dump($success);
 ```
 
 ## Delete Suppressions Based on a Criteria
 
-The **DeleteAsync** method is an asynchronous operation that handles the process of removing multiple email addresses from the suppressions list according to a filter Criteria. The method takes a `SuppressionsDeleteOptions` object as input and returns a boolean result, that indicates if the deletion was successful.
+The **deleteWithOptionsAsync** method is an asynchronous operation that handles the process of removing multiple email addresses from the suppressions list according to a filter Criteria. The method takes a `SuppressionsDeleteOptions` object as input and returns a boolean result, that indicates if the deletion was successful.
 
-```csharp
-//Create an instance of SuppressionsDeleteOptions
-var deleteOptions = new SuppressionsDeleteOptions.Builder()
-                .SetFrom(DateTime.Now.AddMonths(-1))
-                .SetTo(DateTime.Now)
-                .Build();
+```php
+use DateTime;
+use TurboSMTP\TurboSMTPClient;
+use TurboSMTP\Domain\Suppressions\SuppresionsRestrictionFilterBy;
+use TurboSMTP\Model\Suppressions\SuppressionsRestriction;
+use TurboSMTP\Model\Suppressions\SuppressionsRestrictionOperator;
+use TurboSMTP\Model\Suppressions\SuppressionsDeleteOptionsBuilder;
+
+//Create an array of suppression restrictions
+$suppressionsRestrictions[] = new SuppressionsRestriction(
+    SuppresionsRestrictionFilterBy::reason,
+    SuppressionsRestrictionOperator::include,
+    'Testing Suppressions',
+    true // Smart search enabled
+);
+
+//Create suppressions delete options with restrictions
+ $suppressionsDeleteOptionsBuilder = new SuppressionsDeleteOptionsBuilder();
+
+ $suppressionsDeleteOptions = $suppressionsDeleteOptionsBuilder
+    ->setFrom((new DateTime()))
+    ->setTo(new DateTime())
+    ->setRestrictions($suppressionsRestrictions)
+    ->build(); 
 
 //Create a new instance of TurboSMTPClient
-var client = new TurboSMTPClient(TurboSMTPClientConfiguration.Instance);
+$ts_client = new TurboSMTPClient($configuration);  
 
-//Remove Suppressions
-var success = await client.Suppressions.DeleteAsync(deleteOptions);
+//Remove Suppression
+$success = $ts_client->getSuppressions()->deleteWithOptionsAsync($suppressionsDeleteOptions)->wait();
 
-//Evaluate if the suppressions were Successfully Removed.
-if (success)
-{
-    Console.WriteLine("Removed");
-}
+//Evaluate result
+var_dump($success);
 ```
 
 # Email Validator
