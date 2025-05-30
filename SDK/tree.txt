@@ -20,7 +20,11 @@ C:.
 ³   ³   ÃÄÄÄRelays
 ³   ³   ÀÄÄÄShared
 ³   ÀÄÄÄServices
+ÃÄÄÄturboSMTP.Tests
+³   ÃÄÄÄEmails
+³   ÀÄÄÄRelays
 ÀÄÄÄvendor
+    ÃÄÄÄbin
     ÃÄÄÄcomposer
     ÃÄÄÄguzzlehttp
     ³   ÃÄÄÄguzzle
@@ -62,6 +66,793 @@ C:.
     ³           ÃÄÄÄphp-cs-fixer
     ³           ÃÄÄÄphpstan
     ³           ÀÄÄÄpsalm
+    ÃÄÄÄmyclabs
+    ³   ÀÄÄÄdeep-copy
+    ³       ÃÄÄÄ.github
+    ³       ³   ÀÄÄÄworkflows
+    ³       ÃÄÄÄdoc
+    ³       ÃÄÄÄfixtures
+    ³       ³   ÃÄÄÄf001
+    ³       ³   ÃÄÄÄf002
+    ³       ³   ÃÄÄÄf003
+    ³       ³   ÃÄÄÄf004
+    ³       ³   ÃÄÄÄf005
+    ³       ³   ÃÄÄÄf006
+    ³       ³   ÃÄÄÄf007
+    ³       ³   ÃÄÄÄf008
+    ³       ³   ÃÄÄÄf009
+    ³       ³   ÃÄÄÄf011
+    ³       ³   ÃÄÄÄf012
+    ³       ³   ÃÄÄÄf013
+    ³       ³   ÀÄÄÄf014
+    ³       ÃÄÄÄsrc
+    ³       ³   ÀÄÄÄDeepCopy
+    ³       ³       ÃÄÄÄException
+    ³       ³       ÃÄÄÄFilter
+    ³       ³       ³   ÀÄÄÄDoctrine
+    ³       ³       ÃÄÄÄMatcher
+    ³       ³       ³   ÀÄÄÄDoctrine
+    ³       ³       ÃÄÄÄReflection
+    ³       ³       ÃÄÄÄTypeFilter
+    ³       ³       ³   ÃÄÄÄDate
+    ³       ³       ³   ÀÄÄÄSpl
+    ³       ³       ÀÄÄÄTypeMatcher
+    ³       ÀÄÄÄtests
+    ³           ÀÄÄÄDeepCopyTest
+    ³               ÃÄÄÄFilter
+    ³               ³   ÀÄÄÄDoctrine
+    ³               ÃÄÄÄMatcher
+    ³               ³   ÀÄÄÄDoctrine
+    ³               ÃÄÄÄReflection
+    ³               ÃÄÄÄTypeFilter
+    ³               ³   ÃÄÄÄDate
+    ³               ³   ÀÄÄÄSpl
+    ³               ÀÄÄÄTypeMatcher
+    ÃÄÄÄnikic
+    ³   ÀÄÄÄphp-parser
+    ³       ÃÄÄÄ.github
+    ³       ³   ÀÄÄÄworkflows
+    ³       ÃÄÄÄbin
+    ³       ÃÄÄÄdoc
+    ³       ³   ÀÄÄÄcomponent
+    ³       ÃÄÄÄgrammar
+    ³       ÃÄÄÄlib
+    ³       ³   ÀÄÄÄPhpParser
+    ³       ³       ÃÄÄÄBuilder
+    ³       ³       ÃÄÄÄComment
+    ³       ³       ÃÄÄÄErrorHandler
+    ³       ³       ÃÄÄÄInternal
+    ³       ³       ÃÄÄÄLexer
+    ³       ³       ³   ÀÄÄÄTokenEmulator
+    ³       ³       ÃÄÄÄNode
+    ³       ³       ³   ÃÄÄÄExpr
+    ³       ³       ³   ³   ÃÄÄÄAssignOp
+    ³       ³       ³   ³   ÃÄÄÄBinaryOp
+    ³       ³       ³   ³   ÀÄÄÄCast
+    ³       ³       ³   ÃÄÄÄName
+    ³       ³       ³   ÃÄÄÄScalar
+    ³       ³       ³   ³   ÀÄÄÄMagicConst
+    ³       ³       ³   ÀÄÄÄStmt
+    ³       ³       ³       ÀÄÄÄTraitUseAdaptation
+    ³       ³       ÃÄÄÄNodeVisitor
+    ³       ³       ÃÄÄÄParser
+    ³       ³       ÀÄÄÄPrettyPrinter
+    ³       ÃÄÄÄtest
+    ³       ³   ÃÄÄÄcode
+    ³       ³   ³   ÃÄÄÄformatPreservation
+    ³       ³   ³   ÃÄÄÄparser
+    ³       ³   ³   ³   ÃÄÄÄerrorHandling
+    ³       ³   ³   ³   ÃÄÄÄexpr
+    ³       ³   ³   ³   ³   ÃÄÄÄfetchAndCall
+    ³       ³   ³   ³   ³   ÀÄÄÄuvs
+    ³       ³   ³   ³   ÃÄÄÄscalar
+    ³       ³   ³   ³   ÀÄÄÄstmt
+    ³       ³   ³   ³       ÃÄÄÄclass
+    ³       ³   ³   ³       ÃÄÄÄfunction
+    ³       ³   ³   ³       ÃÄÄÄgenerator
+    ³       ³   ³   ³       ÃÄÄÄloop
+    ³       ³   ³   ³       ÀÄÄÄnamespace
+    ³       ³   ³   ÀÄÄÄprettyPrinter
+    ³       ³   ³       ÃÄÄÄexpr
+    ³       ³   ³       ÀÄÄÄstmt
+    ³       ³   ÃÄÄÄfixtures
+    ³       ³   ÀÄÄÄPhpParser
+    ³       ³       ÃÄÄÄBuilder
+    ³       ³       ÃÄÄÄErrorHandler
+    ³       ³       ÃÄÄÄInternal
+    ³       ³       ÃÄÄÄLexer
+    ³       ³       ÃÄÄÄNode
+    ³       ³       ³   ÃÄÄÄExpr
+    ³       ³       ³   ÃÄÄÄScalar
+    ³       ³       ³   ÀÄÄÄStmt
+    ³       ³       ÃÄÄÄNodeVisitor
+    ³       ³       ÀÄÄÄParser
+    ³       ÃÄÄÄtest_old
+    ³       ÀÄÄÄtools
+    ³           ÀÄÄÄfuzzing
+    ÃÄÄÄphar-io
+    ³   ÃÄÄÄmanifest
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ÃÄÄÄexamples
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÃÄÄÄexceptions
+    ³   ³   ³   ÃÄÄÄvalues
+    ³   ³   ³   ÀÄÄÄxml
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄexceptions
+    ³   ³   ³   ÃÄÄÄvalues
+    ³   ³   ³   ÃÄÄÄxml
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ³       ÀÄÄÄphp-cs-fixer.d
+    ³   ÀÄÄÄversion
+    ³       ÃÄÄÄsrc
+    ³       ³   ÃÄÄÄconstraints
+    ³       ³   ÀÄÄÄexceptions
+    ³       ÀÄÄÄtests
+    ³           ÃÄÄÄIntegration
+    ³           ÀÄÄÄUnit
+    ÃÄÄÄphpunit
+    ³   ÃÄÄÄphp-code-coverage
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÃÄÄÄData
+    ³   ³   ³   ÃÄÄÄDriver
+    ³   ³   ³   ÃÄÄÄException
+    ³   ³   ³   ÃÄÄÄNode
+    ³   ³   ³   ÃÄÄÄReport
+    ³   ³   ³   ³   ÃÄÄÄHtml
+    ³   ³   ³   ³   ³   ÀÄÄÄRenderer
+    ³   ³   ³   ³   ³       ÀÄÄÄTemplate
+    ³   ³   ³   ³   ³           ÃÄÄÄcss
+    ³   ³   ³   ³   ³           ÃÄÄÄicons
+    ³   ³   ³   ³   ³           ÀÄÄÄjs
+    ³   ³   ³   ³   ÀÄÄÄXml
+    ³   ³   ³   ÃÄÄÄStaticAnalysis
+    ³   ³   ³   ÃÄÄÄTestSize
+    ³   ³   ³   ÃÄÄÄTestStatus
+    ³   ³   ³   ÀÄÄÄUtil
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ³   ÃÄÄÄData
+    ³   ³   ³   ³   ÃÄÄÄDriver
+    ³   ³   ³   ³   ÃÄÄÄException
+    ³   ³   ³   ³   ÃÄÄÄNode
+    ³   ³   ³   ³   ÃÄÄÄReport
+    ³   ³   ³   ³   ³   ÀÄÄÄHtml
+    ³   ³   ³   ³   ÃÄÄÄStaticAnalysis
+    ³   ³   ³   ³   ÀÄÄÄUtil
+    ³   ³   ³   ÀÄÄÄ_files
+    ³   ³   ³       ÃÄÄÄfilter
+    ³   ³   ³       ÀÄÄÄReport
+    ³   ³   ³           ÃÄÄÄHTML
+    ³   ³   ³           ³   ÃÄÄÄCoverageForBankAccount
+    ³   ³   ³           ³   ÃÄÄÄCoverageForClassWithAnonymousFunction
+    ³   ³   ³           ³   ÃÄÄÄCoverageForFileWithIgnoredLines
+    ³   ³   ³           ³   ÃÄÄÄPathCoverageForBankAccount
+    ³   ³   ³           ³   ÀÄÄÄPathCoverageForSourceWithoutNamespace
+    ³   ³   ³           ÀÄÄÄXML
+    ³   ³   ³               ÃÄÄÄCoverageForBankAccount
+    ³   ³   ³               ÃÄÄÄCoverageForClassWithAnonymousFunction
+    ³   ³   ³               ÀÄÄÄCoverageForFileWithIgnoredLines
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄphp-file-iterator
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄfixture
+    ³   ³   ³   ³   ÃÄÄÄa
+    ³   ³   ³   ³   ³   ÀÄÄÄc
+    ³   ³   ³   ³   ³       ÃÄÄÄ.hidden
+    ³   ³   ³   ³   ³       ÀÄÄÄd
+    ³   ³   ³   ³   ³           ÀÄÄÄi
+    ³   ³   ³   ³   ÀÄÄÄb
+    ³   ³   ³   ³       ÃÄÄÄe
+    ³   ³   ³   ³       ³   ÃÄÄÄg
+    ³   ³   ³   ³       ³   ³   ÀÄÄÄi
+    ³   ³   ³   ³       ³   ÀÄÄÄi
+    ³   ³   ³   ³       ÀÄÄÄf
+    ³   ³   ³   ³           ÀÄÄÄh
+    ³   ³   ³   ³               ÀÄÄÄi
+    ³   ³   ³   ÀÄÄÄunit
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄphp-invoker
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÀÄÄÄexceptions
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄphp-text-template
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄ.psalm
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÀÄÄÄexceptions
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄphp-timer
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÀÄÄÄexceptions
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ÀÄÄÄtools
+    ³   ÀÄÄÄphpunit
+    ³       ÃÄÄÄ.github
+    ³       ³   ÃÄÄÄISSUE_TEMPLATE
+    ³       ³   ÃÄÄÄPULL_REQUEST_TEMPLATE
+    ³       ³   ÀÄÄÄworkflows
+    ³       ÃÄÄÄ.phive
+    ³       ÃÄÄÄbuild
+    ³       ³   ÃÄÄÄconfig
+    ³       ³   ÃÄÄÄscripts
+    ³       ³   ³   ÀÄÄÄphar-set-timestamps
+    ³       ³   ³       ÀÄÄÄvendor
+    ³       ³   ³           ÃÄÄÄcomposer
+    ³       ³   ³           ÀÄÄÄseld
+    ³       ³   ³               ÀÄÄÄphar-utils
+    ³       ³   ³                   ÀÄÄÄsrc
+    ³       ³   ÃÄÄÄtemplates
+    ³       ³   ÀÄÄÄtest-extension
+    ³       ³       ÀÄÄÄsrc
+    ³       ÃÄÄÄschema
+    ³       ÃÄÄÄsrc
+    ³       ³   ÃÄÄÄEvent
+    ³       ³   ³   ÃÄÄÄDispatcher
+    ³       ³   ³   ÃÄÄÄEmitter
+    ³       ³   ³   ÃÄÄÄEvents
+    ³       ³   ³   ³   ÃÄÄÄApplication
+    ³       ³   ³   ³   ÃÄÄÄTest
+    ³       ³   ³   ³   ³   ÃÄÄÄHookMethod
+    ³       ³   ³   ³   ³   ÃÄÄÄIssue
+    ³       ³   ³   ³   ³   ÃÄÄÄLifecycle
+    ³       ³   ³   ³   ³   ÃÄÄÄOutcome
+    ³       ³   ³   ³   ³   ÀÄÄÄTestDouble
+    ³       ³   ³   ³   ÃÄÄÄTestRunner
+    ³       ³   ³   ³   ÀÄÄÄTestSuite
+    ³       ³   ³   ÃÄÄÄException
+    ³       ³   ³   ÀÄÄÄValue
+    ³       ³   ³       ÃÄÄÄRuntime
+    ³       ³   ³       ÃÄÄÄTelemetry
+    ³       ³   ³       ÃÄÄÄTest
+    ³       ³   ³       ³   ÃÄÄÄIssue
+    ³       ³   ³       ³   ÀÄÄÄTestData
+    ³       ³   ³       ÀÄÄÄTestSuite
+    ³       ³   ÃÄÄÄFramework
+    ³       ³   ³   ÃÄÄÄAssert
+    ³       ³   ³   ÃÄÄÄAttributes
+    ³       ³   ³   ÃÄÄÄConstraint
+    ³       ³   ³   ³   ÃÄÄÄBoolean
+    ³       ³   ³   ³   ÃÄÄÄCardinality
+    ³       ³   ³   ³   ÃÄÄÄEquality
+    ³       ³   ³   ³   ÃÄÄÄException
+    ³       ³   ³   ³   ÃÄÄÄFilesystem
+    ³       ³   ³   ³   ÃÄÄÄMath
+    ³       ³   ³   ³   ÃÄÄÄObject
+    ³       ³   ³   ³   ÃÄÄÄOperator
+    ³       ³   ³   ³   ÃÄÄÄString
+    ³       ³   ³   ³   ÃÄÄÄTraversable
+    ³       ³   ³   ³   ÀÄÄÄType
+    ³       ³   ³   ÃÄÄÄException
+    ³       ³   ³   ³   ÃÄÄÄIncomplete
+    ³       ³   ³   ³   ÃÄÄÄObjectEquals
+    ³       ³   ³   ³   ÀÄÄÄSkipped
+    ³       ³   ³   ÃÄÄÄMockObject
+    ³       ³   ³   ³   ÃÄÄÄException
+    ³       ³   ³   ³   ÃÄÄÄGenerator
+    ³       ³   ³   ³   ³   ÃÄÄÄException
+    ³       ³   ³   ³   ³   ÀÄÄÄtemplates
+    ³       ³   ³   ³   ÀÄÄÄRuntime
+    ³       ³   ³   ³       ÃÄÄÄApi
+    ³       ³   ³   ³       ÃÄÄÄBuilder
+    ³       ³   ³   ³       ÃÄÄÄInterface
+    ³       ³   ³   ³       ÃÄÄÄRule
+    ³       ³   ³   ³       ÀÄÄÄStub
+    ³       ³   ³   ÃÄÄÄTestRunner
+    ³       ³   ³   ³   ÀÄÄÄtemplates
+    ³       ³   ³   ÃÄÄÄTestSize
+    ³       ³   ³   ÀÄÄÄTestStatus
+    ³       ³   ÃÄÄÄLogging
+    ³       ³   ³   ÃÄÄÄJUnit
+    ³       ³   ³   ³   ÀÄÄÄSubscriber
+    ³       ³   ³   ÃÄÄÄTeamCity
+    ³       ³   ³   ³   ÀÄÄÄSubscriber
+    ³       ³   ³   ÀÄÄÄTestDox
+    ³       ³   ³       ÀÄÄÄTestResult
+    ³       ³   ³           ÀÄÄÄSubscriber
+    ³       ³   ÃÄÄÄMetadata
+    ³       ³   ³   ÃÄÄÄApi
+    ³       ³   ³   ÃÄÄÄException
+    ³       ³   ³   ÃÄÄÄParser
+    ³       ³   ³   ³   ÀÄÄÄAnnotation
+    ³       ³   ³   ÀÄÄÄVersion
+    ³       ³   ÃÄÄÄRunner
+    ³       ³   ³   ÃÄÄÄBaseline
+    ³       ³   ³   ³   ÃÄÄÄException
+    ³       ³   ³   ³   ÀÄÄÄSubscriber
+    ³       ³   ³   ÃÄÄÄDeprecationCollector
+    ³       ³   ³   ³   ÀÄÄÄSubscriber
+    ³       ³   ³   ÃÄÄÄException
+    ³       ³   ³   ÃÄÄÄExtension
+    ³       ³   ³   ÃÄÄÄFilter
+    ³       ³   ³   ÃÄÄÄGarbageCollection
+    ³       ³   ³   ³   ÀÄÄÄSubscriber
+    ³       ³   ³   ÃÄÄÄHookMethod
+    ³       ³   ³   ÃÄÄÄPHPT
+    ³       ³   ³   ³   ÀÄÄÄtemplates
+    ³       ³   ³   ÃÄÄÄResultCache
+    ³       ³   ³   ³   ÀÄÄÄSubscriber
+    ³       ³   ³   ÀÄÄÄTestResult
+    ³       ³   ³       ÀÄÄÄSubscriber
+    ³       ³   ÃÄÄÄTextUI
+    ³       ³   ³   ÃÄÄÄCommand
+    ³       ³   ³   ³   ÀÄÄÄCommands
+    ³       ³   ³   ÃÄÄÄConfiguration
+    ³       ³   ³   ³   ÃÄÄÄCli
+    ³       ³   ³   ³   ÃÄÄÄException
+    ³       ³   ³   ³   ÃÄÄÄValue
+    ³       ³   ³   ³   ÀÄÄÄXml
+    ³       ³   ³   ³       ÃÄÄÄCodeCoverage
+    ³       ³   ³   ³       ³   ÀÄÄÄReport
+    ³       ³   ³   ³       ÃÄÄÄLogging
+    ³       ³   ³   ³       ³   ÀÄÄÄTestDox
+    ³       ³   ³   ³       ÃÄÄÄMigration
+    ³       ³   ³   ³       ³   ÀÄÄÄMigrations
+    ³       ³   ³   ³       ÃÄÄÄSchemaDetector
+    ³       ³   ³   ³       ÀÄÄÄValidator
+    ³       ³   ³   ÃÄÄÄException
+    ³       ³   ³   ÀÄÄÄOutput
+    ³       ³   ³       ÃÄÄÄDefault
+    ³       ³   ³       ³   ÀÄÄÄProgressPrinter
+    ³       ³   ³       ³       ÀÄÄÄSubscriber
+    ³       ³   ³       ÃÄÄÄPrinter
+    ³       ³   ³       ÀÄÄÄTestDox
+    ³       ³   ÀÄÄÄUtil
+    ³       ³       ÃÄÄÄException
+    ³       ³       ÃÄÄÄHttp
+    ³       ³       ÃÄÄÄPHP
+    ³       ³       ÀÄÄÄXml
+    ³       ÃÄÄÄtests
+    ³       ³   ÃÄÄÄend-to-end
+    ³       ³   ³   ÃÄÄÄbaseline
+    ³       ³   ³   ÃÄÄÄcli
+    ³       ³   ³   ³   ÃÄÄÄcolumns
+    ³       ³   ³   ³   ÃÄÄÄexclude-filter
+    ³       ³   ³   ³   ÃÄÄÄfail-on
+    ³       ³   ³   ³   ÃÄÄÄfilter
+    ³       ³   ³   ³   ÃÄÄÄfilter-error-handler
+    ³       ³   ³   ³   ÃÄÄÄgroup
+    ³       ³   ³   ³   ÃÄÄÄhelp
+    ³       ³   ³   ³   ÃÄÄÄlist-test-files
+    ³       ³   ³   ³   ÃÄÄÄlisting-tests-and-groups
+    ³       ³   ³   ³   ÀÄÄÄstop-on
+    ³       ³   ³   ÃÄÄÄdata-provider
+    ³       ³   ³   ÃÄÄÄdeprecation-trigger
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ³       ÃÄÄÄdeprecation-trigger-function
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÃÄÄÄtests
+    ³       ³   ³   ³       ³   ÀÄÄÄvendor
+    ³       ³   ³   ³       ÃÄÄÄdeprecation-trigger-method
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÃÄÄÄtests
+    ³       ³   ³   ³       ³   ÀÄÄÄvendor
+    ³       ³   ³   ³       ÃÄÄÄdetails
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÀÄÄÄdetails-process-isolation
+    ³       ³   ³   ³           ÀÄÄÄtests
+    ³       ³   ³   ÃÄÄÄevent
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ³       ÃÄÄÄcustom-error-handler-registered-in-bootstrap-is-not-overwritten-by-phpunit
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄcustom-failure-interface
+    ³       ³   ³   ³       ÃÄÄÄerror-handler-can-be-disabled
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄinvalid-coverage-metadata
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÀÄÄÄtest-risky-depends-on-larger-test
+    ³       ³   ³   ÃÄÄÄexecution-order
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ÃÄÄÄextension-cli
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ³       ÃÄÄÄclass-does-not-exist
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄclass-does-not-implement-interface
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄexception-in-extension-bootstrap-method
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄexception-in-extension-constructor
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄexception-in-extension-subscriber
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÀÄÄÄextension-bootstrap
+    ³       ³   ³   ³           ÃÄÄÄsrc
+    ³       ³   ³   ³           ÀÄÄÄtests
+    ³       ³   ³   ÃÄÄÄextension-xml
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ³       ÃÄÄÄclass-does-not-exist
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄclass-does-not-implement-interface
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄexception-in-extension-bootstrap-method
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄexception-in-extension-constructor
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄexception-in-extension-subscriber
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÀÄÄÄextension-bootstrap
+    ³       ³   ³   ³           ÃÄÄÄsrc
+    ³       ³   ³   ³           ÀÄÄÄtests
+    ³       ³   ³   ÃÄÄÄgeneric
+    ³       ³   ³   ³   ÃÄÄÄabstract-test-class
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ÃÄÄÄgroups-from-configuration
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ³       ÀÄÄÄtests
+    ³       ³   ³   ³           ÃÄÄÄbar-baz
+    ³       ³   ³   ³           ÀÄÄÄfoo
+    ³       ³   ³   ÃÄÄÄlogging
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ³       ÀÄÄÄteamcity-warning
+    ³       ³   ³   ³           ÀÄÄÄtests
+    ³       ³   ³   ÃÄÄÄmetadata
+    ³       ³   ³   ÃÄÄÄmigration
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ³       ÃÄÄÄmigration-from-100
+    ³       ³   ³   ³       ÃÄÄÄmigration-from-110
+    ³       ³   ³   ³       ÃÄÄÄmigration-from-85
+    ³       ³   ³   ³       ÃÄÄÄmigration-from-92
+    ³       ³   ³   ³       ÃÄÄÄmigration-from-95
+    ³       ³   ³   ³       ÃÄÄÄpossibility-to-migrate-from-100-is-detected
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄpossibility-to-migrate-from-85-is-detected
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄpossibility-to-migrate-from-92-is-detected
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄpossibility-to-migrate-from-95-is-detected
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÀÄÄÄunsupported-schema
+    ³       ³   ³   ÃÄÄÄmock-objects
+    ³       ³   ³   ³   ÃÄÄÄgenerator
+    ³       ³   ³   ³   ÀÄÄÄmock-method
+    ³       ³   ³   ÃÄÄÄphar
+    ³       ³   ³   ³   ÃÄÄÄsrc
+    ³       ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄphpt
+    ³       ³   ³   ³       ÀÄÄÄstandard
+    ³       ³   ³   ÃÄÄÄphpt
+    ³       ³   ³   ÃÄÄÄregression
+    ³       ³   ³   ³   ÃÄÄÄ1149
+    ³       ³   ³   ³   ÃÄÄÄ1335
+    ³       ³   ³   ³   ÃÄÄÄ1337
+    ³       ³   ³   ³   ÃÄÄÄ1348
+    ³       ³   ³   ³   ÃÄÄÄ1374
+    ³       ³   ³   ³   ÃÄÄÄ1437
+    ³       ³   ³   ³   ÃÄÄÄ1471
+    ³       ³   ³   ³   ÃÄÄÄ1570
+    ³       ³   ³   ³   ÃÄÄÄ2085
+    ³       ³   ³   ³   ÃÄÄÄ2137
+    ³       ³   ³   ³   ÃÄÄÄ2145
+    ³       ³   ³   ³   ÃÄÄÄ2158
+    ³       ³   ³   ³   ÃÄÄÄ2380
+    ³       ³   ³   ³   ÃÄÄÄ2435
+    ³       ³   ³   ³   ÃÄÄÄ2448
+    ³       ³   ³   ³   ÃÄÄÄ2724
+    ³       ³   ³   ³   ÃÄÄÄ2725
+    ³       ³   ³   ³   ÃÄÄÄ2731
+    ³       ³   ³   ³   ÃÄÄÄ2811
+    ³       ³   ³   ³   ÃÄÄÄ2830
+    ³       ³   ³   ³   ÃÄÄÄ2972
+    ³       ³   ³   ³   ÃÄÄÄ3093
+    ³       ³   ³   ³   ÃÄÄÄ3156
+    ³       ³   ³   ³   ÃÄÄÄ3881
+    ³       ³   ³   ³   ÃÄÄÄ3904
+    ³       ³   ³   ³   ÃÄÄÄ3983
+    ³       ³   ³   ³   ÃÄÄÄ4232
+    ³       ³   ³   ³   ÃÄÄÄ433
+    ³       ³   ³   ³   ÃÄÄÄ4376
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ4391
+    ³       ³   ³   ³   ÃÄÄÄ445
+    ³       ³   ³   ³   ÃÄÄÄ4498
+    ³       ³   ³   ³   ÃÄÄÄ4620
+    ³       ³   ³   ³   ÃÄÄÄ4625
+    ³       ³   ³   ³   ÃÄÄÄ498
+    ³       ³   ³   ³   ÃÄÄÄ5020
+    ³       ³   ³   ³   ³   ÀÄÄÄUnder
+    ³       ³   ³   ³   ³       ÀÄÄÄScore
+    ³       ³   ³   ³   ÃÄÄÄ503
+    ³       ³   ³   ³   ÃÄÄÄ5138
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5157
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5165
+    ³       ³   ³   ³   ÃÄÄÄ5172
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5178
+    ³       ³   ³   ³   ÃÄÄÄ5192
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5210
+    ³       ³   ³   ³   ÃÄÄÄ5218
+    ³       ³   ³   ³   ³   ÃÄÄÄsrc
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5234
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5258
+    ³       ³   ³   ³   ÃÄÄÄ5278
+    ³       ³   ³   ³   ÃÄÄÄ5287
+    ³       ³   ³   ³   ³   ÃÄÄÄA
+    ³       ³   ³   ³   ³   ÃÄÄÄB
+    ³       ³   ³   ³   ³   ÀÄÄÄC
+    ³       ³   ³   ³   ÃÄÄÄ5288
+    ³       ³   ³   ³   ÃÄÄÄ5340
+    ³       ³   ³   ³   ÃÄÄÄ5342
+    ³       ³   ³   ³   ÃÄÄÄ5351
+    ³       ³   ³   ³   ³   ÃÄÄÄsrc
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5364
+    ³       ³   ³   ³   ÃÄÄÄ5451
+    ³       ³   ³   ³   ÃÄÄÄ5456
+    ³       ³   ³   ³   ÃÄÄÄ5493
+    ³       ³   ³   ³   ÃÄÄÄ5498
+    ³       ³   ³   ³   ÃÄÄÄ5561
+    ³       ³   ³   ³   ÃÄÄÄ5567
+    ³       ³   ³   ³   ÃÄÄÄ5574
+    ³       ³   ³   ³   ÃÄÄÄ5592
+    ³       ³   ³   ³   ÃÄÄÄ5614
+    ³       ³   ³   ³   ÃÄÄÄ5616
+    ³       ³   ³   ³   ÃÄÄÄ5760
+    ³       ³   ³   ³   ÃÄÄÄ5764
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5771
+    ³       ³   ³   ³   ÃÄÄÄ5795
+    ³       ³   ³   ³   ÃÄÄÄ5807
+    ³       ³   ³   ³   ³   ÃÄÄÄsrc
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ581
+    ³       ³   ³   ³   ÃÄÄÄ5822
+    ³       ³   ³   ³   ³   ÃÄÄÄsrc
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5844
+    ³       ³   ³   ³   ÃÄÄÄ5875
+    ³       ³   ³   ³   ÃÄÄÄ5884
+    ³       ³   ³   ³   ³   ÃÄÄÄsrc
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ÃÄÄÄ5891
+    ³       ³   ³   ³   ÃÄÄÄ5898
+    ³       ³   ³   ³   ÃÄÄÄ5908
+    ³       ³   ³   ³   ÃÄÄÄ5943
+    ³       ³   ³   ³   ³   ÀÄÄÄtests
+    ³       ³   ³   ³   ³       ÃÄÄÄa
+    ³       ³   ³   ³   ³       ÀÄÄÄb
+    ³       ³   ³   ³   ÃÄÄÄ5949
+    ³       ³   ³   ³   ÃÄÄÄ5965
+    ³       ³   ³   ³   ÃÄÄÄ74
+    ³       ³   ³   ³   ÃÄÄÄ765
+    ³       ³   ³   ³   ÀÄÄÄ797
+    ³       ³   ³   ÃÄÄÄself-direct-indirect
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ³       ÃÄÄÄdeprecation-in-test-code
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄdeprecation-in-test-code-ignored
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄinvalid-deprecation-trigger
+    ³       ³   ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³   ³       ÃÄÄÄuser-deprecation
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÃÄÄÄtests
+    ³       ³   ³   ³       ³   ÀÄÄÄvendor
+    ³       ³   ³   ³       ÃÄÄÄuser-deprecation-report-self
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÃÄÄÄtests
+    ³       ³   ³   ³       ³   ÀÄÄÄvendor
+    ³       ³   ³   ³       ÃÄÄÄuser-deprecation-report-self-direct
+    ³       ³   ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³   ³       ³   ÃÄÄÄtests
+    ³       ³   ³   ³       ³   ÀÄÄÄvendor
+    ³       ³   ³   ³       ÀÄÄÄuser-deprecation-report-self-direct-indirect
+    ³       ³   ³   ³           ÃÄÄÄsrc
+    ³       ³   ³   ³           ÃÄÄÄtests
+    ³       ³   ³   ³           ÀÄÄÄvendor
+    ³       ³   ³   ÃÄÄÄtestdox
+    ³       ³   ³   ³   ÀÄÄÄ_files
+    ³       ³   ³   ÀÄÄÄ_files
+    ³       ³   ³       ÃÄÄÄattribute-based-filtering
+    ³       ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³       ÃÄÄÄbaseline
+    ³       ³   ³       ³   ÃÄÄÄgenerate-baseline
+    ³       ³   ³       ³   ³   ÃÄÄÄsrc
+    ³       ³   ³       ³   ³   ÀÄÄÄtests
+    ³       ³   ³       ³   ÃÄÄÄgenerate-baseline-suppressed
+    ³       ³   ³       ³   ³   ÃÄÄÄsrc
+    ³       ³   ³       ³   ³   ÀÄÄÄtests
+    ³       ³   ³       ³   ÃÄÄÄgenerate-baseline-suppressed-with-ignored-suppression
+    ³       ³   ³       ³   ³   ÃÄÄÄsrc
+    ³       ³   ³       ³   ³   ÀÄÄÄtests
+    ³       ³   ³       ³   ÃÄÄÄinvalid-baseline
+    ³       ³   ³       ³   ³   ÀÄÄÄtests
+    ³       ³   ³       ³   ÃÄÄÄunsupported-baseline
+    ³       ³   ³       ³   ³   ÀÄÄÄtests
+    ³       ³   ³       ³   ÀÄÄÄuse-baseline
+    ³       ³   ³       ³       ÃÄÄÄsrc
+    ³       ³   ³       ³       ÀÄÄÄtests
+    ³       ³   ³       ÃÄÄÄbasic
+    ³       ³   ³       ³   ÀÄÄÄunit
+    ³       ³   ³       ÃÄÄÄclone-readonly-php-82
+    ³       ³   ³       ÃÄÄÄcontrolled-garbage-collection
+    ³       ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³       ÃÄÄÄcoverage-annotation-based-filter
+    ³       ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³       ÃÄÄÄfilter-error-handler
+    ³       ³   ³       ³   ÃÄÄÄsrc
+    ³       ³   ³       ³   ÃÄÄÄtests
+    ³       ³   ³       ³   ÀÄÄÄvendor
+    ³       ³   ³       ÃÄÄÄforce-covers-annotation
+    ³       ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³       ÃÄÄÄgroups
+    ³       ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³       ÃÄÄÄlisting-tests-and-groups
+    ³       ³   ³       ÃÄÄÄlog-events-text
+    ³       ³   ³       ÃÄÄÄmultiple-testsuites
+    ³       ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³       ³       ÃÄÄÄend-to-end
+    ³       ³   ³       ³       ÀÄÄÄunit
+    ³       ³   ³       ÃÄÄÄno-log-cc-override
+    ³       ³   ³       ÃÄÄÄoverlapping-testsuite-configuration
+    ³       ³   ³       ³   ÀÄÄÄtests
+    ³       ³   ³       ÃÄÄÄphar-extension
+    ³       ³   ³       ³   ÃÄÄÄtests
+    ³       ³   ³       ³   ÀÄÄÄtools
+    ³       ³   ³       ³       ÀÄÄÄphpunit.d
+    ³       ³   ³       ÃÄÄÄsize-groups
+    ³       ³   ³       ÃÄÄÄstop-on-fail-on
+    ³       ³   ³       ÃÄÄÄtest-directory-does-not-exist
+    ³       ³   ³       ÀÄÄÄtransform-exception-hook-method
+    ³       ³   ³           ÃÄÄÄsrc
+    ³       ³   ³           ÀÄÄÄtests
+    ³       ³   ÃÄÄÄunit
+    ³       ³   ³   ÃÄÄÄEvent
+    ³       ³   ³   ³   ÃÄÄÄDispatcher
+    ³       ³   ³   ³   ÃÄÄÄEmitter
+    ³       ³   ³   ³   ÃÄÄÄEvents
+    ³       ³   ³   ³   ³   ÃÄÄÄApplication
+    ³       ³   ³   ³   ³   ÃÄÄÄTest
+    ³       ³   ³   ³   ³   ³   ÃÄÄÄHookMethod
+    ³       ³   ³   ³   ³   ³   ÃÄÄÄIssue
+    ³       ³   ³   ³   ³   ³   ÃÄÄÄLifecycle
+    ³       ³   ³   ³   ³   ³   ÀÄÄÄOutcome
+    ³       ³   ³   ³   ³   ÃÄÄÄTestDouble
+    ³       ³   ³   ³   ³   ÃÄÄÄTestRunner
+    ³       ³   ³   ³   ³   ÀÄÄÄTestSuite
+    ³       ³   ³   ³   ÀÄÄÄValue
+    ³       ³   ³   ³       ÃÄÄÄRuntime
+    ³       ³   ³   ³       ÃÄÄÄTelemetry
+    ³       ³   ³   ³       ÃÄÄÄTest
+    ³       ³   ³   ³       ³   ÀÄÄÄTestData
+    ³       ³   ³   ³       ÀÄÄÄTestSuite
+    ³       ³   ³   ÃÄÄÄFramework
+    ³       ³   ³   ³   ÃÄÄÄAssert
+    ³       ³   ³   ³   ÃÄÄÄConstraint
+    ³       ³   ³   ³   ³   ÃÄÄÄBoolean
+    ³       ³   ³   ³   ³   ÃÄÄÄCardinality
+    ³       ³   ³   ³   ³   ÃÄÄÄEquality
+    ³       ³   ³   ³   ³   ÃÄÄÄException
+    ³       ³   ³   ³   ³   ÃÄÄÄFilesystem
+    ³       ³   ³   ³   ³   ÃÄÄÄMath
+    ³       ³   ³   ³   ³   ÃÄÄÄObject
+    ³       ³   ³   ³   ³   ÃÄÄÄOperator
+    ³       ³   ³   ³   ³   ÃÄÄÄString
+    ³       ³   ³   ³   ³   ÃÄÄÄTraversable
+    ³       ³   ³   ³   ³   ÀÄÄÄType
+    ³       ³   ³   ³   ÃÄÄÄException
+    ³       ³   ³   ³   ÀÄÄÄMockObject
+    ³       ³   ³   ³       ÀÄÄÄCreation
+    ³       ³   ³   ÃÄÄÄLogging
+    ³       ³   ³   ³   ÀÄÄÄTestDox
+    ³       ³   ³   ÃÄÄÄMetadata
+    ³       ³   ³   ³   ÃÄÄÄApi
+    ³       ³   ³   ³   ÃÄÄÄParser
+    ³       ³   ³   ³   ³   ÀÄÄÄAnnotation
+    ³       ³   ³   ³   ÀÄÄÄVersion
+    ³       ³   ³   ÃÄÄÄRunner
+    ³       ³   ³   ³   ÃÄÄÄBaseline
+    ³       ³   ³   ³   ÃÄÄÄFilter
+    ³       ³   ³   ³   ÃÄÄÄHookMethod
+    ³       ³   ³   ³   ÀÄÄÄResultCache
+    ³       ³   ³   ÃÄÄÄTextUI
+    ³       ³   ³   ³   ÃÄÄÄCommand
+    ³       ³   ³   ³   ³   ÀÄÄÄCommands
+    ³       ³   ³   ³   ÃÄÄÄConfiguration
+    ³       ³   ³   ³   ³   ÃÄÄÄCli
+    ³       ³   ³   ³   ³   ÃÄÄÄValue
+    ³       ³   ³   ³   ³   ÀÄÄÄXml
+    ³       ³   ³   ³   ÀÄÄÄOutput
+    ³       ³   ³   ³       ÀÄÄÄDefault
+    ³       ³   ³   ³           ÀÄÄÄexpectations
+    ³       ³   ³   ÀÄÄÄUtil
+    ³       ³   ³       ÃÄÄÄPHP
+    ³       ³   ³       ÀÄÄÄXml
+    ³       ³   ÀÄÄÄ_files
+    ³       ³       ÃÄÄÄabstract
+    ³       ³       ³   ÃÄÄÄwith-test-suffix
+    ³       ³       ³   ÀÄÄÄwithout-test-suffix
+    ³       ³       ÃÄÄÄbaseline
+    ³       ³       ÃÄÄÄDataProviderIssue2833
+    ³       ³       ÃÄÄÄdependencies
+    ³       ³       ÃÄÄÄdeprecation-trigger
+    ³       ³       ÃÄÄÄEnumerationEquals
+    ³       ³       ÃÄÄÄInheritance
+    ³       ³       ÃÄÄÄJsonData
+    ³       ³       ÃÄÄÄMetadata
+    ³       ³       ³   ÃÄÄÄAnnotation
+    ³       ³       ³   ³   ÃÄÄÄsrc
+    ³       ³       ³   ³   ÀÄÄÄtests
+    ³       ³       ³   ÀÄÄÄAttribute
+    ³       ³       ³       ÃÄÄÄsrc
+    ³       ³       ³       ÀÄÄÄtests
+    ³       ³       ÃÄÄÄmock-object
+    ³       ³       ÃÄÄÄnamespace
+    ³       ³       ³   ÃÄÄÄsomeNamespaceA
+    ³       ³       ³   ÀÄÄÄsomeNamespaceB
+    ³       ³       ÃÄÄÄObjectEquals
+    ³       ³       ÃÄÄÄOneClassPerFile
+    ³       ³       ³   ÀÄÄÄwrongClassName
+    ³       ³       ÃÄÄÄSameClassNames
+    ³       ³       ³   ÃÄÄÄNamespaceOne
+    ³       ³       ³   ÀÄÄÄNamespaceTwo
+    ³       ³       ÃÄÄÄsource-filter
+    ³       ³       ³   ÃÄÄÄa
+    ³       ³       ³   ³   ÀÄÄÄc
+    ³       ³       ³   ³       ÃÄÄÄ.hidden
+    ³       ³       ³   ³       ÀÄÄÄd
+    ³       ³       ³   ÀÄÄÄb
+    ³       ³       ³       ÃÄÄÄe
+    ³       ³       ³       ³   ÀÄÄÄg
+    ³       ³       ³       ÀÄÄÄf
+    ³       ³       ³           ÀÄÄÄh
+    ³       ³       ÀÄÄÄXmlConfigurationMigration
+    ³       ÀÄÄÄtools
     ÃÄÄÄpsr
     ³   ÃÄÄÄhttp-client
     ³   ³   ÀÄÄÄsrc
@@ -74,7 +865,189 @@ C:.
     ³   ÀÄÄÄgetallheaders
     ³       ÃÄÄÄsrc
     ³       ÀÄÄÄtests
-    ÀÄÄÄsymfony
-        ÀÄÄÄdeprecation-contracts
-            ÀÄÄÄ.github
-                ÀÄÄÄworkflows
+    ÃÄÄÄsebastian
+    ³   ÃÄÄÄcli-parser
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÀÄÄÄexceptions
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄcode-unit
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÀÄÄÄexceptions
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄcode-unit-reverse-lookup
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄcomparator
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÀÄÄÄexceptions
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄcomplexity
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÃÄÄÄComplexity
+    ³   ³   ³   ÃÄÄÄException
+    ³   ³   ³   ÀÄÄÄVisitor
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄintegration
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄdiff
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÃÄÄÄException
+    ³   ³   ³   ÀÄÄÄOutput
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄException
+    ³   ³   ³   ÃÄÄÄfixtures
+    ³   ³   ³   ³   ÃÄÄÄout
+    ³   ³   ³   ³   ÀÄÄÄUnifiedDiffAssertTraitIntegrationTest
+    ³   ³   ³   ÃÄÄÄOutput
+    ³   ³   ³   ³   ÀÄÄÄIntegration
+    ³   ³   ³   ÀÄÄÄUtils
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄenvironment
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄexporter
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄglobal-state
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÀÄÄÄexceptions
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄlines-of-code
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÀÄÄÄException
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄintegration
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄobject-enumerator
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄobject-reflector
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄrecursion-context
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ÀÄÄÄtools
+    ³   ÃÄÄÄtype
+    ³   ³   ÃÄÄÄ.github
+    ³   ³   ³   ÀÄÄÄworkflows
+    ³   ³   ÃÄÄÄ.phive
+    ³   ³   ÃÄÄÄbuild
+    ³   ³   ³   ÀÄÄÄscripts
+    ³   ³   ÃÄÄÄsrc
+    ³   ³   ³   ÃÄÄÄexception
+    ³   ³   ³   ÀÄÄÄtype
+    ³   ³   ÃÄÄÄtests
+    ³   ³   ³   ÃÄÄÄunit
+    ³   ³   ³   ³   ÀÄÄÄtype
+    ³   ³   ³   ÀÄÄÄ_fixture
+    ³   ³   ÀÄÄÄtools
+    ³   ÀÄÄÄversion
+    ³       ÃÄÄÄ.github
+    ³       ³   ÀÄÄÄworkflows
+    ³       ÃÄÄÄ.phive
+    ³       ÃÄÄÄbuild
+    ³       ³   ÀÄÄÄscripts
+    ³       ÃÄÄÄsrc
+    ³       ÀÄÄÄtools
+    ÃÄÄÄsymfony
+    ³   ÀÄÄÄdeprecation-contracts
+    ³       ÀÄÄÄ.github
+    ³           ÀÄÄÄworkflows
+    ÀÄÄÄtheseer
+        ÀÄÄÄtokenizer
+            ÃÄÄÄ.github
+            ³   ÀÄÄÄworkflows
+            ÃÄÄÄsrc
+            ÀÄÄÄtests
+                ÀÄÄÄ_files

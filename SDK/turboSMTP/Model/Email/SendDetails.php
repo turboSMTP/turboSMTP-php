@@ -4,8 +4,8 @@ namespace TurboSMTP\Model\Email;
 
 class SendDetails
 {
-    private $message;
-    private $messageID;
+    private string $message; 
+    private int $messageID; 
 
     public function __construct(string $message = '', int $mid = 0)
     {
@@ -13,22 +13,22 @@ class SendDetails
         $this->messageID = $mid;
     }
 
-    public function getMessage(): string
+    public function getMessage(): string 
     {
         return $this->message;
     }
 
-    public function setMessage(string $message): void
+    public function setMessage(string $message): void 
     {
         $this->message = $message;
     }
 
-    public function getMessageID(): int
+    public function getMessageID(): int 
     {
         return $this->messageID;
     }
 
-    public function setMessageID(int $mid): void
+    public function setMessageID(int $mid): void 
     {
         $this->messageID = $mid;
     }

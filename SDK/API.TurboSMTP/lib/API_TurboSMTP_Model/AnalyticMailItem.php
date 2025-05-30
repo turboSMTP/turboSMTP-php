@@ -13,7 +13,7 @@
 /**
  * TurboSMTP Public APIs
  *
- * This document describes all public turboSMTP **V2** API and offers endpoints Descriptions, Parameters, Requests, Responses and Samples of usage.  [Click here to view the previous version of turboSMTP Public API Version 1.0](https://www.serversmtp.com/turbo-api-1)   # Security For the most part (and where not otherwise explicit) turboSMTP’s API requires Authorization.   Authorization to access a user’s resource is granted to clients provided they set  authentication headers into their request, valued with the proper values issued by turboSMTP servers.  ## *  Authorization via ConsumerKey/ConsumerSecret  This type of authorization consists of a pair of headers, named consumerKey and consumerSecret that are created and granted to the end user to be used in a permanent way (unless they´re deleted of course). This kind of authentication is intended to provide access to endpoints features without the need of providing the user the account details (email address + password).  *consumerKey:* Consumer Key Granted.  *consumerSecret:* Consumer Secret Granted.  (Use [/consumerKeys/create](#/consumerkey/createConsumerKey) create a consumer key/secret pair).      ## *  Authorization via Authentication Key  The authentication key is user-based and it is issued by turboSMTP servers upon successful user’s email address + password challenge, performed by means of appropriate request.      *Authorization:* Authorization_Key  (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)  # Data Interchange Format  For the most part (and where not otherwise explicit) turboSMTP’s API uses JSON as the data format of choice when it comes to request and response bodies.
+ * This document describes all public turboSMTP **V2** API and offers endpoints Descriptions, Parameters, Requests, Responses and Samples of usage.  [Click here to view the previous version of turboSMTP Public API Version 1.0](https://www.serversmtp.com/turbo-api-1)   # Useful Links for Developers  - [Email SDKs for Developers](https://serversmtp.com/email-sdks-for-developers) - [Webhooks Reference](https://serversmtp.com/event-webhook-reference/) - [Email API for Developers](https://serversmtp.com/email-api-for-developers)   # Security For the most part (and where not otherwise explicit) turboSMTP’s API requires Authorization.   Authorization to access a user’s resource is granted to clients provided they set  authentication headers into their request, valued with the proper values issued by turboSMTP servers.  ## *  Authorization via ConsumerKey/ConsumerSecret  This type of authorization consists of a pair of headers, named consumerKey and consumerSecret that are created and granted to the end user to be used in a permanent way (unless they´re deleted of course). This kind of authentication is intended to provide access to endpoints features without the need of providing the user the account details (email address + password).  *consumerKey:* Consumer Key Granted.  *consumerSecret:* Consumer Secret Granted.  (Use [/consumerKeys/create](#/consumerkey/createConsumerKey) create a consumer key/secret pair).      ## *  Authorization via Authentication Key  The authentication key is user-based and it is issued by turboSMTP servers upon successful user’s email address + password challenge, performed by means of appropriate request.      *Authorization:* Authorization_Key  (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)  # Data Interchange Format  For the most part (and where not otherwise explicit) turboSMTP’s API uses JSON as the data format of choice when it comes to request and response bodies.
  *
  * The version of the OpenAPI document: 2.0.0-oas3
  * Contact: api@turbo-smtp.com
@@ -66,7 +66,7 @@ class AnalyticMailItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_time' => 'string',
         'status' => '\API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailStatus',
         'domain' => 'string',
-        'contact_domain' => 'string',
+        'recipient_domain' => 'string',
         'x_campaign_id' => 'string',
         'error' => 'string'
     ];
@@ -86,7 +86,7 @@ class AnalyticMailItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_time' => null,
         'status' => null,
         'domain' => null,
-        'contact_domain' => null,
+        'recipient_domain' => null,
         'x_campaign_id' => null,
         'error' => null
     ];
@@ -104,7 +104,7 @@ class AnalyticMailItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_time' => false,
         'status' => false,
         'domain' => false,
-        'contact_domain' => false,
+        'recipient_domain' => false,
         'x_campaign_id' => false,
         'error' => false
     ];
@@ -202,7 +202,7 @@ class AnalyticMailItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_time' => 'send_time',
         'status' => 'status',
         'domain' => 'domain',
-        'contact_domain' => 'contact_domain',
+        'recipient_domain' => 'recipient_domain',
         'x_campaign_id' => 'x_campaign_id',
         'error' => 'error'
     ];
@@ -220,7 +220,7 @@ class AnalyticMailItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_time' => 'setSendTime',
         'status' => 'setStatus',
         'domain' => 'setDomain',
-        'contact_domain' => 'setContactDomain',
+        'recipient_domain' => 'setRecipientDomain',
         'x_campaign_id' => 'setXCampaignId',
         'error' => 'setError'
     ];
@@ -238,7 +238,7 @@ class AnalyticMailItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'send_time' => 'getSendTime',
         'status' => 'getStatus',
         'domain' => 'getDomain',
-        'contact_domain' => 'getContactDomain',
+        'recipient_domain' => 'getRecipientDomain',
         'x_campaign_id' => 'getXCampaignId',
         'error' => 'getError'
     ];
@@ -307,7 +307,7 @@ class AnalyticMailItem implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('send_time', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('domain', $data ?? [], null);
-        $this->setIfExists('contact_domain', $data ?? [], null);
+        $this->setIfExists('recipient_domain', $data ?? [], null);
         $this->setIfExists('x_campaign_id', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
     }
@@ -553,28 +553,28 @@ class AnalyticMailItem implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets contact_domain
+     * Gets recipient_domain
      *
      * @return string|null
      */
-    public function getContactDomain()
+    public function getRecipientDomain()
     {
-        return $this->container['contact_domain'];
+        return $this->container['recipient_domain'];
     }
 
     /**
-     * Sets contact_domain
+     * Sets recipient_domain
      *
-     * @param string|null $contact_domain The portion of the recipient´s email address after the \"@\" symbol.
+     * @param string|null $recipient_domain The portion of the recipient´s email address after the \"@\" symbol.
      *
      * @return self
      */
-    public function setContactDomain($contact_domain)
+    public function setRecipientDomain($recipient_domain)
     {
-        if (is_null($contact_domain)) {
-            throw new \InvalidArgumentException('non-nullable contact_domain cannot be null');
+        if (is_null($recipient_domain)) {
+            throw new \InvalidArgumentException('non-nullable recipient_domain cannot be null');
         }
-        $this->container['contact_domain'] = $contact_domain;
+        $this->container['recipient_domain'] = $recipient_domain;
 
         return $this;
     }

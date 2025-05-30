@@ -12,7 +12,8 @@
     "autoload-dev": {
         "psr-4": {
             "TurboSMTPTests\\": "turboSMTP.Tests/"
-        }
+        },
+        "classmap": ["turboSMTP.Tests/"]
     },
     "require-dev": {
         "phpunit/phpunit": "^11.4"

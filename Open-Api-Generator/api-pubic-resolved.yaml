@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: TurboSMTP Public APIs
-  description: "This document describes all public turboSMTP **V2** API and offers endpoints Descriptions, Parameters, Requests, Responses and Samples of usage.\n\n[Click here to view the previous version of turboSMTP Public API Version 1.0](https://www.serversmtp.com/turbo-api-1)\n\n\n# Security\nFor the most part (and where not otherwise explicit) turboSMTP’s API requires Authorization. \n\nAuthorization to access a user’s resource is granted to clients provided they set  authentication headers into their request, valued with the proper values issued by turboSMTP servers.\n\n## *  Authorization via ConsumerKey/ConsumerSecret\n\nThis type of authorization consists of a pair of headers, named consumerKey and consumerSecret that are created and granted to the end user to be used in a permanent way (unless they´re deleted of course). This kind of authentication is intended to provide access to endpoints features without the need of providing the user the account details (email address + password).\n\n*consumerKey:* Consumer Key Granted.\n\n*consumerSecret:* Consumer Secret Granted.\n\n(Use [/consumerKeys/create](#/consumerkey/createConsumerKey) create a consumer key/secret pair).    \n\n## *  Authorization via Authentication Key\n\nThe authentication key is user-based and it is issued by turboSMTP servers upon successful user’s email address + password challenge, performed by means of appropriate request.    \n\n*Authorization:* Authorization_Key\n\n(Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)\n\n# Data Interchange Format\n\nFor the most part (and where not otherwise explicit) turboSMTP’s API uses JSON as the data format of choice when it comes to request and response bodies.\n\n\n\n  \n"
+  description: "This document describes all public turboSMTP **V2** API and offers endpoints Descriptions, Parameters, Requests, Responses and Samples of usage.\n\n[Click here to view the previous version of turboSMTP Public API Version 1.0](https://www.serversmtp.com/turbo-api-1)\n\n\n# Useful Links for Developers\n\n- [Email SDKs for Developers](https://serversmtp.com/email-sdks-for-developers)\n- [Webhooks Reference](https://serversmtp.com/event-webhook-reference/)\n- [Email API for Developers](https://serversmtp.com/email-api-for-developers)\n\n\n# Security\nFor the most part (and where not otherwise explicit) turboSMTP’s API requires Authorization. \n\nAuthorization to access a user’s resource is granted to clients provided they set  authentication headers into their request, valued with the proper values issued by turboSMTP servers.\n\n## *  Authorization via ConsumerKey/ConsumerSecret\n\nThis type of authorization consists of a pair of headers, named consumerKey and consumerSecret that are created and granted to the end user to be used in a permanent way (unless they´re deleted of course). This kind of authentication is intended to provide access to endpoints features without the need of providing the user the account details (email address + password).\n\n*consumerKey:* Consumer Key Granted.\n\n*consumerSecret:* Consumer Secret Granted.\n\n(Use [/consumerKeys/create](#/consumerkey/createConsumerKey) create a consumer key/secret pair).    \n\n## *  Authorization via Authentication Key\n\nThe authentication key is user-based and it is issued by turboSMTP servers upon successful user’s email address + password challenge, performed by means of appropriate request.    \n\n*Authorization:* Authorization_Key\n\n(Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)\n\n# Data Interchange Format\n\nFor the most part (and where not otherwise explicit) turboSMTP’s API uses JSON as the data format of choice when it comes to request and response bodies.\n\n\n\n  \n"
   contact:
     email: api@turbo-smtp.com
   version: 2.0.0-oas3
@@ -98,30 +98,7 @@ paths:
               example:
                 message: token_deauthorized
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -161,30 +138,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ChangePasswordBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
           description: "Forbidden\n\nCurrent password provided is incorrect.\n\n###### Produces: \n\n* password_is_invalid\n* not_allowed_for_apikey\n"
           content:
@@ -519,30 +473,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuppressionUploadBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -639,30 +570,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuppressionsSucessResponsetBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -691,30 +599,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuppressionsSucessResponsetBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -788,45 +673,9 @@ paths:
           $ref: '#/components/schemas/OrderType'
       responses:
         "200":
-          description: Suppressions CSV data
-          content:
-            text/csv:
-              schema:
-                type: string
-                example: |
-                  Status;Subject;From;To;Date;Reason
-                  FAIL;"new email alert";msaad@emailchef.com;a.shatata@emailchef.com;2022-06-28T15:08:37.821Z;"199.187.175.11 does not like recipient.
-                  Remote host said: 550 5.1.1 <a.shatata@emailchef.com>: Recipient address rejected: User unknown in virtual mailbox table
-                  {199.244.75.250}{550} Giving up on 199.187.175.11.
-                  "
-                  MANUAL;;;mohamed@test.com;2022-06-18T19:51:04.914Z;
-                  FAIL;"Test sending email";msaad@emailchef.com;mshatta@yahoo.com;2021-05-03T12:21:48.000Z;"67.195.204.73 failed after I sent the message. Remote host said: 554 30 Sorry, your message to mshatta@yahoo.com cannot be delivered. This mailbox is disabled (554.30). "
-                  FAIL;"Test sending email";msaad@emailchef.com;mohamed_s_shatta@gmail.com;2021-05-03T12:21:04.000Z;"142.250.138.26 does not like recipient. Remote host said: 550-5.1.1 The email account that you tried to reach does not exist. Please try 550-5.1.1 double-checking the recipient's email address for typos or 550-5.1.1 unnecessary spaces. Learn more at 550 5.1.1  https://support.google.com/mail/?p=NoSuchUser g15si5159810otg.85 - gsmtp {199.244.75.250}{550} Giving up on 142.250.138.26. "
+          $ref: '#/components/responses/SuppressionsCSV'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -846,45 +695,9 @@ paths:
         required: true
       responses:
         "200":
-          description: Suppressions CSV data
-          content:
-            text/csv:
-              schema:
-                type: string
-                example: |
-                  Status;Subject;From;To;Date;Reason
-                  FAIL;"new email alert";msaad@emailchef.com;a.shatata@emailchef.com;2022-06-28T15:08:37.821Z;"199.187.175.11 does not like recipient.
-                  Remote host said: 550 5.1.1 <a.shatata@emailchef.com>: Recipient address rejected: User unknown in virtual mailbox table
-                  {199.244.75.250}{550} Giving up on 199.187.175.11.
-                  "
-                  MANUAL;;;mohamed@test.com;2022-06-18T19:51:04.914Z;
-                  FAIL;"Test sending email";msaad@emailchef.com;mshatta@yahoo.com;2021-05-03T12:21:48.000Z;"67.195.204.73 failed after I sent the message. Remote host said: 554 30 Sorry, your message to mshatta@yahoo.com cannot be delivered. This mailbox is disabled (554.30). "
-                  FAIL;"Test sending email";msaad@emailchef.com;mohamed_s_shatta@gmail.com;2021-05-03T12:21:04.000Z;"142.250.138.26 does not like recipient. Remote host said: 550-5.1.1 The email account that you tried to reach does not exist. Please try 550-5.1.1 double-checking the recipient's email address for typos or 550-5.1.1 unnecessary spaces. Learn more at 550 5.1.1  https://support.google.com/mail/?p=NoSuchUser g15si5159810otg.85 - gsmtp {199.244.75.250}{550} Giving up on 142.250.138.26. "
+          $ref: '#/components/responses/SuppressionsCSV'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -922,30 +735,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -978,30 +768,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -1022,30 +789,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CountryList'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -1074,30 +818,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/StateList'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -1151,30 +872,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BuyEmailValidatorCreditsBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -1205,30 +903,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmailValidatorSubscription'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -1274,30 +949,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmailValidatorUploadBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -1357,30 +1009,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmailValidatorSucessResponsetBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -1412,30 +1041,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmailValidatorList'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -1488,30 +1094,7 @@ paths:
               example:
                 message: list_not_found
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -1539,30 +1122,7 @@ paths:
 
             List was validated sucessfully.
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "400":
           description: |
             Bad Request
@@ -1664,30 +1224,7 @@ paths:
                     processed: 0
                     results: []
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -1733,30 +1270,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmailValidatorListEmailDetails'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -1797,40 +1311,9 @@ paths:
           type: integer
       responses:
         "200":
-          description: |
-            Sucess
-
-            Validated Emails by Email Validation List CSV File
-          content:
-            text/csv:
-              schema:
-                type: string
-                example: "Status;Subject;From;To;Date;Reason\nFAIL;\"new email alert\";msaad@emailchef.com;a.shatata@emailchef.com;2022-06-28T15:08:37.821Z;\"199.187.175.11 does not like recipient.\nRemote host said: 550 5.1.1 <a.shatata@emailchef.com>: Recipient address rejected: User unknown in virtual mailbox table\n{199.244.75.250}{550} Giving up on 199.187.175.11.\n\"\nMANUAL;;;mohamed@test.com;2022-06-18T19:51:04.914Z;\nFAIL;\"Test sending email\";msaad@emailchef.com;mshatta@yahoo.com;2021-05-03T12:21:48.000Z;\"67.195.204.73 failed after I sent the message. Remote host said: 554 30 Sorry, your message to mshatta@yahoo.com cannot be delivered. This mailbox is disabled (554.30). \"\nFAIL;\"Test sending email\";msaad@emailchef.com;mohamed_s_shatta@gmail.com;2021-05-03T12:21:04.000Z;\"142.250.138.26 does not like recipient. Remote host said: 550-5.1.1 The email account that you tried to reach does not exist. Please try 550-5.1.1 double-checking the recipient's email address for typos or 550-5.1.1 unnecessary spaces. Learn more at 550 5.1.1  https://support.google.com/mail/?p=NoSuchUser g15si5159810otg.85 - gsmtp {199.244.75.250}{550} Giving up on 142.250.138.26. \"    \n"
+          $ref: '#/components/responses/ValidatedEmailsCSV'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -1881,30 +1364,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmailValidatorValidateBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2000,41 +1460,9 @@ paths:
             * order_by_can_only_be_email_or_last_used
             * ordertype_should_be_asc_or_desc
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
-          description: |
-            Forbidden
-
-            The current active plan does not include this feature, upgrade is required to use this feature.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: feature_not_available_for_active_plan
+          $ref: '#/components/responses/ForbiddenForActivePlan'
         "404":
           description: |
             Not Found
@@ -2087,41 +1515,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
-          description: |
-            Forbidden
-
-            The current active plan does not include this feature, upgrade is required to use this feature.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: feature_not_available_for_active_plan
+          $ref: '#/components/responses/ForbiddenForActivePlan'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2173,41 +1569,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
-          description: |
-            Forbidden
-
-            The current active plan does not include this feature, upgrade is required to use this feature.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: feature_not_available_for_active_plan
+          $ref: '#/components/responses/ForbiddenForActivePlan'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2236,52 +1600,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Subaccount'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
-          description: |
-            Forbidden
-
-            The current active plan does not include this feature, upgrade is required to use this feature.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: feature_not_available_for_active_plan
+          $ref: '#/components/responses/ForbiddenForActivePlan'
         "404":
-          description: |
-            Not Found
-
-            Please verify the subaccount id is valid.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: subaccount_not_found
+          $ref: '#/components/responses/SubaccountNotFound'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2332,52 +1655,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
-          description: |
-            Forbidden
-
-            The current active plan does not include this feature, upgrade is required to use this feature.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: feature_not_available_for_active_plan
+          $ref: '#/components/responses/ForbiddenForActivePlan'
         "404":
-          description: |
-            Not Found
-
-            Please verify the subaccount id is valid.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: subaccount_not_found
+          $ref: '#/components/responses/SubaccountNotFound'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2426,52 +1708,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
-          description: |
-            Forbidden
-
-            The current active plan does not include this feature, upgrade is required to use this feature.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: feature_not_available_for_active_plan
+          $ref: '#/components/responses/ForbiddenForActivePlan'
         "404":
-          description: |
-            Not Found
-
-            Please verify the subaccount id is valid.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: subaccount_not_found
+          $ref: '#/components/responses/SubaccountNotFound'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2512,52 +1753,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
-          description: |
-            Forbidden
-
-            The current active plan does not include this feature, upgrade is required to use this feature.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: feature_not_available_for_active_plan
+          $ref: '#/components/responses/ForbiddenForActivePlan'
         "404":
-          description: |
-            Not Found
-
-            Please verify the subaccount id is valid.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: subaccount_not_found
+          $ref: '#/components/responses/SubaccountNotFound'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2599,30 +1799,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
           description: "Forbidden\n\nEmail address or password provided are incorrect.\n\n###### Produces: \n\n* wrong_credentials_specified\n* feature_not_available_for_active_plan\n"
           content:
@@ -2659,52 +1836,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubaccountActivePlan'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "403":
-          description: |
-            Forbidden
-
-            The current active plan does not include this feature, upgrade is required to use this feature.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: feature_not_available_for_active_plan
+          $ref: '#/components/responses/ForbiddenForActivePlan'
         "404":
-          description: |
-            Not Found
-
-            Please verify the subaccount id is valid.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonMessageResponseBody'
-              example:
-                message: subaccount_not_found
+          $ref: '#/components/responses/SubaccountNotFound'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2720,37 +1856,9 @@ paths:
       operationId: getLogoFile
       responses:
         "200":
-          description: |
-            Agency Logo Url
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Logo'
+          $ref: '#/components/responses/LogoSuccess'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2797,30 +1905,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2855,30 +1940,7 @@ paths:
               example:
                 message: logo_not_found
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2900,30 +1962,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AgencySettings'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -2966,30 +2005,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -3014,30 +2030,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AlertListSucessResponsetBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -3082,30 +2075,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -3137,30 +2107,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Alert'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -3202,30 +2149,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonSuccessResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -3286,30 +2210,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -3436,30 +2337,7 @@ paths:
         "400":
           description: "Bad Request\n\n###### Produces:\n\n* page_should_be_integer\n* page_should_be_greater_than_0\n* limit_should_be_integer\n* limit_should_be_greater_than_0\n* missing_required_parameter_from\n* from_format_should_be_yyyy-mm-dd\n* missing_required_parameter_to\n* to_format_should_be_yyyy-mm-dd\n* missing_required_parameter_filter_by\n* invalid_status_value\n* filter_by_can_only_be_subject_or_sender_or_recipient_or_domain\n* smart_search_should_be_true_or_false\n* orderby_can_only_be_subject_or_sender_or_recipient_or_domain\n* ordertype_should_be_asc_or_desc                  \n"
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -3561,30 +2439,7 @@ paths:
         "400":
           description: "Bad Request\n\n###### Produces:\n\n* missing_required_parameter_from\n* from_format_should_be_yyyy-mm-dd\n* missing_required_parameter_to\n* to_format_should_be_yyyy-mm-dd\n* missing_required_parameter_filter_by\n* invalid_status_value\n* filter_by_can_only_be_subject_or_sender_or_recipient_or_domain\n* smart_search_should_be_true_or_false\n* orderby_can_only_be_subject_or_sender_or_recipient_or_domain\n* ordertype_should_be_asc_or_desc                  \n"
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
       - consumerKey: []
@@ -3626,30 +2481,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonBadRequestResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -3687,30 +2519,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConsumerKeyListSucessResponsetBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
     post:
@@ -3740,30 +2549,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConsumerKeyCreateResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
       security:
       - ApiKeyAuth: []
   /user/consumerKeys/{consumerKey}:
@@ -3795,30 +2581,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CommonSuccessResponseBody'
         "401":
-          description: |
-            Unauthorized
-
-            This API requires a valid API Key to be provided.
-            (Use [/authentication/authorize](#/authentication/AuthenticationLogin) to obtain an API Key)
-
-            Produces:
-
-            * missing_authorization_key
-            * invalid_authorization_key
-            * account_is_inactive
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthorizationError'
-              examples:
-                MissingAuthorizationKey:
-                  summary: Missing Authorization Key
-                  value:
-                    message: missing_authorization_key
-                InvalidAuthorizationKey:
-                  summary: Invalid / Expired Authorization Key
-                  value:
-                    message: invalid_authorization_key
+          $ref: '#/components/responses/Unauthorized'
         "404":
           description: |
             Not Found
@@ -5274,7 +4037,7 @@ components:
           type: string
           description: The portion of the sender´s email address after the "@" symbol.
           example: example.com
-        contact_domain:
+        recipient_domain:
           type: string
           description: The portion of the recipient´s email address after the "@" symbol.
           example: gmail.com

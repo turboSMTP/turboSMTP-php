@@ -2,74 +2,59 @@
 
 namespace TurboSMTP\Services;
 
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticsListSucessResponsetBody;
-use API_TurboSMTP_Invoker\Configuration;
-use TurboSMTP\APIExtensions\AnalyticsAPIExtension;
-use TurboSMTP\Model\Relays\RelaysQueryOptions;
-use TurboSMTP\Model\Shared\PagedListResults;
-use TurboSMTP\TurboSMTPClientConfiguration;
-use TurboSMTP\Domain\Relay;
-use API_TurboSMTP_Invoker\ApiException;
-use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailItem;
 use GuzzleHttp\Promise\PromiseInterface;
-use TurboSMTP\Domain\RelayStatus;
+
+use API_TurboSMTP_Invoker\Configuration;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticsListSucessResponsetBody;
+use API_TurboSMTP_Invoker\API_TurboSMTP_Model\AnalyticMailItem;
+
+use TurboSMTP\Model\Shared\PagedListResults;
+
+use TurboSMTP\TurboSMTPClientConfiguration;
+use TurboSMTP\Domain\Relays\Relay;
+use TurboSMTP\Domain\Relays\RelayStatus;
+use TurboSMTP\Model\Relays\RelaysQueryOptions;
+use TurboSMTP\Model\Relays\RelaysExportOptions;
+
+use TurboSMTP\APIExtensions\RelaysAPIExtension;
+
+use TurboSMTP\Helpers\DateTimeHelper;
 
 class Relays extends TurboSMTPService {
 
-    public function __construct(TurboSMTPClientConfiguration $tsClientConfiguration, Configuration $configuration) {
+    public function __construct(
+        TurboSMTPClientConfiguration $tsClientConfiguration, 
+        Configuration $configuration) 
+    {
         parent::__construct($tsClientConfiguration);
-        $this->api = new AnalyticsAPIExtension($this->client, $configuration);
+        $this->api = new RelaysAPIExtension($this->getClient(), $configuration);
     }
 
-    private function mapAnalyticMailStatusToRelayStatus(?string $status): ?RelayStatus
+    private function filterByStringsArr(array $filterBy) : array
     {
-        if ($status === null) {
-            return null; // handle null case
-        }
-    
-        switch ($status) {
-            case 'NEW':
-                return RelayStatus::NEW;
-            case 'DEFER':
-                return RelayStatus::DEFER;
-            case 'SUCCESS':
-                return RelayStatus::SUCCESS;
-            case 'OPEN':
-                return RelayStatus::OPEN;
-            case 'CLICK':
-                return RelayStatus::CLICK;
-            case 'REPORT':
-                return RelayStatus::REPORT;
-            case 'FAIL':
-                return RelayStatus::FAIL;
-            case 'SYSFAIL':
-                return RelayStatus::SYSFAIL;
-            case 'UNSUB':
-                return RelayStatus::UNSUB;
-            default:
-                return null; // or throw an exception if needed
-        }
-    }   
+        return array_map(function($criteria) {
+            return $criteria->name; 
+        }, $filterBy); 
+    }
+
+    private function statusesStringsArr(array $relayStatuses): array
+    {
+        return array_map(function($criteria) {
+            return $criteria->name; 
+        }, $relayStatuses); 
+    }
 
     public function queryAsync(RelaysQueryOptions $queryOptions) : PromiseInterface
     {
-        $timeZone = $this->configuration->timeZone;
-
-        $filterByStrings = array_map(function($criteria) {
-            return $criteria->name; 
-        }, $queryOptions->getFilterBy());   
-        
-        $statusesStrings = array_map(function($criteria) {
-            return $criteria->name; 
-        }, $queryOptions->getRelayStatuses());  
+        $timeZone = $this->getConfiguration()->timeZone;
 
         $promise = $this->api->getAnalyticsDataAsync(
-            $queryOptions->getFrom()->format('Y-m-d'),
-            $queryOptions->getTo()->format('Y-m-d'),
+            DateTimeHelper::toShortString($queryOptions->getFrom()),
+            DateTimeHelper::toShortString($queryOptions->getTo()),
             $queryOptions->getPage(),
             $queryOptions->getLimit(),
-            $statusesStrings,
-            $filterByStrings,
+            $this->statusesStringsArr($queryOptions->getRelayStatuses()),
+            $this->filterByStringsArr($queryOptions->getFilterBy()),
             $queryOptions->getFilter(),
             $queryOptions->getSmartSearch(),
             $queryOptions->getOrderby()->name,
@@ -86,9 +71,9 @@ class Relays extends TurboSMTPService {
                         $r->getSender(),
                         $r->getRecipient(),
                         $r->getSendTime(),
-                        $this->mapAnalyticMailStatusToRelayStatus($r->getStatus()),
+                        RelayStatus::fromString((string)$r->getStatus()),
                         $r->getDomain(),
-                        $r->getContactDomain(),
+                        $r->getRecipientDomain(),
                         $r->getError(),
                         $r->getXCampaignId()
                     );
@@ -98,21 +83,37 @@ class Relays extends TurboSMTPService {
             },
             function ($exception) 
             {
-                if ($exception instanceof APIException && $exception->getCode() === 400) {
-                    $responseBody = $exception->getResponseBody();
-        
-                    $responseArray = json_decode($responseBody, true);
-        
-                    if (json_last_error() === JSON_ERROR_NONE && isset($responseArray['message'])) {
-                        $message = $responseArray['message'];
-        
-                        throw new \Exception($message);
-                    } else {
-                        throw new \Exception('Failed to send email: ' . $exception->getMessage());
-                    }
-                }
+                $this->handle_exception($exception,"retrieving Relays information");
             }
         );        
     }
 
+    public function exportAsync(RelaysExportOptions $exportOptions): PromiseInterface
+    {
+        $timeZone = $this->getConfiguration()->timeZone;
+
+        $promise = $this->api->exportAnalyticsDataCSVAsync
+        (
+            $exportOptions->getFrom()->format('Y-m-d'),
+            $exportOptions->getTo()->format('Y-m-d'),
+            $this->statusesStringsArr($exportOptions->getRelayStatuses()),
+            $this->filterByStringsArr($exportOptions->getFilterBy()),
+            $exportOptions->getFilter(),
+            $exportOptions->getSmartSearch(),
+            $exportOptions->getOrderby()->name,
+            $exportOptions->getOrdertype()->name,
+            //$timezone //TODO;
+        );        
+
+        return $promise->then(
+            function (string $response){
+                return $response;
+            },
+            function ($exception) 
+            {
+                $this->handle_exception($exception,"exporting Relays information");
+            }
+        );        
+
+    }
 }

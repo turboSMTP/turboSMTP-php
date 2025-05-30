@@ -4,8 +4,8 @@ namespace TurboSMTP\Model\Shared;
 
 class PagedListResults
 {
-    private $totalRecords;
-    private $records;
+    private int $totalRecords;
+    private array $records;
 
     // Constructor
     public function __construct(int $count = 0, array $results = [])

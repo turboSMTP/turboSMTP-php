@@ -1,79 +1,81 @@
 <?php
 
-namespace TurboSMTP\Domain;
+namespace TurboSMTP\Domain\EmailMessage;
+
+use TurboSMTP\Domain\EmailMessage\EmailMessage;
 
 class EmailMessageBuilder {
-    private $emailMessage;
+    private EmailMessage $emailMessage;
 
     public function __construct() {
         $this->emailMessage = new EmailMessage();
     }
 
-    public function setFrom($from) {
+    public function setFrom(string $from): self {
         $this->emailMessage->setFrom($from);
         return $this;
     }
 
-    public function addTo($to) {
+    public function addTo(string $to): self {
         $this->emailMessage->addTo($to);
         return $this;
     }
 
-    public function setSubject($subject) {
+    public function setSubject(string $subject): self {
         $this->emailMessage->setSubject($subject);
         return $this;
     }
 
-    public function addCc($cc) {
+    public function addCc(string $cc): self {
         $this->emailMessage->addCc($cc);
         return $this;
     }
 
-    public function addBcc($bcc) {
+    public function addBcc(string $bcc): self {
         $this->emailMessage->addBcc($bcc);
         return $this;
     }
 
-    public function setContent($content) {
+    public function setContent(string $content): self {
         $this->emailMessage->setContent($content);
         return $this;
     }
 
-    public function setHtmlContent($htmlContent) {
+    public function setHtmlContent(string $htmlContent): self {
         $this->emailMessage->setHtmlContent($htmlContent);
         return $this;
     }
 
-    public function addCustomHeader($key, $value) {
+    public function addCustomHeader(string $key, string $value): self {
         $this->emailMessage->addCustomHeader($key, $value);
         return $this;
     }
 
-    public function setReferenceId($referenceId) {
+    public function setReferenceId(?string $referenceId): self {
         $this->emailMessage->setReferenceId($referenceId);
         return $this;
     }
 
-    public function setMimeRaw($mimeRaw) {
+    public function setMimeRaw(?string $mimeRaw): self {
         $this->emailMessage->setMimeRaw($mimeRaw);
         return $this;
     }
 
-    public function setCampaignID($campaignID) {
+    public function setCampaignID(?string $campaignID): self {
         $this->emailMessage->setCampaignID($campaignID);
         return $this;
     }
 
-    public function addAttachment($attachment) {
+    public function addAttachment(string $attachment): self {
         $this->emailMessage->addAttachment($attachment);
         return $this;
     }
 
-    private function validate() {
+    private function validate(): void {
         // Perform validation if necessary
     }
 
-    public function build() {
+    public function build(): EmailMessage {
         $this->validate();
         return $this->emailMessage;
     }
